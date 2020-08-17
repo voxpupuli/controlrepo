@@ -20,4 +20,5 @@ source /etc/profile.d/puppet-agent.sh
 puppet module install puppet-r10k
 puppet apply -e 'include r10k'
 sed -i 's#remote:.*#remote: https://github.com/voxpupuli/voxpupu.li.git#' /etc/puppetlabs/r10k/r10k.yaml
+r10k deploy environment production --puppetfile --verbose
 ```
