@@ -39,11 +39,11 @@
     },
     {
       "name": "puppet/ferm",
-      "version_requirement": ">= 2.7.0 < 3.0.0"
+      "version_requirement": ">= 5.0.0 < 6.0.0"
     },
     {
       "name": "theforeman/puppet",
-      "version_requirement": ">= 12.1.0 < 13.0.0"
+      "version_requirement": ">= 14.1.0 < 15.0.0"
     }
   ]
 }
