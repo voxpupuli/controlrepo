@@ -3,62 +3,35 @@
   "version": "0.1.0",
   "summary": "a list of profiles for our cloud instances",
   "author": "Vox Pupuli",
-  "dependencies": [
-  ],
-  "source": "https://github.com/bastelfreak/prometheusdemo.git",
-  "project_page": "https://github.com/bastelfreak/prometheusdemo",
-  "issues_url": "https://github.com/bastelfeak/prometheusdemo/issues",
-  "license": "Apache-2.0",
+  "source": "https://github.com/voxpupuli/voxpupu.li.git",
+  "project_page": "https://github.com/voxpupuli/voxpupu.li",
+  "issues_url": "https://github.com/voxpupuli/voxpupu.li/issues",
+  "license": "AGPL-3",
   "tags": [
     "control repo",
     "controlrepo",
-    "consul",
-    "prometheus",
-    "ferm",
-    "ipset",
-    "ipsets"
+    "profiles",
+    "vox pupuli",
+    "voxpupuli"
   ],
   "requirements": [
     {
       "name": "puppet",
-      "version_requirement": ">= 5.5.8 < 7.0.0"
+      "version_requirement": ">= 6.17.0 < 7.0.0"
     }
   ],
   "operatingsystem_support": [
-    {
-      "operatingsystem": "CentOS",
-      "operatingsystemrelease": [
-        "7"
-      ]
-    },
     {
       "operatingsystem": "Ubuntu",
       "operatingsystemrelease": [
         "18.04"
       ]
-    },
-    {
-      "operatingsystem": "Debian",
-      "operatingsystemrelease": [
-        "10"
-      ]
-    },
-    {
-      "operatingsystem": "Archlinux"
     }
   ],
   "dependencies": [
     {
       "name": "puppetlabs/stdlib",
       "version_requirement": ">= 6.2.0 < 7.0.0"
-    },
-    {
-      "name": "KyleAnderson/consul",
-      "version_requirement": ">= 6.0.1 < 7.0.0"
-    },
-    {
-      "name": "puppet/prometheus",
-      "version_requirement": ">= 8.2.1 < 9.9.0"
     },
     {
       "name": "puppet/nginx",
@@ -69,16 +42,8 @@
       "version_requirement": ">= 2.7.0 < 3.0.0"
     },
     {
-      "name": "puppet/ipset",
-      "version_requirement": ">= 1.2.0 < 2.0.0"
-    },
-    {
       "name": "theforeman/puppet",
       "version_requirement": ">= 12.1.0 < 13.0.0"
-    },
-    {
-      "name": "puppet/selinux",
-      "version_requirement": ">= 3.1.0 < 4.0.0"
     }
   ]
 }
