@@ -6,13 +6,9 @@ class profiles::puppetagent {
   # we don't care about the value of the fact, we only want to know if it is present
   # msgpack will be used by the agent for connections to the server
   if fact('aio_agent_version') {
-    package { ['make', 'gcc']:
-      ensure =>  'installed',
-    }
     package { 'msgpack':
       ensure   => 'present',
       provider => 'puppet_gem',
-      require  => [Package['puppet-agent'],Package['make'],Package['gcc']],
     }
   }
 }
