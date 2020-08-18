@@ -1,3 +1,8 @@
+#
+# @summary profile to manage puppet agent + deps
+#
+# @author Tim Meusel <tim@bastelfreak.de>
+#
 class profiles::puppetagent {
 
   contain puppet

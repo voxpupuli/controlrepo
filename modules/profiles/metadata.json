@@ -44,6 +44,10 @@
     {
       "name": "theforeman/puppet",
       "version_requirement": ">= 14.1.0 < 15.0.0"
+    },
+    {
+      "name": "saz/ssh",
+      "version_requirement": ">= 6.2.0 < 7.0.0"
     }
   ]
 }

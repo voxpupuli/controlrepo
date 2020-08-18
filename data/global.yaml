@@ -1,6 +1,16 @@
 ---
+# config for theforeman/puppet
 puppet::puppetmaster: 'voxpupu.li'
 puppet::show_diff: true
 puppet::splay: true
 puppet::agent: true
 puppet::server: false
+
+# config for saz/ssh
+ssh::storeconfigs_enabled: false
+ssh::server_options:
+  PasswordAuthentication: 'no'
+  PermitRootLogin: 'yes'
+  X11Forwarding: 'no'
+  PrintMotd: 'yes'
+  AllowAgentForwarding: 'no'

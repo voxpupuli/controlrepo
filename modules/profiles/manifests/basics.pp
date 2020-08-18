@@ -1,3 +1,8 @@
+#
+# @summary ssh profile to manage basic stuff that doesn't fit into a dedicated profile
+#
+# @author Tim Meusel <tim@bastelfreak.de>
+#
 class profiles::basics {
 
   # do a pluginsync in agentless setup
