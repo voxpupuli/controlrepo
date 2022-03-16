@@ -25,6 +25,6 @@ class profiles::ssh {
   ssh_keygen { 'root_github':
     type     => 'ed25519',
     user     => 'root',
-    filename => "/root/.ssh/id_ed25519_github",
+    filename => '/root/.ssh/id_ed25519_github',
   }
 }

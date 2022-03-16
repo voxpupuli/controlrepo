@@ -4,7 +4,6 @@
 # @author Tim Meusel <tim@bastelfreak.de>
 #
 class profiles::puppetagent {
-
   contain puppet
 
   # If this is an AIO setup, puppet uses a vendored ruby
