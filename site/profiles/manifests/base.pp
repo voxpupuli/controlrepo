@@ -4,7 +4,7 @@
 # @author Tim Meusel <tim@bastelfreak.de>
 #
 class profiles::base {
-  package { ['make', 'gcc', 'build-essential']:
+  package { ['make', 'gcc', 'build-essential', 'htop']:
     ensure => 'installed',
   }
 }
