@@ -47,7 +47,7 @@
     },
     {
       "name": "puppet/ssh_keygen",
-      "version_requirement": ">= 4.1.0 < 5.0.0"
+      "version_requirement": ">= 5.0.2 < 6.0.0"
     },
     {
       "name": "puppet/r10k",
