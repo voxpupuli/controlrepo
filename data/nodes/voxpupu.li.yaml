@@ -1,3 +1,4 @@
 ---
 classes:
   - profiles::puppetcode
+  - profiles::grafana
