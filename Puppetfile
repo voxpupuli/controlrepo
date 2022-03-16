@@ -6,7 +6,7 @@ mod 'puppetlabs-translate', :latest
 mod 'puppetlabs-stdlib', :latest
 mod 'puppetlabs-vcsrepo', :latest
 mod 'puppet-r10k', :latest
-mod 'camptocamp-systemd', :latest
+mod 'puppet-systemd', :latest
 mod 'theforeman-puppet', :latest
 mod 'puppetlabs-concat', :latest
 mod 'puppet-extlib', :latest
