@@ -1,16 +1,17 @@
 forge "https://forge.puppet.com"
 
-mod 'puppetlabs-inifile', '4.2.0'
-mod 'puppetlabs-ruby', '1.0.1'
-mod 'puppetlabs-translate', '2.2.0'
-mod 'puppetlabs-stdlib', '6.3.0'
-mod 'puppetlabs-vcsrepo', '3.1.1'
-mod 'puppet-r10k', '9.0.0'
-mod 'camptocamp-systemd', '2.9.0'
-mod 'theforeman-puppet', '14.1.0'
-mod 'puppetlabs-concat', '6.2.0'
-mod 'puppet-extlib', '5.0.0'
-mod 'puppet-ferm', '5.0.0'
-mod 'puppet-nginx', '1.1.0'
-mod 'saz-ssh', '6.2.0'
-mod 'puppet-ssh_keygen', '4.1.0'
+mod 'puppetlabs-inifile', :latest
+mod 'puppetlabs-ruby', :latest
+mod 'puppetlabs-translate', :latest
+mod 'puppetlabs-stdlib', :latest
+mod 'puppetlabs-vcsrepo', :latest
+mod 'puppet-r10k', :latest
+mod 'camptocamp-systemd', :latest
+mod 'theforeman-puppet', :latest
+mod 'puppetlabs-concat', :latest
+mod 'puppet-extlib', :latest
+mod 'puppet-ferm', :latest
+mod 'puppet-nginx', :latest
+mod 'saz-ssh', :latest
+mod 'puppet-ssh_keygen', :latest
+mod 'puppet-grafana', :latest
