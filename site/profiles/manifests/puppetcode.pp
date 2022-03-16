@@ -24,4 +24,5 @@ class profiles::puppetcode {
     version         => $version,
     deploy_settings => $deploy,
   }
+  contain r10k
 }
