@@ -15,3 +15,4 @@ mod 'puppet-nginx', :latest
 mod 'saz-ssh', :latest
 mod 'puppet-ssh_keygen', :latest
 mod 'puppet-grafana', :latest
+mod 'puppetlabs-apt', :latest
