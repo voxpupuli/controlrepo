@@ -4,5 +4,7 @@ defaults:
   datadir: "data"
   data_hash: "yaml_data"
 hierarchy:
+  - name: "Per-node data"
+    path: "nodes/%{facts.networking.fqdn}.yaml"
   - name: "one file to rule them all"
     path: "global.yaml"
