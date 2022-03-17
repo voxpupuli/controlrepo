@@ -14,6 +14,8 @@ describe 'profiles::base' do
         it { is_expected.to contain_package('build-essential') }
         it { is_expected.to contain_package('make') }
         it { is_expected.to contain_package('gcc') }
+        it { is_expected.to contain_package('htop') }
+        it { is_expected.to contain_package('lsb-release') }
       end
     end
   end
