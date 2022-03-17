@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'profiles::grafana' do
+describe 'profiles::nginx' do
   on_supported_os.each do |os, os_facts|
     context "on #{os}" do
       let :facts do
@@ -11,9 +11,7 @@ describe 'profiles::grafana' do
 
       context 'with all defaults' do
         it { is_expected.to compile.with_all_deps }
-        it { is_expected.to contain_class('grafana').with_require('Package[toml]') }
-        it { is_expected.to contain_class('profiles::nginx') }
-        it { is_expected.to contain_package('toml').with_provider('puppet_gem') }
+        it { is_expected.to contain_class('nginx') }
       end
     end
   end

@@ -6,6 +6,7 @@
 # @author Tim Meusel <tim@bastelfreak.de>
 #
 class profiles::grafana {
+  require profiles::nginx
   package { 'toml':
     ensure   => 'installed',
     provider => 'puppet_gem',

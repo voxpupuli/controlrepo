@@ -5,3 +5,4 @@ fixtures:
     stdlib: https://github.com/puppetlabs/puppetlabs-stdlib
     grafana: https://github.com/voxpupuli/puppet-grafana
     apt: https://github.com/puppetlabs/puppetlabs-apt
+    nginx: https://github.com/voxpupuli/puppet-nginx
