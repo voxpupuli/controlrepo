@@ -12,6 +12,7 @@ describe 'profiles::nginx' do
       context 'with all defaults' do
         it { is_expected.to compile.with_all_deps }
         it { is_expected.to contain_class('nginx') }
+        it { is_expected.to contain_package('certbot') }
       end
     end
   end
