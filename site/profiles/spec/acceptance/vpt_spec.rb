@@ -2,7 +2,7 @@
 
 require 'spec_helper_acceptance'
 
-describe 'profiles::nginx' do
+describe 'profiles::vpt' do
   context 'with defaults' do
     it_behaves_like 'an idempotent resource' do
       let(:manifest) do
