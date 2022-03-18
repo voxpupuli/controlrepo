@@ -59,6 +59,14 @@
       "version_requirement": ">= 10.0.1 < 11.0.0"
     },
     {
+      "name": "puppet/letsencrypt",
+      "version_requirement": ">= 8.0.2 < 9.0.0"
+    },
+    {
+      "name": "puppet/dbbackup",
+      "version_requirement": ">= 1.1.1 < 2.0.0"
+    },
+    {
       "name": "puppetlabs/apt",
       "version_requirement": ">= 8.3.0 < 9.0.0"
     },
@@ -69,10 +77,6 @@
     {
       "name": "puppet/systemd",
       "version_requirement": ">= 3.8.0 < 4.0.0"
-    },
-    {
-      "name": "puppet/dbbackup",
-      "version_requirement": ">= 1.1.1 < 2.0.0"
     },
     {
       "name": "puppetlabs/postgresql",

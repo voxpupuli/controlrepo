@@ -2,3 +2,4 @@
 classes:
   - profiles::puppetcode
   - profiles::grafana
+  - profiles::vpt

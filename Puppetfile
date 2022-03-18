@@ -15,3 +15,5 @@ mod 'puppet/ssh_keygen', :latest
 mod 'puppet/grafana', :latest
 mod 'puppetlabs/apt', :latest
 mod 'puppetlabs/postgresql', :latest
+mod 'puppet/letsencrypt', :latest
+mod 'puppet/dbbackup', :latest
