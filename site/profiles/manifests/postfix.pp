@@ -12,8 +12,8 @@ class profiles::postfix {
     ensure => 'running',
     enable => true,
   }
-  if fact('letsencrypt_directory."grafana.voxpupu.li"') {
-    $path = fact('letsencrypt_directory."grafana.voxpupu.li"')
+  if fact('letsencrypt_directory."voxpupu.li"') {
+    $path = fact('letsencrypt_directory."voxpupu.li"')
     ini_setting { 'smtpd_tls_cert_file':
       ensure  => 'present',
       path    => '/etc/postfix/main.cf',
