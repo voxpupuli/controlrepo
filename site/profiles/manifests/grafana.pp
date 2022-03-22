@@ -7,6 +7,7 @@
 #
 class profiles::grafana {
   require profiles::nginx
+  require profiles::certbot
   package { 'toml':
     ensure   => 'installed',
     provider => 'puppet_gem',

@@ -1,0 +1,6 @@
+# THIS FILE IS MANAGED BY PUPPET
+# By default, certbot runs with -q and doesn't reload anything we need
+[Service]
+ExecStart=
+ExecStart=/usr/bin/certbot renew
+ExecStartPost=/bin/systemctl reload-or-restart postfix nginx
