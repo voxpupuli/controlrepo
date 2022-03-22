@@ -16,6 +16,8 @@ describe 'profiles::base' do
         it { is_expected.to contain_package('gcc') }
         it { is_expected.to contain_package('htop') }
         it { is_expected.to contain_package('lsb-release') }
+        it { is_expected.to contain_package('ca-certificates') }
+        it { is_expected.to contain_package('ctop') }
       end
     end
   end
