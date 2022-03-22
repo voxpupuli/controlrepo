@@ -6,7 +6,5 @@
 class profiles::nginx {
   # do not contain it because it triggers also apt, which is triggerd by other profiles as well
   include nginx
-  package { 'certbot':
-    ensure => 'installed',
-  }
+  require profiles::certbot
 }
