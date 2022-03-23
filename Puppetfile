@@ -1,8 +1,6 @@
 forge "https://forge.puppet.com"
 
 mod 'puppetlabs-inifile', :latest
-mod 'puppetlabs-ruby', :latest
-mod 'puppetlabs-translate', :latest
 mod 'puppetlabs-stdlib', :latest
 mod 'puppetlabs-vcsrepo', :latest
 mod 'puppet-r10k', :latest
