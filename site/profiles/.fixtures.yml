@@ -8,3 +8,6 @@ fixtures:
     nginx: https://github.com/voxpupuli/puppet-nginx
     inifile: https://github.com/puppetlabs/puppetlabs-inifile
     systemd: https://github.com/voxpupuli/puppet-systemd
+    concat: https://github.com/puppetlabs/puppetlabs-concat
+    postgresql: https://github.com/puppetlabs/puppetlabs-postgresql
+    dbbackup: https://github.com/voxpupuli/puppet-dbbackup
