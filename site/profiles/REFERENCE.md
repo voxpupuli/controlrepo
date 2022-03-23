@@ -33,6 +33,39 @@ installs grafana to display stats from dropsonde about Vox Pupuli modules
 
 * **See also**
   * https://dev.to/puppet/help-us-understand-how-you-use-open-source-puppet-51aj
+  * https://grafana.com/tutorials/run-grafana-behind-a-proxy/
+
+#### Parameters
+
+The following parameters are available in the `profiles::grafana` class:
+
+* [`postgresql_password`](#postgresql_password)
+* [`postgresql_user`](#postgresql_user)
+* [`postgresql_database`](#postgresql_database)
+
+##### <a name="postgresql_password"></a>`postgresql_password`
+
+Data type: `Variant[String[1],Sensitive]`
+
+
+
+Default value: `'023745uoehr98325yrsehrw023y4'`
+
+##### <a name="postgresql_user"></a>`postgresql_user`
+
+Data type: `String[1]`
+
+
+
+Default value: `'grafana'`
+
+##### <a name="postgresql_database"></a>`postgresql_database`
+
+Data type: `String[1]`
+
+
+
+Default value: `$postgresql_user`
 
 ### <a name="profilesnginx"></a>`profiles::nginx`
 
@@ -78,4 +111,36 @@ this profile will, in the future, instal Vox Pupuli Tasks
 
 * **See also**
   * https://github.com/voxpupuli/vox-pupuli-tasks
+
+#### Parameters
+
+The following parameters are available in the `profiles::vpt` class:
+
+* [`deploy_sentry`](#deploy_sentry)
+* [`deploy_vpt`](#deploy_vpt)
+* [`deploy_kibana`](#deploy_kibana)
+
+##### <a name="deploy_sentry"></a>`deploy_sentry`
+
+Data type: `Boolean`
+
+manage the sentry nginx config
+
+Default value: ``true``
+
+##### <a name="deploy_vpt"></a>`deploy_vpt`
+
+Data type: `Boolean`
+
+manage the VPT nginx config
+
+Default value: ``true``
+
+##### <a name="deploy_kibana"></a>`deploy_kibana`
+
+Data type: `Boolean`
+
+manage the kibana nginx config
+
+Default value: ``true``
 

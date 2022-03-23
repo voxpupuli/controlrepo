@@ -7,7 +7,11 @@ fixtures:
     apt: https://github.com/puppetlabs/puppetlabs-apt
     nginx: https://github.com/voxpupuli/puppet-nginx
     inifile: https://github.com/puppetlabs/puppetlabs-inifile
+    concat: https://github.com/puppetlabs/puppetlabs-concat
+    postgresql: https://github.com/puppetlabs/puppetlabs-postgresql
+    dbbackup: https://github.com/voxpupuli/puppet-dbbackup
     systemd: https://github.com/voxpupuli/puppet-systemd
     concat: https://github.com/puppetlabs/puppetlabs-concat
     postgresql: https://github.com/puppetlabs/puppetlabs-postgresql
     dbbackup: https://github.com/voxpupuli/puppet-dbbackup
+    inifile: https://github.com/puppetlabs/puppetlabs-inifile

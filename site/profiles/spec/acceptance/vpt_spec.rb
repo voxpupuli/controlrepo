@@ -6,7 +6,7 @@ describe 'profiles::vpt' do
   context 'with defaults' do
     it_behaves_like 'an idempotent resource' do
       let(:manifest) do
-        'include profiles::vpt'
+        'class { "profiles::vpt": deploy_kibana => false, deploy_vpt => false, deploy_sentry => false }'
       end
     end
   end

@@ -5,6 +5,13 @@
 #
 class profiles::nginx {
   # do not contain it because it triggers also apt, which is triggerd by other profiles as well
-  include nginx
   require profiles::certbot
+  class { 'nginx':
+    confd_purge               => true,
+    service_config_check      => true,
+    ssl_protocols             => 'TLSv1.2 TLSv1.3',
+    ssl_prefer_server_ciphers => 'on',
+    worker_processes          => 'auto',
+    ssl_ciphers               => 'ECDHE+AESGCM:DHE+AESGCM:ECDHE+ECDSA+AES+SHA256',
+  }
 }
