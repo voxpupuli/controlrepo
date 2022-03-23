@@ -16,6 +16,7 @@ class profiles::postgresql (
   }
   # don't contain it. causes apt cycles
   class { 'postgresql::server':
+    listen_addresses => '127.0.0.1',
   }
   file { '/srv/pg_dumps':
     ensure => 'directory',
