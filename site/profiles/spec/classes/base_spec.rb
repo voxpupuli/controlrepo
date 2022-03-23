@@ -18,6 +18,8 @@ describe 'profiles::base' do
         it { is_expected.to contain_package('lsb-release') }
         it { is_expected.to contain_package('ca-certificates') }
         it { is_expected.to contain_package('ctop') }
+        it { is_expected.to contain_package('apt-file') }
+        it { is_expected.to contain_exec('refresh apt-file cache') }
       end
     end
   end

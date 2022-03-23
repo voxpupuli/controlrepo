@@ -33,6 +33,10 @@ describe 'profiles::base' do
     describe package('ca-certificates') do
       it { is_expected.to be_installed }
     end
+
+    describe package('apt-file') do
+      it { is_expected.to be_installed }
+    end
     # rubocop:enable RSpec/RepeatedExampleGroupBody
   end
 end
