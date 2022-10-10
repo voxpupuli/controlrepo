@@ -12,4 +12,7 @@ class profiles::base {
     command     => '/usr/bin/apt-file update',
     subscribe   => Package['apt-file'],
   }
+  package { 'snapd':
+    ensure => 'absent',
+  }
 }
