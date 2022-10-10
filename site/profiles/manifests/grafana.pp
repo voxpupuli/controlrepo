@@ -141,14 +141,16 @@ class profiles::grafana (
       "''"      => 'close',
     },
   }
-  nginx::resource::location { '^~ /.well-known/acme-challenge/':
+  nginx::resource::location { "^~ /.well-known/acme-challenge/ - ${domain}":
     server      => $domain,
     www_root    => '/var/lib/letsencrypt/',
     index_files => [],
+    location    => '^~ /.well-known/acme-challenge/',
   }
-  nginx::resource::location { '= /.well-known/acme-challenge/':
+  nginx::resource::location { "= /.well-known/acme-challenge/  - ${domain}":
     server              => $domain,
     location_cfg_append => { 'return' => '404', },
     index_files         => [],
+    location            => '= /.well-known/acme-challenge/',
   }
 }

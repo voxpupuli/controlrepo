@@ -17,3 +17,5 @@ mod 'puppetlabs/apt', :latest
 mod 'puppetlabs/postgresql', :latest
 mod 'puppet/letsencrypt', :latest
 mod 'puppet/dbbackup', :latest
+mod 'puppet/prometheus', :latest
+mod 'puppet/archive', :latest

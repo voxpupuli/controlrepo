@@ -15,3 +15,5 @@ fixtures:
     postgresql: https://github.com/puppetlabs/puppetlabs-postgresql
     dbbackup: https://github.com/voxpupuli/puppet-dbbackup
     inifile: https://github.com/puppetlabs/puppetlabs-inifile
+    prometheus: https://github.com/voxpupuli/puppet-prometheus
+    archive: https://github.com/voxpupuli/puppet-archive

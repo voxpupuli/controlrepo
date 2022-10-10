@@ -3,3 +3,20 @@ classes:
   - profiles::puppetcode
   - profiles::grafana
   - profiles::vpt
+  - profiles::prometheus
+  - profiles::postgres_exporter
+  - profiles::node_exporter
+
+prometheus::scrape_configs:
+  - job_name: 'postgres_exporter'
+    scrape_interval: '10s'
+    scrape_timeout: '10s'
+    static_configs:
+      - targets:
+          - '127.0.0.1:9187'
+  - job_name: 'node_exporter'
+    scrape_interval: '10s'
+    scrape_timeout: '10s'
+    static_configs:
+      - targets:
+          - '127.0.0.1:9100'
