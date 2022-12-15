@@ -1,0 +1,18 @@
+# THIS FILE IS MANAGED BY PUPPET
+[Unit]
+Documentation=https://github.com/voxpupuli/puppetmodule.info#rake-tasks
+Description=Import modules from forge
+After=puppetmodule.service
+Wants=puppetmodule.service
+
+[Service]
+Type=oneshot
+Environment='MODULE_UPDATER_PARTIAL=true'
+User=puppetmodule
+Group=puppetmodule
+WorkingDirectory=/srv/puppetmodule/puppetmodule.info
+ExecStart=/usr/bin/bundle exec rake modules:update
+SyslogIdentifier=puppetmodule-hourly
+
+[Install]
+WantedBy=multi-user.target

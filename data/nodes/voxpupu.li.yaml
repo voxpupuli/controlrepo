@@ -6,6 +6,7 @@ classes:
   - profiles::prometheus
   - profiles::postgres_exporter
   - profiles::node_exporter
+  - profiles::puppetmodule
 
 prometheus::scrape_configs:
   - job_name: 'postgres_exporter'

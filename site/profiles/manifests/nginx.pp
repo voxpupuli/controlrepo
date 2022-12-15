@@ -6,6 +6,10 @@
 class profiles::nginx {
   # do not contain it because it triggers also apt, which is triggerd by other profiles as well
   require profiles::certbot
+  $manage_repo = $facts['os']['name'] ? {
+    'Archlinux' => false,
+    default     => true,
+  }
   class { 'nginx':
     confd_purge               => true,
     service_config_check      => true,
@@ -13,5 +17,6 @@ class profiles::nginx {
     ssl_prefer_server_ciphers => 'on',
     worker_processes          => 'auto',
     ssl_ciphers               => 'ECDHE+AESGCM:DHE+AESGCM:ECDHE+ECDSA+AES+SHA256',
+    manage_repo               => $manage_repo,
   }
 }

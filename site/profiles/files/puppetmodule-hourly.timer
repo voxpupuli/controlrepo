@@ -1,0 +1,9 @@
+# THIS FILE IS MANAGED BY PUPPET
+[Unit]
+Description=partial module update each hour
+
+[Timer]
+OnCalendar=hourly
+
+[Install]
+WantedBy=multi-user.target
