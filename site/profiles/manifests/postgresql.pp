@@ -23,7 +23,7 @@ class profiles::postgresql (
   }
   class { 'dbbackup':
     destination         => '/srv/pg_dumps',
-    backuphistory       => 7,
+    backuphistory       => 21,
     manage_dependencies => true,
     require             => File['/srv/pg_dumps'],
   }
