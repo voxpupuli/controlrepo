@@ -15,6 +15,7 @@ fixtures:
     systemd: https://github.com/voxpupuli/puppet-systemd
     postgresql: https://github.com/puppetlabs/puppetlabs-postgresql
     prometheus: https://github.com/voxpupuli/puppet-prometheus.git
+    borg: https://github.com/voxpupuli/puppet-borg.git
     archive: https://github.com/voxpupuli/puppet-archive
     concat: https://github.com/puppetlabs/puppetlabs-concat
     ssh_keys: https://github.com/puppetlabs/puppetlabs-sshkeys_core

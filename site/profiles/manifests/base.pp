@@ -1,9 +1,13 @@
 #
 # @summary ssh profile to manage basic stuff that doesn't fit into a dedicated profile
 #
+# @param manage_borg whether borg should be installed or not
+#
 # @author Tim Meusel <tim@bastelfreak.de>
 #
-class profiles::base {
+class profiles::base (
+  Boolean $manage_borg = true,
+) {
   package { ['make', 'gcc', 'build-essential', 'htop', 'lsb-release', 'ctop', 'ca-certificates', 'apt-file']:
     ensure => 'installed',
   }
@@ -38,4 +42,7 @@ class profiles::base {
     },
   }
   contain ssh
+  if $manage_borg {
+    contain profiles::borg
+  }
 }
