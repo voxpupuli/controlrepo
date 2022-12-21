@@ -7,6 +7,7 @@
 ### Classes
 
 * [`profiles::base`](#profiles--base): ssh profile to manage basic stuff that doesn't fit into a dedicated profile
+* [`profiles::borg`](#profiles--borg): configures borg backups
 * [`profiles::certbot`](#profiles--certbot): configures the certbot foo. Doesn't create certificates!
 * [`profiles::grafana`](#profiles--grafana): installs grafana to display stats from dropsonde about Vox Pupuli modules
 * [`profiles::nginx`](#profiles--nginx): multiple profiles requires nginx vhosts, this profile pulls in the nginx class/package/service setup
@@ -29,6 +30,110 @@
 ### <a name="profiles--base"></a>`profiles::base`
 
 ssh profile to manage basic stuff that doesn't fit into a dedicated profile
+
+#### Parameters
+
+The following parameters are available in the `profiles::base` class:
+
+* [`manage_borg`](#-profiles--base--manage_borg)
+
+##### <a name="-profiles--base--manage_borg"></a>`manage_borg`
+
+Data type: `Boolean`
+
+whether borg should be installed or not
+
+Default value: `true`
+
+### <a name="profiles--borg"></a>`profiles::borg`
+
+configures borg backups
+
+#### Parameters
+
+The following parameters are available in the `profiles::borg` class:
+
+* [`borg_excludes`](#-profiles--borg--borg_excludes)
+* [`borg_includes`](#-profiles--borg--borg_includes)
+* [`borg_compression`](#-profiles--borg--borg_compression)
+* [`borg_keep_yearly`](#-profiles--borg--borg_keep_yearly)
+* [`borg_keep_monthly`](#-profiles--borg--borg_keep_monthly)
+* [`borg_keep_weekly`](#-profiles--borg--borg_keep_weekly)
+* [`borg_keep_daily`](#-profiles--borg--borg_keep_daily)
+* [`borg_keep_within`](#-profiles--borg--borg_keep_within)
+* [`absolutebackupdestdir`](#-profiles--borg--absolutebackupdestdir)
+
+##### <a name="-profiles--borg--borg_excludes"></a>`borg_excludes`
+
+Data type: `Array[Stdlib::Absolutepath]`
+
+paths you do not want to backup
+
+Default value: `[]`
+
+##### <a name="-profiles--borg--borg_includes"></a>`borg_includes`
+
+Data type: `Array[Stdlib::Absolutepath]`
+
+additional dirs you want to backup
+
+Default value: `[]`
+
+##### <a name="-profiles--borg--borg_compression"></a>`borg_compression`
+
+Data type: `String[1]`
+
+the desired compression algo for borg
+
+Default value: `'auto,zstd,6'`
+
+##### <a name="-profiles--borg--borg_keep_yearly"></a>`borg_keep_yearly`
+
+Data type: `Integer[0]`
+
+how many years to backup
+
+Default value: `3`
+
+##### <a name="-profiles--borg--borg_keep_monthly"></a>`borg_keep_monthly`
+
+Data type: `Integer[0]`
+
+how many months to backup
+
+Default value: `6`
+
+##### <a name="-profiles--borg--borg_keep_weekly"></a>`borg_keep_weekly`
+
+Data type: `Integer[0]`
+
+how many weeks to backup
+
+Default value: `4`
+
+##### <a name="-profiles--borg--borg_keep_daily"></a>`borg_keep_daily`
+
+Data type: `Integer[0]`
+
+how many days to backup
+
+Default value: `14`
+
+##### <a name="-profiles--borg--borg_keep_within"></a>`borg_keep_within`
+
+Data type: `Integer[0]`
+
+how many days to keep all created backups
+
+Default value: `14`
+
+##### <a name="-profiles--borg--absolutebackupdestdir"></a>`absolutebackupdestdir`
+
+Data type: `String[1]`
+
+the subdir on the backupserver where borg places backups
+
+Default value: `$facts['networking']['hostname']`
 
 ### <a name="profiles--certbot"></a>`profiles::certbot`
 

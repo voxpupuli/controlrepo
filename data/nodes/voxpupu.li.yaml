@@ -20,3 +20,9 @@ prometheus::scrape_configs:
     static_configs:
       - targets:
           - '127.0.0.1:9100'
+
+profiles::borg::absolutebackupdestdir: 'voxpupuli'
+profiles::borg::borg_excludes:
+  - /var/lib/docker/overlay2
+  - /var/lib/docker/containers
+  - /var/lib/lxcfs
