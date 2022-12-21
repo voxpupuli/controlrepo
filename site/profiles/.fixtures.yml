@@ -1,19 +1,26 @@
 ---
 fixtures:
   repositories:
-    r10k: https://github.com/voxpupuli/puppet-r10k
     stdlib: https://github.com/puppetlabs/puppetlabs-stdlib
-    grafana: https://github.com/voxpupuli/puppet-grafana
+    nginx: https://github.com/voxpupuli/puppet-nginx.git
+    ferm: https://github.com/voxpupuli/puppet-ferm.git
+    ssh: https://github.com/saz/puppet-ssh.git
+    ssh_keygen: https://github.com/voxpupuli/puppet-ssh_keygen.git
+    r10k: https://github.com/voxpupuli/puppet-r10k
+    grafana: https://github.com/voxpupuli/puppet-grafana.git
+    letsencrypt: https://github.com/voxpupuli/puppet-letsencrypt
+    dbbackup: https://github.com/voxpupuli/puppet-dbbackup.git
     apt: https://github.com/puppetlabs/puppetlabs-apt
-    nginx: https://github.com/voxpupuli/puppet-nginx
     inifile: https://github.com/puppetlabs/puppetlabs-inifile
-    concat: https://github.com/puppetlabs/puppetlabs-concat
-    postgresql: https://github.com/puppetlabs/puppetlabs-postgresql
-    dbbackup: https://github.com/voxpupuli/puppet-dbbackup
     systemd: https://github.com/voxpupuli/puppet-systemd
-    concat: https://github.com/puppetlabs/puppetlabs-concat
     postgresql: https://github.com/puppetlabs/puppetlabs-postgresql
-    dbbackup: https://github.com/voxpupuli/puppet-dbbackup
-    inifile: https://github.com/puppetlabs/puppetlabs-inifile
-    prometheus: https://github.com/voxpupuli/puppet-prometheus
+    prometheus: https://github.com/voxpupuli/puppet-prometheus.git
     archive: https://github.com/voxpupuli/puppet-archive
+    concat: https://github.com/puppetlabs/puppetlabs-concat
+    ssh_keys: https://github.com/puppetlabs/puppetlabs-sshkeys_core
+    yumrepo: https://github.com/puppetlabs/puppetlabs-yumrepo_core
+    mount: https://github.com/puppetlabs/puppetlabs-mount_core
+    cron: https://github.com/puppetlabs/puppetlabs-cron_core
+    augeasproviders_core: https://github.com/voxpupuli/puppet-augeasproviders_core.git
+    augeas_core: https://github.com/puppetlabs/puppetlabs-augeas_core.git
+    selinux_core: https://github.com/puppetlabs/puppetlabs-selinux_core

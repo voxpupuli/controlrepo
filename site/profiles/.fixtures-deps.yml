@@ -1,0 +1,12 @@
+---
+fixtures:
+  repositories:
+    archive: https://github.com/voxpupuli/puppet-archive
+    concat: https://github.com/puppetlabs/puppetlabs-concat
+    ssh_keys: https://github.com/puppetlabs/puppetlabs-sshkeys_core
+    yumrepo: https://github.com/puppetlabs/puppetlabs-yumrepo_core
+    mount: https://github.com/puppetlabs/puppetlabs-mount_core
+    cron: https://github.com/puppetlabs/puppetlabs-cron_core
+    augeasproviders_core: https://github.com/voxpupuli/puppet-augeasproviders_core.git
+    augeas_core: https://github.com/puppetlabs/puppetlabs-augeas_core.git
+    selinux_core: https://github.com/puppetlabs/puppetlabs-selinux_core

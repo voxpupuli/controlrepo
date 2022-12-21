@@ -6,28 +6,35 @@
 
 ### Classes
 
-* [`profiles::base`](#profilesbase): ssh profile to manage basic stuff that doesn't fit into a dedicated profile
-* [`profiles::certbot`](#profilescertbot): configures the certbot foo. Doesn't create certificates!
-* [`profiles::grafana`](#profilesgrafana): installs grafana to display stats from dropsonde about Vox Pupuli modules
-* [`profiles::nginx`](#profilesnginx): multiple profiles requires nginx vhosts, this profile pulls in the nginx class/package/service setup
-* [`profiles::postfix`](#profilespostfix): installs postfix
-* [`profiles::postgresql`](#profilespostgresql): install latest postgresql with upstream repositories
-* [`profiles::puppetagent`](#profilespuppetagent): profile to manage puppet agent + deps
-* [`profiles::puppetcode`](#profilespuppetcode): some resources to manage puppete code
-* [`profiles::ssh`](#profilesssh): ssh profile to manage sshd + ssh keys
-* [`profiles::vpt`](#profilesvpt): this profile will, in the future, instal Vox Pupuli Tasks
+* [`profiles::base`](#profiles--base): ssh profile to manage basic stuff that doesn't fit into a dedicated profile
+* [`profiles::certbot`](#profiles--certbot): configures the certbot foo. Doesn't create certificates!
+* [`profiles::grafana`](#profiles--grafana): installs grafana to display stats from dropsonde about Vox Pupuli modules
+* [`profiles::nginx`](#profiles--nginx): multiple profiles requires nginx vhosts, this profile pulls in the nginx class/package/service setup
+* [`profiles::node_exporter`](#profiles--node_exporter): install node_exporter
+* [`profiles::postfix`](#profiles--postfix): installs postfix
+* [`profiles::postgres_exporter`](#profiles--postgres_exporter): installs a postgres exporter
+* [`profiles::postgresql`](#profiles--postgresql): install latest postgresql with upstream repositories
+* [`profiles::prometheus`](#profiles--prometheus): install Prometheus
+* [`profiles::puppetagent`](#profiles--puppetagent): profile to manage puppet agent + deps
+* [`profiles::puppetcode`](#profiles--puppetcode): some resources to manage puppete code
+* [`profiles::ssh`](#profiles--ssh): ssh profile to manage sshd + ssh keys
+* [`profiles::vpt`](#profiles--vpt): this profile will, in the future, instal Vox Pupuli Tasks
+
+### Defined types
+
+* [`profiles::certbot::nginx`](#profiles--certbot--nginx): configures location blocks for nginx
 
 ## Classes
 
-### <a name="profilesbase"></a>`profiles::base`
+### <a name="profiles--base"></a>`profiles::base`
 
 ssh profile to manage basic stuff that doesn't fit into a dedicated profile
 
-### <a name="profilescertbot"></a>`profiles::certbot`
+### <a name="profiles--certbot"></a>`profiles::certbot`
 
 configures the certbot foo. Doesn't create certificates!
 
-### <a name="profilesgrafana"></a>`profiles::grafana`
+### <a name="profiles--grafana"></a>`profiles::grafana`
 
 installs grafana to display stats from dropsonde about Vox Pupuli modules
 
@@ -39,11 +46,11 @@ installs grafana to display stats from dropsonde about Vox Pupuli modules
 
 The following parameters are available in the `profiles::grafana` class:
 
-* [`postgresql_password`](#postgresql_password)
-* [`postgresql_user`](#postgresql_user)
-* [`postgresql_database`](#postgresql_database)
+* [`postgresql_password`](#-profiles--grafana--postgresql_password)
+* [`postgresql_user`](#-profiles--grafana--postgresql_user)
+* [`postgresql_database`](#-profiles--grafana--postgresql_database)
 
-##### <a name="postgresql_password"></a>`postgresql_password`
+##### <a name="-profiles--grafana--postgresql_password"></a>`postgresql_password`
 
 Data type: `Variant[String[1],Sensitive]`
 
@@ -51,7 +58,7 @@ Data type: `Variant[String[1],Sensitive]`
 
 Default value: `'023745uoehr98325yrsehrw023y4'`
 
-##### <a name="postgresql_user"></a>`postgresql_user`
+##### <a name="-profiles--grafana--postgresql_user"></a>`postgresql_user`
 
 Data type: `String[1]`
 
@@ -59,7 +66,7 @@ Data type: `String[1]`
 
 Default value: `'grafana'`
 
-##### <a name="postgresql_database"></a>`postgresql_database`
+##### <a name="-profiles--grafana--postgresql_database"></a>`postgresql_database`
 
 Data type: `String[1]`
 
@@ -67,15 +74,23 @@ Data type: `String[1]`
 
 Default value: `$postgresql_user`
 
-### <a name="profilesnginx"></a>`profiles::nginx`
+### <a name="profiles--nginx"></a>`profiles::nginx`
 
 multiple profiles requires nginx vhosts, this profile pulls in the nginx class/package/service setup
 
-### <a name="profilespostfix"></a>`profiles::postfix`
+### <a name="profiles--node_exporter"></a>`profiles::node_exporter`
+
+install node_exporter
+
+### <a name="profiles--postfix"></a>`profiles::postfix`
 
 installs postfix
 
-### <a name="profilespostgresql"></a>`profiles::postgresql`
+### <a name="profiles--postgres_exporter"></a>`profiles::postgres_exporter`
+
+installs a postgres exporter
+
+### <a name="profiles--postgresql"></a>`profiles::postgresql`
 
 install latest postgresql with upstream repositories
 
@@ -83,9 +98,9 @@ install latest postgresql with upstream repositories
 
 The following parameters are available in the `profiles::postgresql` class:
 
-* [`version`](#version)
+* [`version`](#-profiles--postgresql--version)
 
-##### <a name="version"></a>`version`
+##### <a name="-profiles--postgresql--version"></a>`version`
 
 Data type: `Enum['11', '12', '13', '14']`
 
@@ -93,19 +108,23 @@ desired postgresql version
 
 Default value: `'13'`
 
-### <a name="profilespuppetagent"></a>`profiles::puppetagent`
+### <a name="profiles--prometheus"></a>`profiles::prometheus`
+
+install Prometheus
+
+### <a name="profiles--puppetagent"></a>`profiles::puppetagent`
 
 profile to manage puppet agent + deps
 
-### <a name="profilespuppetcode"></a>`profiles::puppetcode`
+### <a name="profiles--puppetcode"></a>`profiles::puppetcode`
 
 some resources to manage puppete code
 
-### <a name="profilesssh"></a>`profiles::ssh`
+### <a name="profiles--ssh"></a>`profiles::ssh`
 
 ssh profile to manage sshd + ssh keys
 
-### <a name="profilesvpt"></a>`profiles::vpt`
+### <a name="profiles--vpt"></a>`profiles::vpt`
 
 this profile will, in the future, instal Vox Pupuli Tasks
 
@@ -116,31 +135,51 @@ this profile will, in the future, instal Vox Pupuli Tasks
 
 The following parameters are available in the `profiles::vpt` class:
 
-* [`deploy_sentry`](#deploy_sentry)
-* [`deploy_vpt`](#deploy_vpt)
-* [`deploy_kibana`](#deploy_kibana)
+* [`deploy_sentry`](#-profiles--vpt--deploy_sentry)
+* [`deploy_vpt`](#-profiles--vpt--deploy_vpt)
+* [`deploy_kibana`](#-profiles--vpt--deploy_kibana)
 
-##### <a name="deploy_sentry"></a>`deploy_sentry`
+##### <a name="-profiles--vpt--deploy_sentry"></a>`deploy_sentry`
 
 Data type: `Boolean`
 
 manage the sentry nginx config
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="deploy_vpt"></a>`deploy_vpt`
+##### <a name="-profiles--vpt--deploy_vpt"></a>`deploy_vpt`
 
 Data type: `Boolean`
 
 manage the VPT nginx config
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="deploy_kibana"></a>`deploy_kibana`
+##### <a name="-profiles--vpt--deploy_kibana"></a>`deploy_kibana`
 
 Data type: `Boolean`
 
 manage the kibana nginx config
 
-Default value: ``true``
+Default value: `true`
+
+## Defined types
+
+### <a name="profiles--certbot--nginx"></a>`profiles::certbot::nginx`
+
+configures location blocks for nginx
+
+#### Parameters
+
+The following parameters are available in the `profiles::certbot::nginx` defined type:
+
+* [`domain`](#-profiles--certbot--nginx--domain)
+
+##### <a name="-profiles--certbot--nginx--domain"></a>`domain`
+
+Data type: `Stdlib::Fqdn`
+
+the domain for the location blocks
+
+Default value: `$title`
 

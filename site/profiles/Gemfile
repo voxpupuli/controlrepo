@@ -7,7 +7,7 @@ source ENV['GEM_SOURCE'] || 'https://rubygems.org'
 
 group :test do
   gem 'coveralls',                  require: false
-  gem 'puppet_metadata', '~> 1.0',  require: false
+  gem 'puppet_metadata', '~> 2.0',  require: false
   gem 'simplecov-console',          require: false
   gem 'voxpupuli-test', '~> 5.0',   require: false
 end
@@ -31,6 +31,7 @@ gem 'facter', ENV['FACTER_GEM_VERSION'], require: false, groups: [:test]
 gem 'rake', require: false
 
 puppetversion = ENV['PUPPET_GEM_VERSION'] || '>= 6.0'
-gem 'metadata_json_deps', require: false
+# pin until https://github.com/ekohl/metadata_json_deps/pull/13 is merged and released
+gem 'metadata_json_deps', git: 'https://github.com/bastelfreak/metadata_json_deps', branch: 'deps'
 gem 'puppet', puppetversion, require: false, groups: [:test]
 # vim: syntax=ruby
