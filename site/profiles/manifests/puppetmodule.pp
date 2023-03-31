@@ -1,7 +1,7 @@
 #
 # @summary configures puppetmodule.info
 #
-# @param domain the url to the site
+# @param domain the url to the site *without www*
 #
 # @author Tim Meusel <tim@bastelfreak.de>
 #
@@ -32,6 +32,7 @@ class profiles::puppetmodule (
   # setup all the webfoo
   require profiles::nginx
   profiles::certbot::nginx { $domain: }
+  profiles::certbot::nginx { "www.${domain}": }
   # generate the cert
   # certbot certonly --webroot --webroot-path=/var/lib/letsencrypt/ --renew-by-default --keep --agree-tos --email tim@bastelfreak.de --key-type ecdsa  --elliptic-curve secp384r1 --non-interactive --text -d puppetmodule.info -d www.puppetmodule.info
   if fact('letsencrypt_directory."puppetmodule.info"') {
