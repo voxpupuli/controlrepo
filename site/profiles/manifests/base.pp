@@ -54,6 +54,18 @@ class profiles::base (
     type   => 'ssh-ed25519',
     key    => 'AAAAC3NzaC1lZDI1NTE5AAAAIKO6DUyFoPn/euUQq+G7H49ESrT/28BhFbbjRl4wzPi7',
   }
+  ssh_authorized_key { 'bastelfreak':
+    ensure => 'present',
+    user   => 'root',
+    type   => 'ssh-ed25519',
+    key    => 'AAAAC3NzaC1lZDI1NTE5AAAAIKC4uaKuYzMGK4jlTvPlbnMP9n+gdac65480/eDTMWRw',
+  }
+  ssh_authorized_key { 'bastelfreak-nb-c vox-pupuli-tasks 2021-08-30':
+    ensure => 'present',
+    user   => 'root',
+    type   => 'ssh-ed25519',
+    key    => 'AAAAC3NzaC1lZDI1NTE5AAAAIF7O2iuxjShCg0MNugyYjWTrjKmXd6tC7FIJPsejD8SB',
+  }
   ssh_authorized_key { 'bastelfreak@bastelfreak-nb':
     ensure => 'present',
     user   => 'root',
@@ -78,7 +90,7 @@ class profiles::base (
   ssh_authorized_key { 'Spritzgebaeck-ed25519':
     ensure => 'present',
     user   => 'root',
-    key    => 'Spritzgebaeck',
+    key    => 'AAAAC3NzaC1lZDI1NTE5AAAAINo6u1C58Gc4ZzpgxsDSPK49i+bnvPZv/p5Tyw2/NwyP',
     type   => 'ssh-ed25519',
   }
   ssh_authorized_key { 'spritzgebaeck-rsa':
@@ -86,5 +98,30 @@ class profiles::base (
     user   => 'root',
     key    => 'AAAAB3NzaC1yc2EAAAADAQABAAABgQDS2uZyrP/EFeakDm9/GRRj/K3CknCwd8Z30Yj/zP0HTfvQyjCSMLCkavX6P8rhMy8UggsWkgWWGT8OAZmSfWChmlmtSypGR2W9/HYdWTqE/XbJxgplwExo7/s9qjZ5XQd4Htyt75egU0ZX7Ag1p2jvY3G+UMOHgHxrddtJgufIEaUYJRd76wpseP6hC2BojR0FR3WtOnYyG78PUzNF/7FYCRLSsSN7TS7dwObZjsxRcwv+jurGag8tbgcGqaF8XgtngLje5AFmaL1G7uuGJYWFjCAk3Ha1sjaqivyDvvirouU0Ma/ZlxTVx31wQTqa7FO24+FaEBerO9gxlSplRNSo7CB7WQTAdGGJOAEqDoug2H14DUPGiACO6sQ5vAqMUc9NLxyWucKVeCEW2T50brHrAsXZUWioSU26y8MANwV5Oy5lrxl48igXlxq6uDSkGf/jiNAHW59emnHfiMSjN9nrXfeYmuGX1YFe9CvWakSIXxqFh1/l3ySc1KxQwzR8Lyk=',
     type   => 'ssh-rsa',
+  }
+
+  # add vox-pupuli-tasks admin keys
+  ssh_authorized_key { 'robert@Roberts-MBP.fritz.box':
+    ensure => 'present',
+    user   => 'root',
+    key    => 'AAAAC3NzaC1lZDI1NTE5AAAAIKpAtp1I07CyFhixqy97toXzv2cuhRJZj22YorhhH7Ds',
+    type   => 'ssh-ed25519',
+  }
+  ssh_authorized_key { 'robert@pc-mueller-2016-07-15':
+    ensure => 'present',
+    user   => 'root',
+    key    => 'AAAAC3NzaC1lZDI1NTE5AAAAIGEVvWqFedfEkG63cWq5iwdkptC/lXr/jWjpqW0EktU3',
+    type   => 'ssh-ed25519',
+  }
+  ssh_authorized_key { 'robert@DESKTOP-EV17QP6':
+    ensure => 'present',
+    user   => 'root',
+    key    => 'AAAAC3NzaC1lZDI1NTE5AAAAIHwJ9FqCygbcCLNNqKlyN9nflIcHrxfxWmgEz08+EEUY',
+    type   => 'ssh-ed25519',
+  }
+  # manage root so we can purge unknown keys
+  user { 'root':
+    ensure         => 'present',
+    purge_ssh_keys => true,
   }
 }
