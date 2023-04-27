@@ -39,7 +39,7 @@
     },
     {
       "name": "puppet/ferm",
-      "version_requirement": ">= 7.0.1 < 8.0.0"
+      "version_requirement": ">= 7.0.1 < 10.0.0"
     },
     {
       "name": "saz/ssh",
