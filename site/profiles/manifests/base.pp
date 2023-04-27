@@ -54,6 +54,18 @@ class profiles::base (
     type   => 'ssh-ed25519',
     key    => 'AAAAC3NzaC1lZDI1NTE5AAAAIKO6DUyFoPn/euUQq+G7H49ESrT/28BhFbbjRl4wzPi7',
   }
+  ssh_authorized_key { 'bastelfreak':
+    ensure => 'present',
+    user   => 'root',
+    type   => 'ssh-ed25519',
+    key    => 'AAAAC3NzaC1lZDI1NTE5AAAAIKC4uaKuYzMGK4jlTvPlbnMP9n+gdac65480/eDTMWRw',
+  }
+  ssh_authorized_key { 'bastelfreak-nb-c vox-pupuli-tasks 2021-08-30':
+    ensure => 'present',
+    user   => 'root',
+    type   => 'ssh-ed25519',
+    key    => 'AAAAC3NzaC1lZDI1NTE5AAAAIF7O2iuxjShCg0MNugyYjWTrjKmXd6tC7FIJPsejD8SB',
+  }
   ssh_authorized_key { 'bastelfreak@bastelfreak-nb':
     ensure => 'present',
     user   => 'root',
