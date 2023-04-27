@@ -88,6 +88,25 @@ class profiles::base (
     type   => 'ssh-rsa',
   }
 
+  # add vox-pupuli-tasks admin keys
+  ssh_authorized_key { 'robert@Roberts-MBP.fritz.box':
+    ensure => 'present',
+    user   => 'root',
+    key    => 'AAAAC3NzaC1lZDI1NTE5AAAAIKpAtp1I07CyFhixqy97toXzv2cuhRJZj22YorhhH7Ds',
+    type   => 'ssh-ed25519',
+  }
+  ssh_authorized_key { 'robert@pc-mueller-2016-07-15':
+    ensure => 'present',
+    user   => 'root',
+    key    => 'AAAAC3NzaC1lZDI1NTE5AAAAIGEVvWqFedfEkG63cWq5iwdkptC/lXr/jWjpqW0EktU3',
+    type   => 'ssh-ed25519',
+  }
+  ssh_authorized_key { 'robert@DESKTOP-EV17QP6':
+    ensure => 'present',
+    user   => 'root',
+    key    => 'AAAAC3NzaC1lZDI1NTE5AAAAIHwJ9FqCygbcCLNNqKlyN9nflIcHrxfxWmgEz08+EEUY',
+    type   => 'ssh-ed25519',
+  }
   # manage root so we can purge unknown keys
   user { 'root':
     ensure         => 'present',
