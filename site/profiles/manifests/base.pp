@@ -78,7 +78,7 @@ class profiles::base (
   ssh_authorized_key { 'Spritzgebaeck-ed25519':
     ensure => 'present',
     user   => 'root',
-    key    => 'Spritzgebaeck',
+    key    => 'AAAAC3NzaC1lZDI1NTE5AAAAINo6u1C58Gc4ZzpgxsDSPK49i+bnvPZv/p5Tyw2/NwyP',
     type   => 'ssh-ed25519',
   }
   ssh_authorized_key { 'spritzgebaeck-rsa':
