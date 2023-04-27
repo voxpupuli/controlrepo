@@ -86,10 +86,58 @@ jobs:
           BEAKER_PUPPET_COLLECTION: ${{ matrix.puppet.collection }}
           BEAKER_setfile: ${{ matrix.setfile.value }}
 
+  puppetfile:
+    defaults:
+      run:
+        working-directory: .
+    runs-on: ubuntu-latest
+    name: Validate Puppetfile + all modules
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.1'
+          bundler-cache: true
+      - name: Check for puppetfile syntax correctness
+        run: bundle exec rake r10k:syntax
+      - name: validate URLs in Puppetfile
+        run: bundle exec rake r10k:validate
+      - name: Check for puppetfile duplicates
+        run: bundle exec rake r10k:duplicates
+      - name: Check for puppetfile module deprecations
+        run: bundle exec rake r10k:deprecation
+      - name: Check for outdated modules
+        run: bundle exec rake r10k:dependencies
+      - name: Validate all dependencies in metadata.json
+        run: bundle exec rake metadata_deps
+      - name: validate all dependencies
+        run: bundle exec puppet module list --modulepath site
+
+  Hiera:
+    defaults:
+      run:
+        working-directory: .
+    runs-on: ubuntu-latest
+    name: Validate Hiera
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.10'
+      - name: Install dependencies
+        run: |
+          pip install --upgrade wheel setuptools pip
+          pip install yamllint
+      - name: Run yamllint
+        run: yamllint --format github --strict data/
   tests:
     needs:
       - unit
       - acceptance
+      - puppetfile
+      - Hiera
     runs-on: ubuntu-latest
     name: Test suite
     steps:
