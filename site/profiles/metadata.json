@@ -39,7 +39,7 @@
     },
     {
       "name": "puppet/ferm",
-      "version_requirement": ">= 7.0.1 < 8.0.0"
+      "version_requirement": ">= 7.0.1 < 10.0.0"
     },
     {
       "name": "saz/ssh",
@@ -55,11 +55,11 @@
     },
     {
       "name": "puppet/grafana",
-      "version_requirement": ">= 10.0.1 < 11.0.0"
+      "version_requirement": ">= 10.0.1 < 12.0.0"
     },
     {
       "name": "puppet/letsencrypt",
-      "version_requirement": ">= 8.0.2 < 9.0.0"
+      "version_requirement": ">= 8.0.2 < 10.0.0"
     },
     {
       "name": "puppet/dbbackup",
@@ -67,19 +67,19 @@
     },
     {
       "name": "puppetlabs/apt",
-      "version_requirement": ">= 8.3.0 < 9.0.0"
+      "version_requirement": ">= 8.3.0 < 10.0.0"
     },
     {
       "name": "puppetlabs/inifile",
-      "version_requirement": ">= 5.2.0 < 6.0.0"
+      "version_requirement": ">= 5.2.0 < 7.0.0"
     },
     {
       "name": "puppet/systemd",
-      "version_requirement": ">= 3.8.0 < 4.0.0"
+      "version_requirement": ">= 3.8.0 < 5.0.0"
     },
     {
       "name": "puppetlabs/postgresql",
-      "version_requirement": ">= 8.0.0 < 9.0.0"
+      "version_requirement": ">= 8.0.0 < 10.0.0"
     },
     {
       "name": "puppet/prometheus",
