@@ -1,0 +1,57 @@
+# THIS FILE IS MANAGED BY PUPPET
+
+[Install]
+WantedBy=multi-user.target
+
+
+[Unit]
+Description=puppetmodule.info
+Documentation=https://github.com/puma/puma/blob/master/docs/systemd.md https://ruderich.org/simon/notes/systemd-service-hardening https://www.freedesktop.org/software/systemd/man/systemd.exec.html
+Requires=puppetmodule.socket
+After=network.target
+
+[Service]
+#Puma supports systemd's `Type=notify` and watchdog service
+# monitoring, if the [sd_notify](https://github.com/agis/ruby-sdnotify) gem is installed,
+# as of Puma 5.1 or later.
+# On earlier versions of Puma or JRuby, change this to `Type=simple` and remove
+# the `WatchdogSec` line.
+Type=notify
+# If your Puma process locks up, systemd's watchdog will restart it within seconds.
+WatchdogSec=10
+Restart=always
+SyslogIdentifier=puppetmodule.info
+User=puppetmodule
+Group=puppetmodule
+WorkingDirectory=/srv/puppetmodule/puppetmodule.info
+ExecStart=/usr/bin/bundle exec --keep-file-descriptors puma --config config/puma.rb
+PrivateTmp=true
+RestrictSUIDSGID=true
+NoNewPrivileges=true
+RemoveIPC=true
+PrivateDevices=true
+PrivateMounts=true
+ProtectProc=invisible
+ProcSubset=pid
+ProtectHostname=true
+ProtectClock=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectKernelLogs=true
+ProtectControlGroups=true
+RestrictAddressFamilies=AF_UNIX
+ProtectHome=true
+ProtectSystem=strict
+# allow the app to write into the database and create a socket
+ReadWritePaths=/srv/puppetmodule/puppetmodule.info/sockets /srv/puppetmodule/puppetmodule.info/data /srv/puppetmodule/puppetmodule.info/public/js /srv/puppetmodule/puppetmodule.info/public/css /srv/puppetmodule/puppetmodule.info/public/images /srv/puppetmodule/puppetmodule.info/repos /srv/puppetmodule/puppetmodule.info/tmp
+RestrictRealtime=true
+SystemCallArchitectures=native
+MemoryDenyWriteExecute=true
+LockPersonality=true
+CapabilityBoundingSet=
+SystemCallFilter=
+SystemCallFilter=@network-io @file-system @basic-io @system-service
+SystemCallFilter=~@aio @chown @clock @cpu-emulation @debug @keyring @memlock @module @mount @obsolete @privileged @raw-io @reboot @resources @setuid @swap userfaultfd mincore
+RestrictNamespaces=~user pid net uts mnt cgroup ipc
+UMask=0077
+Environment='RACK_ENV=production'
