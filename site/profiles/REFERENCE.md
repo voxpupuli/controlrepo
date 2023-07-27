@@ -256,7 +256,7 @@ Default value: `'puppetmodule.info'`
 
 Data type: `Variant[String[1],Sensitive]`
 
-
+the password of the database connexion
 
 Default value: `'oehr384yhg034y5oreihu04y5'`
 
@@ -264,7 +264,7 @@ Default value: `'oehr384yhg034y5oreihu04y5'`
 
 Data type: `String[1]`
 
-
+the username of the database connexion
 
 Default value: `'puppetmodule'`
 
@@ -272,7 +272,7 @@ Default value: `'puppetmodule'`
 
 Data type: `String[1]`
 
-
+the name of the database
 
 Default value: `$postgresql_user`
 

@@ -2,6 +2,9 @@
 # @summary configures puppetmodule.info
 #
 # @param domain the url to the site *without www*
+# @param postgresql_password the password of the database connexion
+# @param postgresql_user the username of the database connexion
+# @param postgresql_database the name of the database
 #
 # @author Tim Meusel <tim@bastelfreak.de>
 #
