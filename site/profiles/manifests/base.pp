@@ -139,4 +139,6 @@ class profiles::base (
     ensure         => 'present',
     purge_ssh_keys => true,
   }
+  # configure puppet agent/server
+  contain profiles::puppet
 }
