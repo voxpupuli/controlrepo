@@ -48,7 +48,7 @@ runcmd:
   - /opt/puppetlabs/puppet/bin/gem install --no-document r10k
   - cd /root && git clone https://github.com/voxpupuli/controlrepo
   - cd /root/controlrepo && /opt/puppetlabs/puppet/bin/r10k puppetfile install --verbose
-  - /opt/puppetlabs/puppet/bin/puppet apply /root/controlrepo/manifests/site.pp --modulepath /root/controlrepo/modules:/root/controlrepo/site --show_diff
+  - /opt/puppetlabs/puppet/bin/puppet apply /root/controlrepo/manifests/site.pp --modulepath /root/controlrepo/modules:/root/controlrepo/site --show_diff --write-catalog-summary --hiera_config /root/controlrepo/hiera.yaml
 ```
 
 ## ToDos
