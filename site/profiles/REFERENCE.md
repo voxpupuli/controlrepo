@@ -266,7 +266,7 @@ The following parameters are available in the `profiles::postgresql` class:
 
 ##### <a name="-profiles--postgresql--version"></a>`version`
 
-Data type: `Enum['11', '12', '13', '14']`
+Data type: `Enum['11', '12', '13', '14', '15']`
 
 desired postgresql version
 

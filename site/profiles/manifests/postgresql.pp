@@ -6,7 +6,7 @@
 # @author Tim Meusel <tim@bastelfreak.de>
 #
 class profiles::postgresql (
-  Enum['11', '12', '13', '14'] $version = '13',
+  Enum['11', '12', '13', '14', '15'] $version = '13',
 ) {
   class { 'postgresql::globals':
     encoding            => 'UTF-8',
