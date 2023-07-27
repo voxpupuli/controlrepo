@@ -92,6 +92,10 @@
     {
       "name": "theforeman/puppet",
       "version_requirement": ">= 20.0.0 < 21.0.0"
+    },
+    {
+      "name": "puppet/extlib",
+      "version_requirement": ">= 7.2.0 < 8.0.0"
     }
   ]
 }
