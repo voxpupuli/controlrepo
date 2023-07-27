@@ -32,7 +32,7 @@ class profiles::puppetcode {
     $deploy = { 'generate_types' => true }
     # we hardcode this and update it from time to time.
     # agent runs faster compared to ensure latest
-    $version = '3.14.2'
+    $version = '3.16.0'
   }
   class { 'r10k':
     pool_size       => $facts['processors']['count']*2,
