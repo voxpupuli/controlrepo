@@ -20,6 +20,7 @@ class profiles::foreman {
   }
 
   class { 'foreman':
+    version                  => '3.7',
     logging_type             => 'journald',
     initial_admin_username   => 'admin',
     initial_admin_first_name => 'Vox',
