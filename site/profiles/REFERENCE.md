@@ -16,7 +16,7 @@
 * [`profiles::postgres_exporter`](#profiles--postgres_exporter): installs a postgres exporter
 * [`profiles::postgresql`](#profiles--postgresql): install latest postgresql with upstream repositories
 * [`profiles::prometheus`](#profiles--prometheus): install Prometheus
-* [`profiles::puppetagent`](#profiles--puppetagent): profile to manage puppet agent + deps
+* [`profiles::puppet`](#profiles--puppet): configure puppet agent and server
 * [`profiles::puppetcode`](#profiles--puppetcode): some resources to manage puppete code
 * [`profiles::puppetmodule`](#profiles--puppetmodule): configures puppetmodule.info
 * [`profiles::ssh`](#profiles--ssh): ssh profile to manage sshd + ssh keys
@@ -219,9 +219,32 @@ Default value: `'13'`
 
 install Prometheus
 
-### <a name="profiles--puppetagent"></a>`profiles::puppetagent`
+### <a name="profiles--puppet"></a>`profiles::puppet`
 
-profile to manage puppet agent + deps
+configure puppet agent and server
+
+#### Parameters
+
+The following parameters are available in the `profiles::puppet` class:
+
+* [`server`](#-profiles--puppet--server)
+* [`manage_msgpack`](#-profiles--puppet--manage_msgpack)
+
+##### <a name="-profiles--puppet--server"></a>`server`
+
+Data type: `Boolean`
+
+decide if the server should be configured as well
+
+Default value: `($trusted['pp_role'] == 'puppetserver'`
+
+##### <a name="-profiles--puppet--manage_msgpack"></a>`manage_msgpack`
+
+Data type: `Boolean`
+
+configure if we should install msgpack on the agent
+
+Default value: `($facts['os']['name'] != 'gentoo'`
 
 ### <a name="profiles--puppetcode"></a>`profiles::puppetcode`
 
@@ -241,8 +264,8 @@ The following parameters are available in the `profiles::puppetmodule` class:
 
 * [`domain`](#-profiles--puppetmodule--domain)
 * [`postgresql_password`](#-profiles--puppetmodule--postgresql_password)
-* [`postgresql_user`](#-profiles--puppetmodule--postgresql_user)
 * [`postgresql_database`](#-profiles--puppetmodule--postgresql_database)
+* [`postgresql_user`](#-profiles--puppetmodule--postgresql_user)
 
 ##### <a name="-profiles--puppetmodule--domain"></a>`domain`
 
@@ -256,25 +279,25 @@ Default value: `'puppetmodule.info'`
 
 Data type: `Variant[String[1],Sensitive]`
 
-
+the database password
 
 Default value: `'oehr384yhg034y5oreihu04y5'`
-
-##### <a name="-profiles--puppetmodule--postgresql_user"></a>`postgresql_user`
-
-Data type: `String[1]`
-
-
-
-Default value: `'puppetmodule'`
 
 ##### <a name="-profiles--puppetmodule--postgresql_database"></a>`postgresql_database`
 
 Data type: `String[1]`
 
-
+the database name
 
 Default value: `$postgresql_user`
+
+##### <a name="-profiles--puppetmodule--postgresql_user"></a>`postgresql_user`
+
+Data type: `String[1]`
+
+the database user
+
+Default value: `'puppetmodule'`
 
 ### <a name="profiles--ssh"></a>`profiles::ssh`
 

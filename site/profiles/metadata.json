@@ -90,7 +90,7 @@
       "version_requirement": ">= 3.1.0 < 4.0.0"
     },
     {
-      "name": "theforeman/puppet":
+      "name": "theforeman/puppet",
       "version_requirement": ">= 17.1.0 < 18.0.0"
     }
   ]
