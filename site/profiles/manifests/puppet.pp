@@ -17,13 +17,14 @@ class profiles::puppet (
       server_foreman             => true,
       # don't create /etc/puppetlabs/code/environments/common
       server_common_modules_path => [],
-      server_jvm_java_bin        => '/usr/lib/jvm/jre-11/bin/java',
+      server_jvm_java_bin        => '/usr/lib/jvm/java-11-openjdk-amd64/bin/java',
       server_jvm_min_heap_size   => '1G',
       server_jvm_max_heap_size   => '1G',
       server_jvm_extra_args      => ['-Djruby.logger.class=com.puppetlabs.jruby_utils.jruby.Slf4jLogger', '-XX:+UseParallelGC'],
       server_multithreaded       => true,
     }
-    package { ['pgbadger', 'pg_activity', 'openjdk-11-jre-headless']:
+    #package { ['pgbadger', 'pg_activity', 'openjdk-11-jre-headless']:
+    package { ['openjdk-11-jre-headless']:
       ensure => 'installed',
       before => Class['puppet'],
     }
