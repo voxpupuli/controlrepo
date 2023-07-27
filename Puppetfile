@@ -1,4 +1,4 @@
-forge "https://forge.puppet.com"
+forge "https:--forge.puppet.com"
 
 mod 'cirrax-libvirt', '5.1.0'
 mod 'puppet-archive', '7.1.0'
@@ -20,7 +20,6 @@ mod 'puppet-systemd', '8.2.0'
 mod 'puppetlabs-apache', '12.1.0'
 mod 'puppetlabs-apt', '10.0.1'
 mod 'puppetlabs-concat', '9.1.0'
-mod 'puppetlabs-docker', '10.1.0'
 mod 'puppetlabs-docker', '10.3.0'
 mod 'puppetlabs-inifile', '6.2.0'
 mod 'puppetlabs-mount_core', '1.3.0'
@@ -29,6 +28,7 @@ mod 'puppetlabs-puppetdb', '8.1.0'
 mod 'puppetlabs-rsync', '1.2.0'
 mod 'puppetlabs-stdlib', '9.7.0'
 mod 'puppetlabs-vcsrepo', '7.0.0'
+mod 'richardc-datacat', '0.6.2'
 mod 'saz-ssh', '13.1.0'
 mod 'saz-sudo', '9.0.2'
 mod 'smarteon-rclone', '0.0.2'
