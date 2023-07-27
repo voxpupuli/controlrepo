@@ -8,9 +8,9 @@ end
 
 desc 'Run metadata-json-deps'
 task :metadata_deps do
-  files = FileList['site/*/metadata.json']
+  files = FileList['site/*/metadata.json'] - ['site/roles/metadata.json', 'site/profiles/metadata.json']
   # pull modules if they do not exist already
-  Rake::Task['r10k:install'].invoke if files.count == 1
-  files = FileList['site/*/metadata.json']
+  Rake::Task['r10k:install'].invoke if files.empty?
+  files = FileList['site/*/metadata.json'] - ['site/roles/metadata.json', 'site/profiles/metadata.json']
   MetadataJsonDeps::run(files)
 end
