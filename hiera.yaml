@@ -6,5 +6,7 @@ defaults:
 hierarchy:
   - name: "Per-node data"
     path: "nodes/%{facts.networking.fqdn}.yaml"
+  - name: "Role data"
+    path: "roles/%{trusted.extensions.pp_role}.yaml"
   - name: "one file to rule them all"
     path: "global.yaml"
