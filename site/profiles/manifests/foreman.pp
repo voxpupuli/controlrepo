@@ -58,6 +58,6 @@ class profiles::foreman {
     realm               => false,
   }
   # open http/https in firewall
-  include nftables::rules::http
-  include nftables::rules::https
+  require nftables::rules::http
+  require nftables::rules::https
 }
