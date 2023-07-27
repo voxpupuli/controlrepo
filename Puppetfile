@@ -12,6 +12,7 @@ mod 'puppet/nginx', :latest
 mod 'theforeman/puppet', :latest
 mod 'theforeman/puppetserver_foreman', :latest
 mod 'theforeman/foreman', :latest
+mod 'theforeman/foreman_proxy', :latest
 mod 'puppetlabs/puppetdb', :latest
 mod 'saz/ssh', :latest
 mod 'puppet/ssh_keygen', :latest
