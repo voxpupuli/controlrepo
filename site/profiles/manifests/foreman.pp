@@ -36,7 +36,11 @@ class profiles::foreman {
       },
     },
   }
-  ['rubygem-foreman_puppet', 'rubygem-puppetdb_foreman'].each |$package| {
+  $packages = $facts['os']['family'] ? {
+    'RedHat' => ['rubygem-foreman_puppet', 'rubygem-puppetdb_foreman'],
+    'Debian' => ['ruby-foreman-puppet', 'ruby-puppetdb-foreman'],
+  }
+  $packages.each |$package| {
     package { $package:
       ensure  => 'installed',
       require => Package['foreman-service'],
