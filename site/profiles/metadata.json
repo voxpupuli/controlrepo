@@ -96,6 +96,10 @@
     {
       "name": "puppet/extlib",
       "version_requirement": ">= 6.2.0 < 7.0.0"
+    },
+    {
+      "name": "puppet/nftables",
+      "version_requirement": ">= 3.0.1 < 4.0.0"
     }
   ]
 }

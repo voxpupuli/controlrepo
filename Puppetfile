@@ -27,3 +27,4 @@ mod 'puppet/dbbackup', :latest
 mod 'puppet/prometheus', :latest
 mod 'puppet/archive', :latest
 mod 'puppet/borg', :latest
+mod 'puppet/nftables', :latest
