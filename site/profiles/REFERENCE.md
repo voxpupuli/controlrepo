@@ -26,6 +26,7 @@
 * [`profiles::puppet`](#profiles--puppet): configure puppet agent and server
 * [`profiles::puppetcode`](#profiles--puppetcode): some resources to manage puppete code
 * [`profiles::puppetmodule`](#profiles--puppetmodule): configures puppetmodule.info
+* [`profiles::puppetserver_firewalling`](#profiles--puppetserver_firewalling): manages nft rules on Puppetserver/PuppetDB
 * [`profiles::ssh`](#profiles--ssh): ssh profile to manage sshd + ssh keys
 * [`profiles::ssh_keys::additional_keys`](#profiles--ssh_keys--additional_keys): Allow additional admins' keys to be pulled in via Hiera
 * [`profiles::ssh_keys::people::bastelfreak`](#profiles--ssh_keys--people--bastelfreak): Configure key from bastelfreak from GitHubs in the authorized_keys file along with supplemental keys
@@ -480,6 +481,10 @@ Data type: `String[1]`
 the database user
 
 Default value: `'puppetmodule'`
+
+### <a name="profiles--puppetserver_firewalling"></a>`profiles::puppetserver_firewalling`
+
+manages nft rules on Puppetserver/PuppetDB
 
 ### <a name="profiles--ssh"></a>`profiles::ssh`
 
