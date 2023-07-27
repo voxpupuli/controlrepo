@@ -23,4 +23,5 @@ class profiles::nftables (
   }
   include nftables::rules::out::ssh
   include nftables::rules::out::whois
+  include nftables::rules::out::hkp
 }
