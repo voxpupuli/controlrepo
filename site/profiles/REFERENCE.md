@@ -23,7 +23,7 @@
 * [`profiles::postgres_exporter`](#profiles--postgres_exporter): installs a postgres exporter
 * [`profiles::postgresql`](#profiles--postgresql): install latest postgresql with upstream repositories
 * [`profiles::prometheus`](#profiles--prometheus): install Prometheus
-* [`profiles::puppetagent`](#profiles--puppetagent): profile to manage puppet agent + deps
+* [`profiles::puppet`](#profiles--puppet): configure puppet agent and server
 * [`profiles::puppetcode`](#profiles--puppetcode): some resources to manage puppete code
 * [`profiles::puppetmodule`](#profiles--puppetmodule): configures puppetmodule.info
 * [`profiles::ssh`](#profiles--ssh): ssh profile to manage sshd + ssh keys
@@ -401,9 +401,32 @@ Default value: `'13'`
 
 install Prometheus
 
-### <a name="profiles--puppetagent"></a>`profiles::puppetagent`
+### <a name="profiles--puppet"></a>`profiles::puppet`
 
-profile to manage puppet agent + deps
+configure puppet agent and server
+
+#### Parameters
+
+The following parameters are available in the `profiles::puppet` class:
+
+* [`server`](#-profiles--puppet--server)
+* [`manage_msgpack`](#-profiles--puppet--manage_msgpack)
+
+##### <a name="-profiles--puppet--server"></a>`server`
+
+Data type: `Boolean`
+
+decide if the server should be configured as well
+
+Default value: `($trusted['pp_role'] == 'puppetserver'`
+
+##### <a name="-profiles--puppet--manage_msgpack"></a>`manage_msgpack`
+
+Data type: `Boolean`
+
+configure if we should install msgpack on the agent
+
+Default value: `($facts['os']['name'] != 'gentoo'`
 
 ### <a name="profiles--puppetcode"></a>`profiles::puppetcode`
 

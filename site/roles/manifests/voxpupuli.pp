@@ -1,4 +1,3 @@
-# @summary This role encompasses the various applications that makeup the host at voxpupu.li
 #
 # This role encompasses the various applications that makeup the host at voxpupu.li
 #
