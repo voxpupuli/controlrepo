@@ -41,6 +41,9 @@ puppet:
   collection: puppet8
   cleanup: false
   package_name: puppet-agent
+  csr_attributes:
+    extension_requests:
+      pp_role: puppetserver
 runcmd:
   - /opt/puppetlabs/puppet/bin/gem install --no-document r10k
   - cd /root && git clone https://github.com/voxpupuli/controlrepo
