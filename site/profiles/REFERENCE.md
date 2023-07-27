@@ -18,7 +18,9 @@
 * [`profiles::prometheus`](#profiles--prometheus): install Prometheus
 * [`profiles::puppetagent`](#profiles--puppetagent): profile to manage puppet agent + deps
 * [`profiles::puppetcode`](#profiles--puppetcode): some resources to manage puppete code
+* [`profiles::puppetmodule`](#profiles--puppetmodule): configures puppetmodule.info
 * [`profiles::ssh`](#profiles--ssh): ssh profile to manage sshd + ssh keys
+* [`profiles::ssh_keys`](#profiles--ssh_keys): configure keys from GitHubs in the authorized_keys file
 * [`profiles::vpt`](#profiles--vpt): this profile will, in the future, instal Vox Pupuli Tasks
 
 ### Defined types
@@ -225,9 +227,76 @@ profile to manage puppet agent + deps
 
 some resources to manage puppete code
 
+### <a name="profiles--puppetmodule"></a>`profiles::puppetmodule`
+
+configures puppetmodule.info
+
+* **See also**
+  * https://puppetmodule.info
+  * https://github.com/puma/puma/blob/master/docs/nginx.md
+
+#### Parameters
+
+The following parameters are available in the `profiles::puppetmodule` class:
+
+* [`domain`](#-profiles--puppetmodule--domain)
+* [`postgresql_password`](#-profiles--puppetmodule--postgresql_password)
+* [`postgresql_user`](#-profiles--puppetmodule--postgresql_user)
+* [`postgresql_database`](#-profiles--puppetmodule--postgresql_database)
+
+##### <a name="-profiles--puppetmodule--domain"></a>`domain`
+
+Data type: `Stdlib::Fqdn`
+
+the url to the site *without www*
+
+Default value: `'puppetmodule.info'`
+
+##### <a name="-profiles--puppetmodule--postgresql_password"></a>`postgresql_password`
+
+Data type: `Variant[String[1],Sensitive]`
+
+
+
+Default value: `'oehr384yhg034y5oreihu04y5'`
+
+##### <a name="-profiles--puppetmodule--postgresql_user"></a>`postgresql_user`
+
+Data type: `String[1]`
+
+
+
+Default value: `'puppetmodule'`
+
+##### <a name="-profiles--puppetmodule--postgresql_database"></a>`postgresql_database`
+
+Data type: `String[1]`
+
+
+
+Default value: `$postgresql_user`
+
 ### <a name="profiles--ssh"></a>`profiles::ssh`
 
 ssh profile to manage sshd + ssh keys
+
+### <a name="profiles--ssh_keys"></a>`profiles::ssh_keys`
+
+configure keys from GitHubs in the authorized_keys file
+
+#### Parameters
+
+The following parameters are available in the `profiles::ssh_keys` class:
+
+* [`github_users`](#-profiles--ssh_keys--github_users)
+
+##### <a name="-profiles--ssh_keys--github_users"></a>`github_users`
+
+Data type: `Array[String[1]]`
+
+list of github users, we will download their ssh keys
+
+Default value: `['bastelfreak', 'smortex', 'rwaffen', 'ekohl', 'sebastianrakel',]`
 
 ### <a name="profiles--vpt"></a>`profiles::vpt`
 
