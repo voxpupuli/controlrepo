@@ -31,3 +31,4 @@ mod 'puppet/borg', :latest
 mod 'puppet/nftables', :latest
 mod 'puppet/redis', :latest
 mod 'puppetlabs/apache', :latest
+mod 'richardc/datacat', :latest
