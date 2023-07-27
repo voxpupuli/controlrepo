@@ -9,6 +9,7 @@
 * [`profiles::base`](#profiles--base): ssh profile to manage basic stuff that doesn't fit into a dedicated profile
 * [`profiles::borg`](#profiles--borg): configures borg backups
 * [`profiles::certbot`](#profiles--certbot): configures the certbot foo. Doesn't create certificates!
+* [`profiles::foreman`](#profiles--foreman): configure foreman + plugins
 * [`profiles::grafana`](#profiles--grafana): installs grafana to display stats from dropsonde about Vox Pupuli modules
 * [`profiles::nftables`](#profiles--nftables): configure certain nftable rules
 * [`profiles::nginx`](#profiles--nginx): multiple profiles requires nginx vhosts, this profile pulls in the nginx class/package/service setup
@@ -21,6 +22,7 @@
 * [`profiles::puppetcode`](#profiles--puppetcode): some resources to manage puppete code
 * [`profiles::puppetmodule`](#profiles--puppetmodule): configures puppetmodule.info
 * [`profiles::puppetserver_firewalling`](#profiles--puppetserver_firewalling): manages nft rules on Puppetserver/PuppetDB
+* [`profiles::redis`](#profiles--redis): configures redis on different platforms
 * [`profiles::ssh`](#profiles--ssh): ssh profile to manage sshd + ssh keys
 * [`profiles::ssh_keys`](#profiles--ssh_keys): configure keys from GitHubs in the authorized_keys file
 * [`profiles::vpt`](#profiles--vpt): this profile will, in the future, instal Vox Pupuli Tasks
@@ -142,6 +144,14 @@ Default value: `$facts['networking']['hostname']`
 ### <a name="profiles--certbot"></a>`profiles::certbot`
 
 configures the certbot foo. Doesn't create certificates!
+
+### <a name="profiles--foreman"></a>`profiles::foreman`
+
+configure foreman + plugins
+
+* **See also**
+  * `cat
+    * /opt/puppetlabs/puppet/cache/foreman_cache_data/admin_password` provides the admin password
 
 ### <a name="profiles--grafana"></a>`profiles::grafana`
 
@@ -349,6 +359,10 @@ Default value: `'puppetmodule'`
 ### <a name="profiles--puppetserver_firewalling"></a>`profiles::puppetserver_firewalling`
 
 manages nft rules on Puppetserver/PuppetDB
+
+### <a name="profiles--redis"></a>`profiles::redis`
+
+configures redis on different platforms
 
 ### <a name="profiles--ssh"></a>`profiles::ssh`
 

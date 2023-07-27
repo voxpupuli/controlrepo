@@ -19,6 +19,7 @@ fixtures:
     puppet: https://github.com/theforeman/puppet-puppet
     extlib: https://github.com/voxpupuli/puppet-extlib.git
     nftables: https://github.com/voxpupuli/puppet-nftables.git
+    redis: https://github.com/voxpupuli/puppet-redis.git
     archive: https://github.com/voxpupuli/puppet-archive
     concat: https://github.com/puppetlabs/puppetlabs-concat
     ssh_keys: https://github.com/puppetlabs/puppetlabs-sshkeys_core
