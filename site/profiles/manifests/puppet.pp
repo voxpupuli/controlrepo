@@ -10,6 +10,7 @@ class profiles::puppet (
   Boolean $manage_msgpack = ($facts['os']['name'] != 'gentoo'),
 ) {
   if $server {
+    require profiles::foreman
     $params = {
       server                     => true,
       #server_reports             => 'puppetdb,foreman',
