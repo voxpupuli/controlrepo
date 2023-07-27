@@ -21,6 +21,7 @@ fixtures:
     nftables: https://github.com/voxpupuli/puppet-nftables.git
     docker: https://github.com/puppetlabs/puppetlabs-docker
     libvirt: https://github.com/cirrax/puppet-libvirt
+    redis: https://github.com/voxpupuli/puppet-redis.git
     archive: https://github.com/voxpupuli/puppet-archive
     concat: https://github.com/puppetlabs/puppetlabs-concat
     ssh_keys: https://github.com/puppetlabs/puppetlabs-sshkeys_core
