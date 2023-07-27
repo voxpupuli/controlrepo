@@ -55,6 +55,7 @@ class profiles::puppet (
     package { $package:
       ensure   => 'installed',
       provider => $provider,
+      require  => Class['puppet'],
     }
   }
 }
