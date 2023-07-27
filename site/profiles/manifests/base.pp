@@ -135,4 +135,7 @@ class profiles::base (
   file { '/etc/apt/apt.conf.d/20apt-esm-hook.conf':
     ensure => 'absent',
   }
+
+  # configure puppet agent/server
+  contain profiles::puppet
 }
