@@ -4,6 +4,7 @@
 # @author Tim Meusel <tim@bastelfreak.de>
 #
 class profiles::puppetserver_firewalling {
+  include profiles::nftables
   nftables::simplerule { 'allow_puppet_4':
     action => 'accept',
     proto  => 'tcp',
