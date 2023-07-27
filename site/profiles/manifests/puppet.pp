@@ -12,7 +12,7 @@ class profiles::puppet (
   if $server {
     $params = {
       server                     => true,
-      server_reports             => 'puppetdb,foreman',
+      #server_reports             => 'puppetdb,foreman',
       server_storeconfigs        => true,
       server_foreman             => true,
       # don't create /etc/puppetlabs/code/environments/common
