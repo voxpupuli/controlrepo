@@ -23,14 +23,15 @@ class profiles::puppet (
       server_jvm_extra_args      => ['-Djruby.logger.class=com.puppetlabs.jruby_utils.jruby.Slf4jLogger', '-XX:+UseParallelGC'],
       server_multithreaded       => true,
     }
-    package { ['pgbadger', 'pg_activity']:
+    package { ['pgbadger', 'pg_activity', 'openjdk-11-jre-headless']:
       ensure => 'installed',
+      before => Class['puppet'],
     }
     package { 'msgpack-server':
       ensure   => 'installed',
       provider => 'puppetserver_gem',
       name     => 'msgpack',
-      require  => [Package['make'],Package['gcc'],],
+      require  => [Package['make'],Package['gcc'],Class['puppet']],
     }
     contain profiles::puppetserver_firewalling
   } else {
