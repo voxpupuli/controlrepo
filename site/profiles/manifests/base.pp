@@ -132,6 +132,8 @@ class profiles::base (
     key    => 'AAAAC3NzaC1lZDI1NTE5AAAAIHwJ9FqCygbcCLNNqKlyN9nflIcHrxfxWmgEz08+EEUY',
     type   => 'ssh-ed25519',
   }
+  # fetches all keys from GitHub for PMC people
+  contain profiles::ssh_keys
   # manage root so we can purge unknown keys
   user { 'root':
     ensure         => 'present',
