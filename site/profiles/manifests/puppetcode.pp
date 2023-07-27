@@ -38,7 +38,7 @@ class profiles::puppetcode {
     pool_size       => $facts['processors']['count']*2,
     sources         => {
       'puppet' => {
-        'remote'  => 'git@github.com:voxpupuli/controlrepo.git',
+        'remote'  => 'https://github.com/voxpupuli/controlrepo.git',
         'basedir' => '/etc/puppetlabs/code/environments',
       },
     },
