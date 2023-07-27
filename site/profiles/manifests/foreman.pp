@@ -17,7 +17,7 @@ class profiles::foreman {
     repo             => '3.7',
     gpgcheck         => true,
     yum_repo_baseurl => 'https://deb.theforeman.org',
-    before           => Class['foreman'],
+    before           => [Class['foreman'], Class['foreman_proxy'],],
   }
 
   class { 'foreman':
