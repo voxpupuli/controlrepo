@@ -19,6 +19,7 @@
 * [`profiles::puppet`](#profiles--puppet): configure puppet agent and server
 * [`profiles::puppetcode`](#profiles--puppetcode): some resources to manage puppete code
 * [`profiles::puppetmodule`](#profiles--puppetmodule): configures puppetmodule.info
+* [`profiles::puppetserver_firewalling`](#profiles--puppetserver_firewalling): manages nft rules on Puppetserver/PuppetDB
 * [`profiles::ssh`](#profiles--ssh): ssh profile to manage sshd + ssh keys
 * [`profiles::ssh_keys`](#profiles--ssh_keys): configure keys from GitHubs in the authorized_keys file
 * [`profiles::vpt`](#profiles--vpt): this profile will, in the future, instal Vox Pupuli Tasks
@@ -298,6 +299,10 @@ Data type: `String[1]`
 the database user
 
 Default value: `'puppetmodule'`
+
+### <a name="profiles--puppetserver_firewalling"></a>`profiles::puppetserver_firewalling`
+
+manages nft rules on Puppetserver/PuppetDB
 
 ### <a name="profiles--ssh"></a>`profiles::ssh`
 
