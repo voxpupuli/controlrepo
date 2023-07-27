@@ -6,6 +6,7 @@
 class profiles::foreman {
   require profiles::redis
   require profiles::postgresql
+  require profiles::nftables # ensures hkp access is working to download the apt key
   # this pulls in postgresql:12 as module
   # https://github.com/theforeman/foreman-packaging/blob/61cdf829ea481294d8d00dc6162e3524875ebb2d/modulemd/modulemd-foreman-el8.yaml#L27-L28
   #class { 'foreman::repo':
