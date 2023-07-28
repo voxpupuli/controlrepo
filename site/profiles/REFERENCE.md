@@ -6,6 +6,8 @@
 
 ### Classes
 
+#### Public Classes
+
 * [`profiles::base`](#profiles--base): ssh profile to manage basic stuff that doesn't fit into a dedicated profile
 * [`profiles::borg`](#profiles--borg): configures borg backups
 * [`profiles::certbot`](#profiles--certbot): configures the certbot foo. Doesn't create certificates!
@@ -19,13 +21,17 @@
 * [`profiles::postgresql`](#profiles--postgresql): install latest postgresql with upstream repositories
 * [`profiles::prometheus`](#profiles--prometheus): install Prometheus
 * [`profiles::puppet`](#profiles--puppet): configure puppet agent and server
-* [`profiles::puppetcode`](#profiles--puppetcode): some resources to manage puppete code
 * [`profiles::puppetmodule`](#profiles--puppetmodule): configures puppetmodule.info
-* [`profiles::puppetserver_firewalling`](#profiles--puppetserver_firewalling): manages nft rules on Puppetserver/PuppetDB
 * [`profiles::redis`](#profiles--redis): configures redis on different platforms
 * [`profiles::ssh`](#profiles--ssh): ssh profile to manage sshd + ssh keys
 * [`profiles::ssh_keys`](#profiles--ssh_keys): configure keys from GitHubs in the authorized_keys file
 * [`profiles::vpt`](#profiles--vpt): this profile will, in the future, instal Vox Pupuli Tasks
+
+#### Private Classes
+
+* `profiles::puppet::code`: some resources to manage puppete code
+* `profiles::puppet::db`: installs puppetdb *on a puppetserver that also runs foreman*
+* `profiles::puppetserver_firewalling`: manages nft rules on Puppetserver/PuppetDB
 
 ### Defined types
 
@@ -303,10 +309,6 @@ configure if we should install msgpack on the agent
 
 Default value: `($facts['os']['name'] != 'gentoo'`
 
-### <a name="profiles--puppetcode"></a>`profiles::puppetcode`
-
-some resources to manage puppete code
-
 ### <a name="profiles--puppetmodule"></a>`profiles::puppetmodule`
 
 configures puppetmodule.info
@@ -355,10 +357,6 @@ Data type: `String[1]`
 the database user
 
 Default value: `'puppetmodule'`
-
-### <a name="profiles--puppetserver_firewalling"></a>`profiles::puppetserver_firewalling`
-
-manages nft rules on Puppetserver/PuppetDB
 
 ### <a name="profiles--redis"></a>`profiles::redis`
 

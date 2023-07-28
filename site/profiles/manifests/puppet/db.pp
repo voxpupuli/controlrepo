@@ -1,7 +1,12 @@
 #
-# @summary installs puppetdb
+# @summary installs puppetdb *on a puppetserver that also runs foreman*
 #
-class profiles::puppetdb {
+# @api private
+#
+# @author Tim Meusel <tim@bastelfreak.de>
+#
+class profiles::puppet::db {
+  assert_private()
   require profiles::postgresql
   include postgresql::server::contrib
   postgresql::server::extension { 'pg_trgm':
@@ -14,13 +19,6 @@ class profiles::puppetdb {
     manage_firewall => false,
   }
   contain puppetdb
-  #class { 'puppetdb::master::config':
-  #}
-  #contain puppetdb::master::config
-  #class { 'puppetdb::server':
-  #  manage_firewall => false,
-  #}
-  #contain puppetdb::server
   class { 'puppet::server::puppetdb':
     server => 'puppetserver.voxpupuli.org',
   }
