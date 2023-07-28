@@ -26,10 +26,10 @@ class profiles::puppetcode {
     },
   }
   if $facts['os']['name'] == 'Archlinux' {
-    $deploy = { 'generate_types' => true, 'puppet_path' => '/usr/bin/puppet' }
+    $deploy = { 'generate_types' => true, 'exclude_spec' => true, 'puppet_path' => '/usr/bin/puppet' }
     $version = 'installed'
   } else {
-    $deploy = { 'generate_types' => true }
+    $deploy = { 'generate_types' => true, 'exclude_spec' => true, }
     # we hardcode this and update it from time to time.
     # agent runs faster compared to ensure latest
     $version = '3.16.0'
