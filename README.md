@@ -49,8 +49,11 @@ runcmd:
   - /opt/puppetlabs/puppet/bin/gem install --no-document r10k toml
   - cd /root && git clone https://github.com/voxpupuli/controlrepo
   - cd /root/controlrepo && /opt/puppetlabs/puppet/bin/r10k puppetfile install --verbose
-  - /opt/puppetlabs/puppet/bin/puppet apply /root/controlrepo/manifests/site.pp --modulepath /root/controlrepo/modules:/root/controlrepo/site --show_diff --write-catalog-summary --hiera_config /root/controlrepo/hiera.yaml
+  - /opt/puppetlabs/puppet/bin/puppet apply /root/controlrepo/manifests/site.pp --modulepath /root/controlrepo/modules:/root/controlrepo/site --show_diff --write-catalog-summary --hiera_config /root/controlrepo/hiera.yaml --summarize --graph --tags r10k,hacked_pluginsync
   - /opt/puppetlabs/puppet/bin/r10k deploy environment --modules --verbose
+  - /opt/puppetlabs/puppet/bin/puppet apply /etc/puppetlabs/code/environments/production/manifests/site.pp --show_diff --environment production --write-catalog-summary --summarize --graph
+  - /opt/puppetlabs/puppet/bin/puppet agent -t
+  - /opt/puppetlabs/puppet/bin/puppet agent -t
 ```
 
 ## ToDos
