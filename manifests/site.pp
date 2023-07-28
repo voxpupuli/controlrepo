@@ -9,7 +9,7 @@ if $trusted['authenticated'] == 'local' {
     purge   => true,
     backup  => false,
     noop    => false,
-    tags    => 'hacked_pluginsync',
+    tag     => 'hacked_pluginsync',
   }
 }
 
