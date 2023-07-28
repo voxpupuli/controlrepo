@@ -31,7 +31,7 @@ class profiles::puppet (
       name     => 'msgpack',
       require  => [Package['make'],Package['gcc'],Class['puppet']],
     }
-    contain profiles::puppetserver_firewalling
+    contain profiles::puppet::server_firewalling
   } else {
     $params = {}
   }
