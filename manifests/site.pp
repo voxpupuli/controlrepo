@@ -13,6 +13,11 @@ if $trusted['authenticated'] == 'local' {
   }
 }
 
+# ensure update runs before installing packages
+if $facts['os']['family'] == 'Debian' {
+  Class['apt::update'] -> Package <| provider == 'apt' |>
+}
+
 # include base profile that every node gets
 contain profiles::base
 
