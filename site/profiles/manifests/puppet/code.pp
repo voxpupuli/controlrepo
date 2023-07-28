@@ -3,7 +3,9 @@
 #
 # @author Tim Meusel <tim@bastelfreak.de>
 #
-class profiles::puppetcode {
+# @api private
+class profiles::puppet::code {
+  assert_private()
   ssh_keygen { 'root_github':
     type     => 'ed25519',
     filename => '/root/.ssh/id_ed25519_github',

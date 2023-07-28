@@ -9,10 +9,10 @@ class profiles::puppet (
   Boolean $server = ($trusted['pp_role'] == 'puppetserver'),
   Boolean $manage_msgpack = ($facts['os']['name'] != 'gentoo'),
 ) {
-  include profiles::puppetcode
+  include profiles::puppet::code
   if $server {
     require profiles::foreman
-    include profiles::puppetdb
+    include profiles::puppet::db
     $params = {
       server                     => true,
       server_reports             => 'puppetdb,foreman',
