@@ -11,7 +11,12 @@ class profiles::puppetdb {
   #class { 'puppetdb::master::config':
   #}
   #contain puppetdb::master::config
+  class { 'puppetdb::server':
+    manage_firewall => false,
+  }
+  contain puppetdb::server
   class { 'puppet::server::puppetdb':
     server => 'puppetserver.voxpupuli.org',
   }
+  contain puppet::server::puppetdb
 }
