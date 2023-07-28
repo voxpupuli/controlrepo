@@ -19,6 +19,14 @@ class profiles::base (
   package { 'snapd':
     ensure => 'absent',
   }
+  # do an apt update daily, don't log it, run it before packages
+  class { 'apt':
+    update => {
+      frequency => 'daily',
+      loglevel  => 'debug',
+    },
+  }
+  Class['apt::update'] -> Package <| provider == 'apt' |>
   # https://www.sshaudit.com/hardening_guides.html
   class { 'ssh':
     storeconfigs_enabled => false,
