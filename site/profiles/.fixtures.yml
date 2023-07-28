@@ -14,6 +14,7 @@ fixtures:
     inifile: https://github.com/puppetlabs/puppetlabs-inifile
     systemd: https://github.com/voxpupuli/puppet-systemd
     postgresql: https://github.com/puppetlabs/puppetlabs-postgresql
+    puppetdb: https://github.com/puppetlabs/puppetlabs-puppetdb.git
     prometheus: https://github.com/voxpupuli/puppet-prometheus.git
     borg: https://github.com/voxpupuli/puppet-borg.git
     puppet: https://github.com/theforeman/puppet-puppet
