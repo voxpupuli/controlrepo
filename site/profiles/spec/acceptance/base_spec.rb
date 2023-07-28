@@ -45,6 +45,10 @@ describe 'profiles::base' do
     describe package('dfc') do
       it { is_expected.to be_installed }
     end
+
+    describe package('tree') do
+      it { is_expected.to be_installed }
+    end
     # rubocop:enable RSpec/RepeatedExampleGroupBody
   end
 end
