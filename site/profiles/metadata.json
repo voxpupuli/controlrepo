@@ -82,6 +82,10 @@
       "version_requirement": ">= 8.0.0 < 10.0.0"
     },
     {
+      "name": "puppetlabs/puppetdb",
+      "version_requirement": ">= 7.13.0 < 8.0.0"
+    },
+    {
       "name": "puppet/prometheus",
       "version_requirement": ">= 12.3.0 < 13.0.0"
     },
