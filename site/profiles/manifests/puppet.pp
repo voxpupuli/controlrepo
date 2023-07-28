@@ -12,6 +12,7 @@ class profiles::puppet (
   include profiles::puppetcode
   if $server {
     require profiles::foreman
+    include profiles::puppetdb
     $params = {
       server                     => true,
       #server_reports             => 'puppetdb,foreman',
@@ -21,7 +22,7 @@ class profiles::puppet (
       server_common_modules_path => [],
       server_jvm_min_heap_size   => '1G',
       server_jvm_max_heap_size   => '1G',
-      server_jvm_extra_args      => ['-Djruby.logger.class=com.puppetlabs.jruby_utils.jruby.Slf4jLogger', '-XX:+UseParallelGC'],
+      #server_jvm_extra_args      => ['-Djruby.logger.class=com.puppetlabs.jruby_utils.jruby.Slf4jLogger', '-XX:+UseParallelGC'],
       server_multithreaded       => true,
     }
     package { 'msgpack-server':
