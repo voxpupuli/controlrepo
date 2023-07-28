@@ -4,7 +4,7 @@
 # @author Tim Meusel <tim@bastelfreak.de>
 #
 # @api private
-class profiles::puppetserver_firewalling {
+class profiles::puppet::server_firewalling {
   assert_private()
   include profiles::nftables
   nftables::simplerule { 'allow_puppet_4':
