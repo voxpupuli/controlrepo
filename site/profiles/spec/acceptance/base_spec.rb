@@ -30,6 +30,10 @@ describe 'profiles::base' do
       it { is_expected.to be_installed }
     end
 
+    describe package('ccze') do
+      it { is_expected.to be_installed }
+    end
+
     describe package('ca-certificates') do
       it { is_expected.to be_installed }
     end
