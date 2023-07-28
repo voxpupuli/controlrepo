@@ -28,4 +28,12 @@ class profiles::postgresql (
     require             => File['/srv/pg_dumps'],
   }
   contain dbbackup
+  $activity = $facts['os']['family'] ? {
+    'RedHat' => 'pg_activity',
+    'Debian' => 'pg-activity',
+    default  => undef,
+  }
+  package { ['pgbadger', $activity,]:
+    ensure => 'installed',
+  }
 }
