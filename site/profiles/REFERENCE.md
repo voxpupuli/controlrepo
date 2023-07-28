@@ -48,7 +48,7 @@
 * `profiles::github_runners::ruby`: install ruby for GitHub self hosted runners
 * `profiles::puppet::code`: some resources to manage puppete code
 * `profiles::puppet::db`: installs puppetdb *on a puppetserver that also runs foreman*
-* `profiles::puppetserver_firewalling`: manages nft rules on Puppetserver/PuppetDB
+* `profiles::puppet::server_firewalling`: manages nft rules on Puppetserver/PuppetDB
 
 ### Defined types
 
