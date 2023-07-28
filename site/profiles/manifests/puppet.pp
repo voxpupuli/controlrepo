@@ -24,10 +24,6 @@ class profiles::puppet (
       server_jvm_extra_args      => ['-Djruby.logger.class=com.puppetlabs.jruby_utils.jruby.Slf4jLogger', '-XX:+UseParallelGC'],
       server_multithreaded       => true,
     }
-    package { ['pgbadger', 'pg_activity',]:
-      ensure => 'installed',
-      before => Class['puppet'],
-    }
     package { 'msgpack-server':
       ensure   => 'installed',
       provider => 'puppetserver_gem',
