@@ -45,6 +45,7 @@ puppet:
     extension_requests:
       pp_role: puppetserver
 runcmd:
+  - systemctl disable --now puppet
   - /opt/puppetlabs/puppet/bin/gem install --no-document r10k
   - cd /root && git clone https://github.com/voxpupuli/controlrepo
   - cd /root/controlrepo && /opt/puppetlabs/puppet/bin/r10k puppetfile install --verbose
