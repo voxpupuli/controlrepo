@@ -5,8 +5,8 @@ mod 'puppetlabs/stdlib', :latest
 mod 'puppetlabs/vcsrepo', :latest
 #mod 'puppet/r10k', :latest
 mod 'puppet/r10k',
-  git: 'https://github.com/bastelfreak/puppet-r10k',
-  branch: 'template'
+  git: 'https://github.com/voxpupuli/puppet-r10k',
+  branch: 'master'
 mod 'puppet/systemd', :latest
 mod 'puppetlabs/concat', :latest
 mod 'puppet/extlib', :latest
