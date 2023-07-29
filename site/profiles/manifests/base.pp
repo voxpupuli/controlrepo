@@ -60,6 +60,7 @@ class profiles::base (
       loglevel  => 'debug',
     },
   }
+  # ensure update runs before installing packages
   Class['apt::update'] -> Package <| provider == 'apt' |>
 
   # https://www.sshaudit.com/hardening_guides.html
