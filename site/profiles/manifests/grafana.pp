@@ -15,6 +15,7 @@ class profiles::grafana (
   String[1] $postgresql_user = 'grafana',
   String[1] $postgresql_database = $postgresql_user,
 ) {
+  require profiles::base
   $domain = "grafana.${facts['networking']['fqdn']}"
   require profiles::nginx
   require profiles::certbot
