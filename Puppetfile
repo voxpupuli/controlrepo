@@ -31,7 +31,7 @@ mod 'theforeman/foreman_proxy',
 #mod 'puppetlabs/puppetdb', :latest
 mod 'puppetlabs/puppetdb',
   git: 'https://github.com/puppetlabs/puppetlabs-puppetdb',
-  branch: 'relax-dependency-requirements'
+  branch: 'main'
 mod 'saz/ssh', :latest
 mod 'puppet/ssh_keygen', :latest
 mod 'puppet/grafana', :latest
