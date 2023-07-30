@@ -22,7 +22,10 @@ mod 'theforeman/puppetserver_foreman',
   branch: 'stdlib9'
 mod 'theforeman/foreman', :latest
 mod 'theforeman/foreman_proxy', :latest
-mod 'puppetlabs/puppetdb', :latest
+#mod 'puppetlabs/puppetdb', :latest
+mod 'puppetlabs/puppetdb',
+  git: 'https://github.com/puppetlabs/puppetlabs-puppetdb'
+  branch: 'relax-dependency-requirements'
 mod 'saz/ssh', :latest
 mod 'puppet/ssh_keygen', :latest
 mod 'puppet/grafana', :latest
