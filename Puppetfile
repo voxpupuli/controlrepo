@@ -21,7 +21,10 @@ mod 'theforeman/puppetserver_foreman',
   git: 'https://github.com/bastelfreak/puppet-puppetserver_foreman/',
   branch: 'stdlib9'
 mod 'theforeman/foreman', :latest
-mod 'theforeman/foreman_proxy', :latest
+#mod 'theforeman/foreman_proxy', :latest
+mod 'theforeman/foreman_proxy',
+  git: 'https://github.com/bastelfreak/puppet-foreman_proxy/',
+  branch: 'stdlib9'
 #mod 'puppetlabs/puppetdb', :latest
 mod 'puppetlabs/puppetdb',
   git: 'https://github.com/puppetlabs/puppetlabs-puppetdb',
