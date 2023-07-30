@@ -12,7 +12,10 @@ mod 'puppetlabs/concat', :latest
 mod 'puppet/extlib', :latest
 mod 'puppet/ferm', :latest
 mod 'puppet/nginx', :latest
-mod 'theforeman/puppet', :latest
+#mod 'theforeman/puppet', :latest
+mod 'theforeman/puppet',
+  git: 'https://github.com/bastelfreak/puppet-puppet',
+  branch: 'stdlib9'
 #mod 'theforeman/puppetserver_foreman', :latest
 mod 'theforeman/puppetserver_foreman',
   git: 'https://github.com/bastelfreak/puppet-puppetserver_foreman/',
