@@ -20,7 +20,7 @@ class profiles::puppet::db {
   }
   contain puppetdb
   class { 'puppet::server::puppetdb':
-    server => 'puppetserver.voxpupuli.org',
+    server => $facts['networking']['fqdn'],
   }
   contain puppet::server::puppetdb
 }
