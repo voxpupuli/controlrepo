@@ -13,8 +13,13 @@ class profiles::base (
       ensure => 'installed',
     }
   }
-  package { ['make', 'gcc', 'build-essential', 'htop', 'lsb-release', 'ctop', 'ca-certificates', 'apt-file', 'ccze', 'tree']:
+  package { ['make', 'gcc', 'build-essential', 'htop', 'lsb-release', 'ctop', 'ca-certificates', 'apt-file', 'ccze', 'tree', 'uptimed']:
     ensure => 'installed',
+  }
+  service { 'uptimed':
+    ensure  => 'running',
+    enable  => true,
+    require => Package['uptimed'],
   }
   exec { 'refresh apt-file cache':
     refreshonly => true,
