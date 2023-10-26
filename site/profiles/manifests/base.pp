@@ -8,6 +8,11 @@
 class profiles::base (
   Boolean $manage_borg = true,
 ) {
+  if $facts['os']['release']['major'] == '20' {
+    package { 'linux-generic-hwe-20.04':
+      ensure => 'installed',
+    }
+  }
   package { ['make', 'gcc', 'build-essential', 'htop', 'lsb-release', 'ctop', 'ca-certificates', 'apt-file', 'ccze', 'tree']:
     ensure => 'installed',
   }
