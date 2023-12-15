@@ -26,6 +26,7 @@
 ### Defined types
 
 * [`profiles::certbot::nginx`](#profiles--certbot--nginx): configures location blocks for nginx
+* [`profiles::user_environment`](#profiles--user_environment): configures all files in a home
 
 ## Classes
 
@@ -356,4 +357,76 @@ Data type: `Stdlib::Fqdn`
 the domain for the location blocks
 
 Default value: `$title`
+
+### <a name="profiles--user_environment"></a>`profiles::user_environment`
+
+configures all files in a home
+
+#### Parameters
+
+The following parameters are available in the `profiles::user_environment` defined type:
+
+* [`user`](#-profiles--user_environment--user)
+* [`group`](#-profiles--user_environment--group)
+* [`basedir`](#-profiles--user_environment--basedir)
+* [`homedir`](#-profiles--user_environment--homedir)
+* [`manage_dependencies`](#-profiles--user_environment--manage_dependencies)
+* [`gitrepo`](#-profiles--user_environment--gitrepo)
+* [`dependencies`](#-profiles--user_environment--dependencies)
+
+##### <a name="-profiles--user_environment--user"></a>`user`
+
+Data type: `String[1]`
+
+the username
+
+Default value: `$title`
+
+##### <a name="-profiles--user_environment--group"></a>`group`
+
+Data type: `String[1]`
+
+group name used for git operations
+
+Default value: `$user`
+
+##### <a name="-profiles--user_environment--basedir"></a>`basedir`
+
+Data type: `Stdlib::Absolutepath`
+
+where the home should be created
+
+Default value: `$user ? { 'root' => '/', default => '/home'`
+
+##### <a name="-profiles--user_environment--homedir"></a>`homedir`
+
+Data type: `Stdlib::Absolutepath`
+
+absolute path to the actual home
+
+Default value: `"${basedir}/${user}"`
+
+##### <a name="-profiles--user_environment--manage_dependencies"></a>`manage_dependencies`
+
+Data type: `Boolean`
+
+if packages should be installed
+
+Default value: `false`
+
+##### <a name="-profiles--user_environment--gitrepo"></a>`gitrepo`
+
+Data type: `Stdlib::HTTPSUrl`
+
+
+
+Default value: `'https://github.com/bastelfreak/scripts'`
+
+##### <a name="-profiles--user_environment--dependencies"></a>`dependencies`
+
+Data type: `Array[String[1]]`
+
+
+
+Default value: `['git', 'vim']`
 

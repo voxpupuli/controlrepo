@@ -76,6 +76,9 @@ class profiles::puppetmodule (
     home           => '/srv/puppetmodule',
     groups         => 'rvm',
   }
+  profiles::user_environment { 'puppetmodule':
+    basedir => '/srv',
+  }
   # Puppet creates the home for us, but we need to update the mode, so nginx can access it
   file { '/srv/puppetmodule':
     ensure => 'directory',
