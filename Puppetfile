@@ -10,10 +10,7 @@ mod 'puppetlabs/concat', :latest
 mod 'puppet/extlib', :latest
 mod 'puppet/ferm', :latest
 mod 'puppet/nginx', :latest
-#mod 'saz/ssh', :latest
-mod 'saz/ssh',
-  git: 'https://github.com/bastelfreak/puppet-ssh',
-  branch: 'stdlib'
+mod 'saz/ssh', :latest
 mod 'puppet/ssh_keygen', :latest
 mod 'puppet/grafana', :latest
 mod 'puppetlabs/apt', :latest
