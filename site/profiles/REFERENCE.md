@@ -6,22 +6,32 @@
 
 ### Classes
 
+#### Public Classes
+
 * [`profiles::base`](#profiles--base): ssh profile to manage basic stuff that doesn't fit into a dedicated profile
 * [`profiles::borg`](#profiles--borg): configures borg backups
 * [`profiles::certbot`](#profiles--certbot): configures the certbot foo. Doesn't create certificates!
+* [`profiles::foreman`](#profiles--foreman): configure foreman + plugins
 * [`profiles::grafana`](#profiles--grafana): installs grafana to display stats from dropsonde about Vox Pupuli modules
+* [`profiles::nftables`](#profiles--nftables): configure certain nftable rules
 * [`profiles::nginx`](#profiles--nginx): multiple profiles requires nginx vhosts, this profile pulls in the nginx class/package/service setup
 * [`profiles::node_exporter`](#profiles--node_exporter): install node_exporter
 * [`profiles::postfix`](#profiles--postfix): installs postfix
 * [`profiles::postgres_exporter`](#profiles--postgres_exporter): installs a postgres exporter
 * [`profiles::postgresql`](#profiles--postgresql): install latest postgresql with upstream repositories
 * [`profiles::prometheus`](#profiles--prometheus): install Prometheus
-* [`profiles::puppetagent`](#profiles--puppetagent): profile to manage puppet agent + deps
-* [`profiles::puppetcode`](#profiles--puppetcode): some resources to manage puppete code
+* [`profiles::puppet`](#profiles--puppet): configure puppet agent and server
 * [`profiles::puppetmodule`](#profiles--puppetmodule): configures puppetmodule.info
+* [`profiles::redis`](#profiles--redis): configures redis on different platforms
 * [`profiles::ssh`](#profiles--ssh): ssh profile to manage sshd + ssh keys
 * [`profiles::ssh_keys`](#profiles--ssh_keys): configure keys from GitHubs in the authorized_keys file
 * [`profiles::vpt`](#profiles--vpt): this profile will, in the future, instal Vox Pupuli Tasks
+
+#### Private Classes
+
+* `profiles::puppet::code`: some resources to manage puppete code
+* `profiles::puppet::db`: installs puppetdb *on a puppetserver that also runs foreman*
+* `profiles::puppet::server_firewalling`: manages nft rules on Puppetserver/PuppetDB
 
 ### Defined types
 
@@ -141,6 +151,14 @@ Default value: `$facts['networking']['hostname']`
 
 configures the certbot foo. Doesn't create certificates!
 
+### <a name="profiles--foreman"></a>`profiles::foreman`
+
+configure foreman + plugins
+
+* **See also**
+  * `cat
+    * /opt/puppetlabs/puppet/cache/foreman_cache_data/admin_password` provides the admin password
+
 ### <a name="profiles--grafana"></a>`profiles::grafana`
 
 installs grafana to display stats from dropsonde about Vox Pupuli modules
@@ -181,6 +199,51 @@ Data type: `String[1]`
 
 Default value: `$postgresql_user`
 
+### <a name="profiles--nftables"></a>`profiles::nftables`
+
+configure certain nftable rules
+
+#### Parameters
+
+The following parameters are available in the `profiles::nftables` class:
+
+* [`in_ssh`](#-profiles--nftables--in_ssh)
+* [`icmp`](#-profiles--nftables--icmp)
+* [`nat`](#-profiles--nftables--nat)
+* [`out_all`](#-profiles--nftables--out_all)
+
+##### <a name="-profiles--nftables--in_ssh"></a>`in_ssh`
+
+Data type: `Boolean`
+
+allows incoming ssh connections
+
+Default value: `true`
+
+##### <a name="-profiles--nftables--icmp"></a>`icmp`
+
+Data type: `Boolean`
+
+allow all ICMP traffic
+
+Default value: `true`
+
+##### <a name="-profiles--nftables--nat"></a>`nat`
+
+Data type: `Boolean`
+
+decide if the box should be allowed to handle NAT traffic
+
+Default value: `false`
+
+##### <a name="-profiles--nftables--out_all"></a>`out_all`
+
+Data type: `Boolean`
+
+Allow all outbound connections
+
+Default value: `false`
+
 ### <a name="profiles--nginx"></a>`profiles::nginx`
 
 multiple profiles requires nginx vhosts, this profile pulls in the nginx class/package/service setup
@@ -209,7 +272,7 @@ The following parameters are available in the `profiles::postgresql` class:
 
 ##### <a name="-profiles--postgresql--version"></a>`version`
 
-Data type: `Enum['11', '12', '13', '14']`
+Data type: `Enum['11', '12', '13', '14', '15']`
 
 desired postgresql version
 
@@ -219,13 +282,32 @@ Default value: `'13'`
 
 install Prometheus
 
-### <a name="profiles--puppetagent"></a>`profiles::puppetagent`
+### <a name="profiles--puppet"></a>`profiles::puppet`
 
-profile to manage puppet agent + deps
+configure puppet agent and server
 
-### <a name="profiles--puppetcode"></a>`profiles::puppetcode`
+#### Parameters
 
-some resources to manage puppete code
+The following parameters are available in the `profiles::puppet` class:
+
+* [`server`](#-profiles--puppet--server)
+* [`manage_msgpack`](#-profiles--puppet--manage_msgpack)
+
+##### <a name="-profiles--puppet--server"></a>`server`
+
+Data type: `Boolean`
+
+decide if the server should be configured as well
+
+Default value: `($trusted['pp_role'] == 'puppetserver'`
+
+##### <a name="-profiles--puppet--manage_msgpack"></a>`manage_msgpack`
+
+Data type: `Boolean`
+
+configure if we should install msgpack on the agent
+
+Default value: `($facts['os']['name'] != 'gentoo'`
 
 ### <a name="profiles--puppetmodule"></a>`profiles::puppetmodule`
 
@@ -241,8 +323,8 @@ The following parameters are available in the `profiles::puppetmodule` class:
 
 * [`domain`](#-profiles--puppetmodule--domain)
 * [`postgresql_password`](#-profiles--puppetmodule--postgresql_password)
-* [`postgresql_user`](#-profiles--puppetmodule--postgresql_user)
 * [`postgresql_database`](#-profiles--puppetmodule--postgresql_database)
+* [`postgresql_user`](#-profiles--puppetmodule--postgresql_user)
 
 ##### <a name="-profiles--puppetmodule--domain"></a>`domain`
 
@@ -256,25 +338,29 @@ Default value: `'puppetmodule.info'`
 
 Data type: `Variant[String[1],Sensitive]`
 
-
+the database password
 
 Default value: `'oehr384yhg034y5oreihu04y5'`
-
-##### <a name="-profiles--puppetmodule--postgresql_user"></a>`postgresql_user`
-
-Data type: `String[1]`
-
-
-
-Default value: `'puppetmodule'`
 
 ##### <a name="-profiles--puppetmodule--postgresql_database"></a>`postgresql_database`
 
 Data type: `String[1]`
 
-
+the database name
 
 Default value: `$postgresql_user`
+
+##### <a name="-profiles--puppetmodule--postgresql_user"></a>`postgresql_user`
+
+Data type: `String[1]`
+
+the database user
+
+Default value: `'puppetmodule'`
+
+### <a name="profiles--redis"></a>`profiles::redis`
+
+configures redis on different platforms
 
 ### <a name="profiles--ssh"></a>`profiles::ssh`
 

@@ -3,7 +3,9 @@
 #
 # @author Tim Meusel <tim@bastelfreak.de>
 #
-class profiles::puppetcode {
+# @api private
+class profiles::puppet::code {
+  assert_private()
   ssh_keygen { 'root_github':
     type     => 'ed25519',
     filename => '/root/.ssh/id_ed25519_github',
@@ -26,19 +28,19 @@ class profiles::puppetcode {
     },
   }
   if $facts['os']['name'] == 'Archlinux' {
-    $deploy = { 'generate_types' => true, 'puppet_path' => '/usr/bin/puppet' }
+    $deploy = { 'generate_types' => true, 'exclude_spec' => true, 'puppet_path' => '/usr/bin/puppet' }
     $version = 'installed'
   } else {
-    $deploy = { 'generate_types' => true }
+    $deploy = { 'generate_types' => true, 'exclude_spec' => true, }
     # we hardcode this and update it from time to time.
     # agent runs faster compared to ensure latest
-    $version = '3.14.2'
+    $version = '3.16.0'
   }
   class { 'r10k':
     pool_size       => $facts['processors']['count']*2,
     sources         => {
       'puppet' => {
-        'remote'  => 'git@github.com:voxpupuli/controlrepo.git',
+        'remote'  => 'https://github.com/voxpupuli/controlrepo.git',
         'basedir' => '/etc/puppetlabs/code/environments',
       },
     },

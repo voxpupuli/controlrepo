@@ -8,8 +8,18 @@
 class profiles::base (
   Boolean $manage_borg = true,
 ) {
-  package { ['make', 'gcc', 'build-essential', 'htop', 'lsb-release', 'ctop', 'ca-certificates', 'apt-file']:
+  if $facts['os']['release']['major'] == '20' {
+    package { 'linux-generic-hwe-20.04':
+      ensure => 'installed',
+    }
+  }
+  package { ['make', 'gcc', 'build-essential', 'htop', 'lsb-release', 'ctop', 'ca-certificates', 'apt-file', 'ccze', 'tree', 'uptimed']:
     ensure => 'installed',
+  }
+  service { 'uptimed':
+    ensure  => 'running',
+    enable  => true,
+    require => Package['uptimed'],
   }
   exec { 'refresh apt-file cache':
     refreshonly => true,
@@ -19,6 +29,16 @@ class profiles::base (
   package { 'snapd':
     ensure => 'absent',
   }
+  # do an apt update daily, don't log it, run it before packages
+  class { 'apt':
+    update => {
+      frequency => 'daily',
+      loglevel  => 'debug',
+    },
+  }
+  # ensure update runs before installing packages
+  Class['apt::update'] -> Package <| provider == 'apt' |>
+
   # https://www.sshaudit.com/hardening_guides.html
   class { 'ssh':
     storeconfigs_enabled => false,
@@ -139,4 +159,6 @@ class profiles::base (
     ensure         => 'present',
     purge_ssh_keys => true,
   }
+  # configure puppet agent/server
+  contain profiles::puppet
 }

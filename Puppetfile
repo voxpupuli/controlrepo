@@ -3,17 +3,36 @@ forge "https://forge.puppet.com"
 mod 'puppetlabs/inifile', :latest
 mod 'puppetlabs/stdlib', :latest
 mod 'puppetlabs/vcsrepo', :latest
-mod 'puppet/r10k', :latest
+#mod 'puppet/r10k', :latest
+mod 'puppet/r10k',
+  git: 'https://github.com/voxpupuli/puppet-r10k',
+  branch: 'master'
 mod 'puppet/systemd', :latest
-mod 'theforeman/puppet', :latest
 mod 'puppetlabs/concat', :latest
 mod 'puppet/extlib', :latest
 mod 'puppet/ferm', :latest
 mod 'puppet/nginx', :latest
-#mod 'saz/ssh', :latest
-mod 'saz/ssh',
-  git: 'https://github.com/bastelfreak/puppet-ssh',
-  branch: 'stdlib'
+#mod 'theforeman/puppet', :latest
+mod 'theforeman/puppet',
+  git: 'https://github.com/bastelfreak/puppet-puppet',
+  branch: 'stdlib9'
+#mod 'theforeman/puppetserver_foreman', :latest
+mod 'theforeman/puppetserver_foreman',
+  git: 'https://github.com/bastelfreak/puppet-puppetserver_foreman/',
+  branch: 'stdlib9'
+#mod 'theforeman/foreman', :latest
+mod 'theforeman/foreman',
+  git: 'https://github.com/bastelfreak/puppet-foreman',
+  branch: 'stdlib9'
+#mod 'theforeman/foreman_proxy', :latest
+mod 'theforeman/foreman_proxy',
+  git: 'https://github.com/bastelfreak/puppet-foreman_proxy/',
+  branch: 'stdlib9'
+#mod 'puppetlabs/puppetdb', :latest
+mod 'puppetlabs/puppetdb',
+  git: 'https://github.com/puppetlabs/puppetlabs-puppetdb',
+  branch: 'main'
+mod 'saz/ssh', :latest
 mod 'puppet/ssh_keygen', :latest
 mod 'puppet/grafana', :latest
 mod 'puppetlabs/apt', :latest
@@ -27,3 +46,7 @@ mod 'puppet/dbbackup', :latest
 mod 'puppet/prometheus', :latest
 mod 'puppet/archive', :latest
 mod 'puppet/borg', :latest
+mod 'puppet/nftables', :latest
+mod 'puppet/redis', :latest
+mod 'puppetlabs/apache', :latest
+mod 'richardc/datacat', :latest

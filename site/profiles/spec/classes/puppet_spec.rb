@@ -2,7 +2,7 @@
 
 require 'spec_helper'
 
-describe 'profiles::puppetcode' do
+describe 'profiles::puppet' do
   on_supported_os.each do |os, os_facts|
     context "on #{os}" do
       let :facts do

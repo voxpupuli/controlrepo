@@ -6,7 +6,7 @@
 # @author Tim Meusel <tim@bastelfreak.de>
 #
 class profiles::postgresql (
-  Enum['11', '12', '13', '14'] $version = '13',
+  Enum['11', '12', '13', '14', '15'] $version = '13',
 ) {
   class { 'postgresql::globals':
     encoding            => 'UTF-8',
@@ -28,4 +28,12 @@ class profiles::postgresql (
     require             => File['/srv/pg_dumps'],
   }
   contain dbbackup
+  $activity = $facts['os']['family'] ? {
+    'RedHat' => 'pg_activity',
+    'Debian' => 'pg-activity',
+    default  => undef,
+  }
+  package { ['pgbadger', $activity,]:
+    ensure => 'installed',
+  }
 }

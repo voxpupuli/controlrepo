@@ -6,7 +6,5 @@
 class roles::voxpupuli {
   contain profiles::basics
   contain profiles::ssh
-  contain profiles::puppetagent
-  Class['profiles::basics']
-  -> Class['profiles::puppetagent']
+  contain profiles::puppet
 }
