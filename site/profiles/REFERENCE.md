@@ -9,6 +9,7 @@
 * [`profiles::base`](#profiles--base): ssh profile to manage basic stuff that doesn't fit into a dedicated profile
 * [`profiles::borg`](#profiles--borg): configures borg backups
 * [`profiles::certbot`](#profiles--certbot): configures the certbot foo. Doesn't create certificates!
+* [`profiles::github_runners`](#profiles--github_runners): configures a self-hosted github runner
 * [`profiles::grafana`](#profiles--grafana): installs grafana to display stats from dropsonde about Vox Pupuli modules
 * [`profiles::nginx`](#profiles--nginx): multiple profiles requires nginx vhosts, this profile pulls in the nginx class/package/service setup
 * [`profiles::node_exporter`](#profiles--node_exporter): install node_exporter
@@ -140,6 +141,88 @@ Default value: `$facts['networking']['hostname']`
 ### <a name="profiles--certbot"></a>`profiles::certbot`
 
 configures the certbot foo. Doesn't create certificates!
+
+### <a name="profiles--github_runners"></a>`profiles::github_runners`
+
+configures a self-hosted github runner
+
+* **See also**
+  * code
+    * provided by CERN
+
+#### Parameters
+
+The following parameters are available in the `profiles::github_runners` class:
+
+* [`labels`](#-profiles--github_runners--labels)
+* [`user`](#-profiles--github_runners--user)
+* [`group`](#-profiles--github_runners--group)
+* [`version`](#-profiles--github_runners--version)
+* [`instances`](#-profiles--github_runners--instances)
+* [`repo_name`](#-profiles--github_runners--repo_name)
+* [`setup_ruby`](#-profiles--github_runners--setup_ruby)
+* [`setup_docker`](#-profiles--github_runners--setup_docker)
+* [`runner_group`](#-profiles--github_runners--runner_group)
+
+##### <a name="-profiles--github_runners--labels"></a>`labels`
+
+Data type: `Array[String[1]]`
+
+the labels that we will assign
+
+Default value: `['self-hosted',]`
+
+##### <a name="-profiles--github_runners--user"></a>`user`
+
+Data type: `String[1]`
+
+the user that runs the runner
+
+Default value: `'runner'`
+
+##### <a name="-profiles--github_runners--group"></a>`group`
+
+Data type: `String[1]`
+
+the group that runs the runner
+
+Default value: `$user`
+
+##### <a name="-profiles--github_runners--version"></a>`version`
+
+Data type: `String[1]`
+
+version of the runner, matches their upstream github release names
+
+Default value: `'2.319.1'`
+
+##### <a name="-profiles--github_runners--instances"></a>`instances`
+
+Data type: `Array[String[1]]`
+
+amount (and names) for all runners we create within one group
+
+Default value: `['first','second','third','fourth','fifth','sixth','senventh', 'eighth', 'ninth', 'tenth', 'eleventh', 'twelfth', 'thirteenth', 'fourteenth', 'fifteenth', 'sixteenth']`
+
+##### <a name="-profiles--github_runners--repo_name"></a>`repo_name`
+
+Data type: `Optional[String[1]]`
+
+set it to configure an repo-specific and not org specific runner
+
+Default value: `undef`
+
+##### <a name="-profiles--github_runners--setup_ruby"></a>`setup_ruby`
+
+installs ruby for rspec-puppet unit tests
+
+##### <a name="-profiles--github_runners--setup_docker"></a>`setup_docker`
+
+installs docker for beaker jobs
+
+##### <a name="-profiles--github_runners--runner_group"></a>`runner_group`
+
+the group that we will assign to the runners. Needs to exist
 
 ### <a name="profiles--grafana"></a>`profiles::grafana`
 

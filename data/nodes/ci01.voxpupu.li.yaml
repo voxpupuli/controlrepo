@@ -1,0 +1,6 @@
+---
+
+profiles::base::manage_borg: false
+
+classes:
+  - profiles::github_runners
