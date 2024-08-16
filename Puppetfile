@@ -14,11 +14,7 @@ mod 'saz/ssh', :latest
 mod 'puppet/ssh_keygen', :latest
 mod 'puppet/grafana', :latest
 mod 'puppetlabs/apt', :latest
-# https://github.com/puppetlabs/puppetlabs-postgresql/pull/1449
-#mod 'puppetlabs/postgresql', :latest
-mod 'puppetlabs/postgresql',
-  git: 'https://github.com/puppetlabs/puppetlabs-postgresql',
-  branch: 'main'
+mod 'puppetlabs/postgresql', :latest
 mod 'puppet/letsencrypt', :latest
 mod 'puppet/dbbackup', :latest
 mod 'puppet/prometheus', :latest
