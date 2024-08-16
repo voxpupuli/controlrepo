@@ -24,3 +24,6 @@ mod 'puppet/dbbackup', :latest
 mod 'puppet/prometheus', :latest
 mod 'puppet/archive', :latest
 mod 'puppet/borg', :latest
+mod 'puppet/github_actions_runner',
+  git: 'https://github.com/voxpupuli/puppet-github_actions_runner/',
+  branch: 'master'
