@@ -1,25 +1,22 @@
 forge "https://forge.puppet.com"
 
-mod 'puppetlabs/inifile', :latest
-mod 'puppetlabs/stdlib', :latest
-mod 'puppetlabs/vcsrepo', :latest
-mod 'puppet/r10k', :latest
-mod 'puppet/systemd', :latest
-mod 'theforeman/puppet', :latest
-mod 'puppetlabs/concat', :latest
-mod 'puppet/extlib', :latest
-mod 'puppet/ferm', :latest
-mod 'puppet/nginx', :latest
-mod 'saz/ssh', :latest
-mod 'puppet/ssh_keygen', :latest
-mod 'puppet/grafana', :latest
-mod 'puppetlabs/apt', :latest
-mod 'puppetlabs/postgresql', :latest
-mod 'puppet/letsencrypt', :latest
-mod 'puppet/dbbackup', :latest
-mod 'puppet/prometheus', :latest
-mod 'puppet/archive', :latest
-mod 'puppet/borg', :latest
-mod 'puppet/github_actions_runner',
-  git: 'https://github.com/voxpupuli/puppet-github_actions_runner/',
-  branch: 'master'
+mod 'puppetlabs/inifile', '6.1.1'
+mod 'puppetlabs/stdlib', '9.6.0'
+mod 'puppetlabs/vcsrepo', '6.1.0'
+mod 'puppet/r10k', '13.0.0'
+mod 'puppet/systemd', '7.1.0'
+mod 'theforeman/puppet', '20.0.0'
+mod 'puppetlabs/concat', '9.0.2'
+mod 'puppet/extlib', '7.2.0'
+mod 'puppet/nginx', '6.0.0'
+mod 'saz/ssh', '12.1.0'
+mod 'puppet/ssh_keygen', '6.0.0'
+mod 'puppet/grafana', '14.1.0'
+mod 'puppetlabs/apt', '9.4.0'
+mod 'puppetlabs/postgresql', '10.3.0'
+mod 'puppet/letsencrypt', '11.0.0'
+mod 'puppet/dbbackup', '2.1.0'
+mod 'puppet/prometheus', '15.0.0'
+mod 'puppet/archive', '7.1.0'
+mod 'puppet/borg', '4.2.0'
+mod 'saz/sudo', '8.0.0'
