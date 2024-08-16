@@ -8,13 +8,18 @@
 class profiles::base (
   Boolean $manage_borg = true,
 ) {
-  package { ['make', 'gcc', 'build-essential', 'htop', 'lsb-release', 'ca-certificates', 'apt-file', 'dfc']:
+  package { ['make', 'gcc', 'build-essential', 'htop', 'lsb-release', 'ca-certificates', 'apt-file', 'dfc', 'uptimed',]:
     ensure => 'installed',
   }
   exec { 'refresh apt-file cache':
     refreshonly => true,
     command     => '/usr/bin/apt-file update',
     subscribe   => Package['apt-file'],
+  }
+  service { 'uptimed':
+    ensure  => 'running',
+    enable  => true,
+    require => Package['uptimed'],
   }
   package { 'snapd':
     ensure => 'absent',
