@@ -144,4 +144,10 @@ class profiles::base (
     ensure         => 'present',
     purge_ssh_keys => true,
   }
+
+  if $facts['virtual'] == 'physical' {
+    package { 'lm-sensors':
+      ensure => 'installed',
+    }
+  }
 }
