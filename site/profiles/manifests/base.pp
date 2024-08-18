@@ -145,8 +145,16 @@ class profiles::base (
     purge_ssh_keys => true,
   }
 
+  # install sensors if we are on a physical system
   if $facts['virtual'] == 'physical' {
     package { 'lm-sensors':
+      ensure => 'installed',
+    }
+  }
+
+  # install nvme tools if we have an nvme
+  if $facts['disks'].keys.any |$disk| { $disk =~ /nvme/ } {
+    package { 'nvme-cli':
       ensure => 'installed',
     }
   }
