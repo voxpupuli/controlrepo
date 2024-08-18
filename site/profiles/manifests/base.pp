@@ -158,4 +158,13 @@ class profiles::base (
       ensure => 'installed',
     }
   }
+
+  class { 'nftables':
+    in_ssh           => true,
+    in_icmp          => true,
+    out_icmp         => true,
+    in_out_conntrack => true,
+    reject_with      => false,
+    out_all          => true,
+  }
 }
