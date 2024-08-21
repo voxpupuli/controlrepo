@@ -23,10 +23,19 @@ class profiles::github_runners (
   Optional[String[1]] $repo_name = undef,
   Array[String[1]] $instances = ['first','second','third','fourth','fifth','sixth','senventh', 'eighth', 'ninth', 'tenth', 'eleventh', 'twelfth', 'thirteenth', 'fourteenth', 'fifteenth', 'sixteenth'],
 ) {
+  # setup a docker daemon
+  require profiles::docker
+
   package { ['jq', 'libffi-dev', 'libyaml-dev', 'libreadline-dev', 'zlib1g-dev', 'libssl-dev',]:
     ensure => 'installed',
   }
   $home = "/opt/${user}"
+  $groups = if $setup_docker {
+    ['docker']
+  } else {
+    undef
+  }
+
   user { $user:
     ensure         => 'present',
     managehome     => true,
