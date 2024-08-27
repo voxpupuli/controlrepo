@@ -1,11 +1,12 @@
 ---
 
 profiles::base::manage_borg: false
-profiles::github_runners::setup_ruby: true
+
+profiles::github_runners::setup_ruby: false
 profiles::github_runners::setup_docker: true
-profiles::github_runners::instances: ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'senventh', 'eighth', 'ninth', 'tenth', 'eleventh', 'twelfth', 'thirteenth', 'fourteenth', 'fifteenth', 'sixteenth']
-profiles::github_runners::runner_group: 'Macarne-runners'
-profiles::github_runners::labels: ['self-hosted', 'macarne']
+profiles::github_runners::instances: ['first', 'second']
+profiles::github_runners::runner_group: 'Hetzner-ARM'
+profiles::github_runners::labels: ['self-hosted', 'hetzner-arm']
 
 classes:
   - profiles::github_runners

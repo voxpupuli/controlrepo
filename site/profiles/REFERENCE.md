@@ -6,9 +6,12 @@
 
 ### Classes
 
+#### Public Classes
+
 * [`profiles::base`](#profiles--base): ssh profile to manage basic stuff that doesn't fit into a dedicated profile
 * [`profiles::borg`](#profiles--borg): configures borg backups
 * [`profiles::certbot`](#profiles--certbot): configures the certbot foo. Doesn't create certificates!
+* [`profiles::docker`](#profiles--docker): installs docker
 * [`profiles::github_runners`](#profiles--github_runners): configures a self-hosted github runner
 * [`profiles::grafana`](#profiles--grafana): installs grafana to display stats from dropsonde about Vox Pupuli modules
 * [`profiles::nginx`](#profiles--nginx): multiple profiles requires nginx vhosts, this profile pulls in the nginx class/package/service setup
@@ -23,6 +26,10 @@
 * [`profiles::ssh`](#profiles--ssh): ssh profile to manage sshd + ssh keys
 * [`profiles::ssh_keys`](#profiles--ssh_keys): configure keys from GitHubs in the authorized_keys file
 * [`profiles::vpt`](#profiles--vpt): this profile will, in the future, instal Vox Pupuli Tasks
+
+#### Private Classes
+
+* `profiles::github_runners::ruby`: install ruby for GitHub self hosted runners
 
 ### Defined types
 
@@ -142,6 +149,10 @@ Default value: `$facts['networking']['hostname']`
 
 configures the certbot foo. Doesn't create certificates!
 
+### <a name="profiles--docker"></a>`profiles::docker`
+
+installs docker
+
 ### <a name="profiles--github_runners"></a>`profiles::github_runners`
 
 configures a self-hosted github runner
@@ -202,7 +213,7 @@ Data type: `Array[String[1]]`
 
 amount (and names) for all runners we create within one group
 
-Default value: `['first','second','third','fourth','fifth','sixth','senventh', 'eighth', 'ninth', 'tenth', 'eleventh', 'twelfth', 'thirteenth', 'fourteenth', 'fifteenth', 'sixteenth']`
+Default value: `[]`
 
 ##### <a name="-profiles--github_runners--repo_name"></a>`repo_name`
 
@@ -214,15 +225,27 @@ Default value: `undef`
 
 ##### <a name="-profiles--github_runners--setup_ruby"></a>`setup_ruby`
 
+Data type: `Boolean`
+
 installs ruby for rspec-puppet unit tests
+
+Default value: `false`
 
 ##### <a name="-profiles--github_runners--setup_docker"></a>`setup_docker`
 
+Data type: `Boolean`
+
 installs docker for beaker jobs
+
+Default value: `false`
 
 ##### <a name="-profiles--github_runners--runner_group"></a>`runner_group`
 
+Data type: `Optional[String[1]]`
+
 the group that we will assign to the runners. Needs to exist
+
+Default value: `undef`
 
 ### <a name="profiles--grafana"></a>`profiles::grafana`
 

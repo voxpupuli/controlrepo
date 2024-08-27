@@ -21,11 +21,11 @@ class profiles::github_runners (
   String[1] $group = $user,
   String[1] $version = '2.319.1',
   Optional[String[1]] $repo_name = undef,
-  Array[String[1]] $instances = ['first','second','third','fourth','fifth','sixth','senventh', 'eighth', 'ninth', 'tenth', 'eleventh', 'twelfth', 'thirteenth', 'fourteenth', 'fifteenth', 'sixteenth'],
+  Array[String[1]] $instances = [],
+  Boolean $setup_ruby = false,
+  Boolean $setup_docker = false,
+  Optional[String[1]] $runner_group = undef,
 ) {
-  # setup a docker daemon
-  require profiles::docker
-
   package { ['jq', 'libffi-dev', 'libyaml-dev', 'libreadline-dev', 'zlib1g-dev', 'libssl-dev',]:
     ensure => 'installed',
   }
@@ -55,32 +55,13 @@ class profiles::github_runners (
     forcelocal => true,
   }
 
-  # workaround for the too old ruby-build package in Debian bookworm...
-  # afterwards we need to run PREFIX=~/.local/ ./install.sh
-  vcsrepo { "${home}/.rbenv/plugins/ruby-build":
-    ensure   => 'present',
-    provider => 'git',
-    source   => 'https://github.com/rbenv/ruby-build.git',
-    user     => $user,
-    notify   => Exec['install-ruby-build'],
-  }
-  exec { 'install-ruby-build':
-    command     => ["${home}/.rbenv/plugins/ruby-build/install.sh"],
-    refreshonly => true,
-    user        => $user,
-    cwd         => "${home}/.rbenv/plugins/ruby-build",
-    path        => $facts['path'],
-    environment => ["PREFIX=${home}/.local/"],
-    provider    => 'shell',
-  }
-
   $_instances = $instances.map | $inst | {
     {
       $inst => {
-        'labels'     => ['self-hosted', 'macarne',],
-        'repo_name'  => $repo_name,
-        'repo_token' => lookup("runner_${$inst}_${repo_name}", Optional[String[1]], 'first', undef),
-        runner_group => 'Macarne-runners',
+        'labels'       => $labels,
+        'repo_name'    => $repo_name,
+        'repo_token'   => lookup("runner_${$inst}_${repo_name}", Optional[String[1]], 'first', undef),
+        'runner_group' => $runner_group,
       }.delete_undef_values
     }
   }.reduce | $_memo, $_kv | { $_memo + $_kv }
@@ -89,7 +70,6 @@ class profiles::github_runners (
     ensure         => present,
     package_ensure => $version,
     base_dir_name  => "${home}/actions-runner",
-    package_name   => 'actions-runner-linux-x64',
     repository_url => 'https://github.com/actions/runner/releases/download',
     #personal_access_token => Deferred('teigi::get',['pat']),
     org_name       => 'voxpupuli',
@@ -99,26 +79,18 @@ class profiles::github_runners (
   }
   contain github_actions_runner
 
-  ['2.7.8', '3.2.5', '3.3.4'].each |$ruby| {
-    # $ ruby-build 3.2.2 /scratch/actions/try/_work/_tool/Ruby/3.2.2/x64
-    # Once that completes successfully, mark it as complete with:
-    #  $ touch /scratch/actions/try/_work/_tool/Ruby/3.2.2/x64.complete
-
-    $_instances.each |$key, $data| {
-      $_work = "${home}/actions-runner-${version}/${key}/_work"
-      $_dest = "${_work}/_tool/Ruby/${ruby}/x64"
-      exec { "ruby_build_${ruby}_${key}":
-        user     => $user,
-        group    => $group,
-        cwd      => $home,
-        command  => "ruby-build ${ruby} ${_dest} && /usr/bin/touch ${_dest}.complete",
-        creates  => "${_dest}.complete",
-        timeout  => 600, # 10 minutes
-        require  => Exec['install-ruby-build'],
-        path     => "${home}/.local/bin/:${facts['path']}",
-        provider => 'shell',
-      }
+  if $setup_ruby {
+    class { 'profiles::github_runners::ruby':
+      home      => $home,
+      instances => $_instances,
+      user      => $user,
+      version   => $version,
     }
+  }
+
+  if $setup_docker {
+    # setup a docker daemon
+    require profiles::docker
   }
 
   # some github actions want to configure repos

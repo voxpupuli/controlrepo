@@ -1,3 +1,8 @@
+#
+# @summary installs docker
+#
+# @author Tim Meusel <tim@bastelfreak.de>
+#
 class profiles::docker {
   class { 'docker':
     use_upstream_package_source => true,

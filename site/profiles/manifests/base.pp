@@ -8,7 +8,7 @@
 class profiles::base (
   Boolean $manage_borg = true,
 ) {
-  package { ['make', 'gcc', 'build-essential', 'htop', 'lsb-release', 'ca-certificates', 'apt-file', 'dfc', 'uptimed',]:
+  package { ['make', 'gcc', 'build-essential', 'htop', 'lsb-release', 'ca-certificates', 'apt-file', 'dfc', 'uptimed','file',]:
     ensure => 'installed',
   }
   exec { 'refresh apt-file cache':
