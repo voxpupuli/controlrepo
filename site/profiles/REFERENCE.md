@@ -241,8 +241,8 @@ The following parameters are available in the `profiles::puppetmodule` class:
 
 * [`domain`](#-profiles--puppetmodule--domain)
 * [`postgresql_password`](#-profiles--puppetmodule--postgresql_password)
-* [`postgresql_user`](#-profiles--puppetmodule--postgresql_user)
 * [`postgresql_database`](#-profiles--puppetmodule--postgresql_database)
+* [`postgresql_user`](#-profiles--puppetmodule--postgresql_user)
 
 ##### <a name="-profiles--puppetmodule--domain"></a>`domain`
 
@@ -256,25 +256,25 @@ Default value: `'puppetmodule.info'`
 
 Data type: `Variant[String[1],Sensitive]`
 
-
+the database password
 
 Default value: `'oehr384yhg034y5oreihu04y5'`
-
-##### <a name="-profiles--puppetmodule--postgresql_user"></a>`postgresql_user`
-
-Data type: `String[1]`
-
-
-
-Default value: `'puppetmodule'`
 
 ##### <a name="-profiles--puppetmodule--postgresql_database"></a>`postgresql_database`
 
 Data type: `String[1]`
 
-
+the database name
 
 Default value: `$postgresql_user`
+
+##### <a name="-profiles--puppetmodule--postgresql_user"></a>`postgresql_user`
+
+Data type: `String[1]`
+
+the database user
+
+Default value: `'puppetmodule'`
 
 ### <a name="profiles--ssh"></a>`profiles::ssh`
 

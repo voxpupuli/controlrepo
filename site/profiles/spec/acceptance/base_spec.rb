@@ -26,7 +26,7 @@ describe 'profiles::base' do
       it { is_expected.to be_installed }
     end
 
-    describe package('ctop') do
+    describe package('lsb-release') do
       it { is_expected.to be_installed }
     end
 
@@ -35,6 +35,10 @@ describe 'profiles::base' do
     end
 
     describe package('apt-file') do
+      it { is_expected.to be_installed }
+    end
+
+    describe package('dfc') do
       it { is_expected.to be_installed }
     end
     # rubocop:enable RSpec/RepeatedExampleGroupBody

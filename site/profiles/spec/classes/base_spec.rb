@@ -17,7 +17,7 @@ describe 'profiles::base' do
         it { is_expected.to contain_package('htop') }
         it { is_expected.to contain_package('lsb-release') }
         it { is_expected.to contain_package('ca-certificates') }
-        it { is_expected.to contain_package('ctop') }
+        it { is_expected.to contain_package('dfc') }
         it { is_expected.to contain_package('apt-file') }
         it { is_expected.to contain_exec('refresh apt-file cache') }
         it { is_expected.to contain_class('ssh') }
