@@ -11,7 +11,7 @@ class profiles::base (
   package { "linux-generic-hwe-${facts['os']['release']['major']}":
     ensure => 'installed',
   }
-  package { ['make', 'gcc', 'build-essential', 'htop', 'lsb-release', 'ca-certificates', 'apt-file', 'dfc', 'uptimed','file',]:
+  package { ['make', 'gcc', 'build-essential', 'htop', 'lsb-release', 'ca-certificates', 'apt-file', 'dfc', 'uptimed','file', 'ccze', 'tree',]:
     ensure => 'installed',
   }
   exec { 'refresh apt-file cache':
