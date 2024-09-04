@@ -1,0 +1,13 @@
+---
+
+profiles::base::manage_borg: false
+profiles::github_runners::setup_ruby: true
+profiles::github_runners::setup_docker: true
+profiles::github_runners::instances: ['first', 'second', 'third', 'fourth', 'fifth', 'sixth', 'senventh', 'eighth', 'ninth', 'tenth', 'eleventh', 'twelfth', 'thirteenth', 'fourteenth', 'fifteenth', 'sixteenth']
+profiles::github_runners::runner_group: 'Macarne-runners'
+profiles::github_runners::labels: ['self-hosted', 'macarne']
+
+classes:
+  - profiles::github_runners
+
+github_actions_runner::personal_access_token: ENC[PKCS7,MIIBmQYJKoZIhvcNAQcDoIIBijCCAYYCAQAxggEhMIIBHQIBADAFMAACAQEwDQYJKoZIhvcNAQEBBQAEggEAV1E1ok8FbLt6IeeKsmdoazXV/ZI87iSiRpt29FUG1giIgrxPEscowQAzug7Q/wSjTAh36ZEVIpnq+uBxoWPRJ9hyyQDxbUB4K9AcjyZ4Ih7qWzhNCBx/PKStFw2Pa4O1Y1yyILfxmYg9SIpDxaCmuXCxlsT9BiIjOjWBHTtK8hOEClpF8w7SuzHIukhZ4CPvOGM0chVFNk6sjgSkyBNaAZmjprdmkkhj6gZewGgVctsQWhHalnDt5iAEsmZQ8gWd2PxQHhmCPUtO4feC3zaD8C88Aj9FaITnkitp+ZAwEvtMccJGMnrUtzd0yRQoo/V57/WHv3MszNvfeRcU1TLaYzBcBgkqhkiG9w0BBwEwHQYJYIZIAWUDBAEqBBDMNfPlQuSt2+pyCVZBlc2WgDDvB9RwoqrLzdksiVFAD+I2pP+FG+CUi+p7bHxiZZqc8CRrSB+VO+nSCvb8oyaP2nk=]

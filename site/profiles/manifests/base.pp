@@ -8,13 +8,18 @@
 class profiles::base (
   Boolean $manage_borg = true,
 ) {
-  package { ['make', 'gcc', 'build-essential', 'htop', 'lsb-release', 'ca-certificates', 'apt-file', 'dfc']:
+  package { ['make', 'gcc', 'build-essential', 'htop', 'lsb-release', 'ca-certificates', 'apt-file', 'dfc', 'uptimed','file',]:
     ensure => 'installed',
   }
   exec { 'refresh apt-file cache':
     refreshonly => true,
     command     => '/usr/bin/apt-file update',
     subscribe   => Package['apt-file'],
+  }
+  service { 'uptimed':
+    ensure  => 'running',
+    enable  => true,
+    require => Package['uptimed'],
   }
   package { 'snapd':
     ensure => 'absent',
@@ -138,5 +143,28 @@ class profiles::base (
   user { 'root':
     ensure         => 'present',
     purge_ssh_keys => true,
+  }
+
+  # install sensors if we are on a physical system
+  if $facts['virtual'] == 'physical' {
+    package { 'lm-sensors':
+      ensure => 'installed',
+    }
+  }
+
+  # install nvme tools if we have an nvme
+  if $facts['disks'].keys.any |$disk| { $disk =~ /nvme/ } {
+    package { 'nvme-cli':
+      ensure => 'installed',
+    }
+  }
+
+  class { 'nftables':
+    in_ssh           => true,
+    in_icmp          => true,
+    out_icmp         => true,
+    in_out_conntrack => true,
+    reject_with      => false,
+    out_all          => true,
   }
 }
