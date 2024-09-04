@@ -7,7 +7,13 @@ updates:
     interval: daily
     time: "13:00"
   open-pull-requests-limit: 10
-
+# raise PRs for gem updates
+- package-ecosystem: bundler
+  directory: "/site/profile"
+  schedule:
+    interval: daily
+    time: "13:00"
+  open-pull-requests-limit: 10
 # Maintain dependencies for GitHub Actions
 - package-ecosystem: github-actions
   directory: "/"
