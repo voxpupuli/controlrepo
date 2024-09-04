@@ -1,0 +1,9 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "enabledManagers": ["puppet"],
+  "addLabels": ["renovate", "puppet", "dependencies"],
+  "assigneesFromCodeOwners": true,
+  "dependencyDashboard": true,
+  "automerge": true,
+  "automergeType": "pr"
+}
