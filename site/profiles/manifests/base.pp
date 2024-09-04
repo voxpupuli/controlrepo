@@ -8,6 +8,9 @@
 class profiles::base (
   Boolean $manage_borg = true,
 ) {
+  package { "linux-generic-hwe-${facts['os']['release']['major']}":
+    ensure => 'installed',
+  }
   package { ['make', 'gcc', 'build-essential', 'htop', 'lsb-release', 'ca-certificates', 'apt-file', 'dfc', 'uptimed','file',]:
     ensure => 'installed',
   }
