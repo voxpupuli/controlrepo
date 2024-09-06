@@ -126,14 +126,7 @@ class profiles::base (
     }
   }
 
-  class { 'nftables':
-    in_ssh           => true,
-    in_icmp          => true,
-    out_icmp         => true,
-    in_out_conntrack => true,
-    reject_with      => false,
-    out_all          => true,
-  }
+  include profiles::nftables
 
   # colourize the shell
   file { '/etc/profile.d/shell_setup.sh':
