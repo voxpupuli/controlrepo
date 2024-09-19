@@ -14,6 +14,7 @@
 * [`profiles::docker`](#profiles--docker): installs docker
 * [`profiles::github_runners`](#profiles--github_runners): configures a self-hosted github runner
 * [`profiles::grafana`](#profiles--grafana): installs grafana to display stats from dropsonde about Vox Pupuli modules
+* [`profiles::libvirt`](#profiles--libvirt): installs libvirt
 * [`profiles::nginx`](#profiles--nginx): multiple profiles requires nginx vhosts, this profile pulls in the nginx class/package/service setup
 * [`profiles::node_exporter`](#profiles--node_exporter): install node_exporter
 * [`profiles::postfix`](#profiles--postfix): installs postfix
@@ -173,6 +174,7 @@ The following parameters are available in the `profiles::github_runners` class:
 * [`repo_name`](#-profiles--github_runners--repo_name)
 * [`setup_ruby`](#-profiles--github_runners--setup_ruby)
 * [`setup_docker`](#-profiles--github_runners--setup_docker)
+* [`setup_libvirt`](#-profiles--github_runners--setup_libvirt)
 * [`runner_group`](#-profiles--github_runners--runner_group)
 
 ##### <a name="-profiles--github_runners--labels"></a>`labels`
@@ -239,6 +241,14 @@ installs docker for beaker jobs
 
 Default value: `false`
 
+##### <a name="-profiles--github_runners--setup_libvirt"></a>`setup_libvirt`
+
+Data type: `Boolean`
+
+installs libvirt and adds the user to the group
+
+Default value: `false`
+
 ##### <a name="-profiles--github_runners--runner_group"></a>`runner_group`
 
 Data type: `Optional[String[1]]`
@@ -286,6 +296,10 @@ Data type: `String[1]`
 
 
 Default value: `$postgresql_user`
+
+### <a name="profiles--libvirt"></a>`profiles::libvirt`
+
+installs libvirt
 
 ### <a name="profiles--nginx"></a>`profiles::nginx`
 

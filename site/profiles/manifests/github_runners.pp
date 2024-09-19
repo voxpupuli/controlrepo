@@ -9,6 +9,7 @@
 # @param repo_name set it to configure an repo-specific and not org specific runner
 # @param setup_ruby installs ruby for rspec-puppet unit tests
 # @param setup_docker installs docker for beaker jobs
+# @param setup_libvirt installs libvirt and adds the user to the group
 # @param runner_group the group that we will assign to the runners. Needs to exist
 #
 # @see code provided by CERN
@@ -24,16 +25,22 @@ class profiles::github_runners (
   Array[String[1]] $instances = [],
   Boolean $setup_ruby = false,
   Boolean $setup_docker = false,
+  Boolean $setup_libvirt = false,
   Optional[String[1]] $runner_group = undef,
 ) {
   package { ['jq', 'libffi-dev', 'libyaml-dev', 'libreadline-dev', 'zlib1g-dev', 'libssl-dev',]:
     ensure => 'installed',
   }
   $home = "/opt/${user}"
-  $groups = if $setup_docker {
+  $groups_d = if $setup_docker {
     ['docker']
   } else {
-    undef
+    []
+  }
+  $groups_l = if $setup_libvirt {
+    ['libvirt']
+  } else {
+    []
   }
 
   user { $user:
@@ -44,7 +51,7 @@ class profiles::github_runners (
     home           => $home,
     forcelocal     => true,
     shell          => '/usr/sbin/nologin',
-    groups         => $groups,
+    groups         => $groups_d + $groups_l,
     # Notify the class to reload the runner
     # require when the docker integration is added later on
     notify         => Class['github_actions_runner'],
@@ -91,6 +98,10 @@ class profiles::github_runners (
   if $setup_docker {
     # setup a docker daemon
     require profiles::docker
+  }
+
+  if $setup_libvirt {
+    require profiles::libvirt
   }
 
   # some github actions want to configure repos

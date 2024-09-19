@@ -105,6 +105,10 @@
     {
       "name": "puppetlabs/docker",
       "version_requirement": ">= 10.0.1 < 11.0.0"
+    },
+    {
+      "name": "cirrax/libvirt",
+      "version_requirement": ">= 5.0.4 < 6.0.0"
     }
   ]
 }
