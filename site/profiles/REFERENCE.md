@@ -213,7 +213,7 @@ Data type: `String[1]`
 
 version of the runner, matches their upstream github release names
 
-Default value: `'2.319.1'`
+Default value: `'2.321.0'`
 
 ##### <a name="-profiles--github_runners--instances"></a>`instances`
 

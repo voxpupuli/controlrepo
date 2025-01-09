@@ -20,7 +20,7 @@ class profiles::github_runners (
   Array[String[1]] $labels = ['self-hosted',],
   String[1] $user = 'runner',
   String[1] $group = $user,
-  String[1] $version = '2.319.1',
+  String[1] $version = '2.321.0',
   Optional[String[1]] $repo_name = undef,
   Array[String[1]] $instances = [],
   Boolean $setup_ruby = false,
