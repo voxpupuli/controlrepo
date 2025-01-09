@@ -25,7 +25,7 @@
 * [`profiles::puppetcode`](#profiles--puppetcode): some resources to manage puppete code
 * [`profiles::puppetmodule`](#profiles--puppetmodule): configures puppetmodule.info
 * [`profiles::ssh`](#profiles--ssh): ssh profile to manage sshd + ssh keys
-* [`profiles::ssh_keys`](#profiles--ssh_keys): configure keys from GitHubs in the authorized_keys file
+* [`profiles::ssh_keys::pmc`](#profiles--ssh_keys--pmc): configure keys from GitHubs in the authorized_keys file
 * [`profiles::vpt`](#profiles--vpt): this profile will, in the future, instal Vox Pupuli Tasks
 
 #### Private Classes
@@ -35,6 +35,10 @@
 ### Defined types
 
 * [`profiles::certbot::nginx`](#profiles--certbot--nginx): configures location blocks for nginx
+
+### Functions
+
+* [`profiles::update_ssh_authorized_keys`](#profiles--update_ssh_authorized_keys): generate ssh_authorized_key root entries for a list of github users
 
 ## Classes
 
@@ -400,17 +404,17 @@ Default value: `'puppetmodule'`
 
 ssh profile to manage sshd + ssh keys
 
-### <a name="profiles--ssh_keys"></a>`profiles::ssh_keys`
+### <a name="profiles--ssh_keys--pmc"></a>`profiles::ssh_keys::pmc`
 
 configure keys from GitHubs in the authorized_keys file
 
 #### Parameters
 
-The following parameters are available in the `profiles::ssh_keys` class:
+The following parameters are available in the `profiles::ssh_keys::pmc` class:
 
-* [`github_users`](#-profiles--ssh_keys--github_users)
+* [`github_users`](#-profiles--ssh_keys--pmc--github_users)
 
-##### <a name="-profiles--ssh_keys--github_users"></a>`github_users`
+##### <a name="-profiles--ssh_keys--pmc--github_users"></a>`github_users`
 
 Data type: `Array[String[1]]`
 
@@ -476,4 +480,24 @@ Data type: `Stdlib::Fqdn`
 the domain for the location blocks
 
 Default value: `$title`
+
+## Functions
+
+### <a name="profiles--update_ssh_authorized_keys"></a>`profiles::update_ssh_authorized_keys`
+
+Type: Puppet Language
+
+generate ssh_authorized_key root entries for a list of github users
+
+#### `profiles::update_ssh_authorized_keys(Array[String[1]] $github_users)`
+
+The profiles::update_ssh_authorized_keys function.
+
+Returns: `Any`
+
+##### `github_users`
+
+Data type: `Array[String[1]]`
+
+the list of users
 
