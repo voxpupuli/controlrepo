@@ -11,6 +11,7 @@
 # @param setup_docker installs docker for beaker jobs
 # @param setup_libvirt installs libvirt and adds the user to the group
 # @param runner_group the group that we will assign to the runners. Needs to exist
+# @param org_name name of the github org
 #
 # @see code provided by CERN
 #

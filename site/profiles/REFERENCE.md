@@ -267,7 +267,7 @@ Default value: `undef`
 
 Data type: `Enum['voxpupuli', 'openvoxproject']`
 
-
+name of the github org
 
 Default value: `'voxpupuli'`
 
