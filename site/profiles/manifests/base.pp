@@ -39,6 +39,7 @@ class profiles::base (
       'AllowAgentForwarding'   => 'no',
       'Protocol'               => 2,
       'Port'                   => 22,
+      'MaxStartups'            => '100:10:300',
     },
     client_options       => {
       'Host *' => {
