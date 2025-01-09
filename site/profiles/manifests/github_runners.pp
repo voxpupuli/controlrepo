@@ -27,6 +27,7 @@ class profiles::github_runners (
   Boolean $setup_docker = false,
   Boolean $setup_libvirt = false,
   Optional[String[1]] $runner_group = undef,
+  Enum['voxpupuli', 'openvoxproject'] $org_name = 'voxpupuli',
 ) {
   package { ['jq', 'libffi-dev', 'libyaml-dev', 'libreadline-dev', 'zlib1g-dev', 'libssl-dev',]:
     ensure => 'installed',
@@ -79,7 +80,7 @@ class profiles::github_runners (
     base_dir_name  => "${home}/actions-runner",
     repository_url => 'https://github.com/actions/runner/releases/download',
     #personal_access_token => Deferred('teigi::get',['pat']),
-    org_name       => 'voxpupuli',
+    org_name       => $org_name,
     user           => $user,
     group          => $group,
     instances      => $_instances,

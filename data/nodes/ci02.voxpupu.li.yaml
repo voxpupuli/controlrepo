@@ -7,7 +7,7 @@ profiles::github_runners::setup_docker: true
 profiles::github_runners::instances: ['first', 'second']
 profiles::github_runners::runner_group: 'Hetzner-ARM'
 profiles::github_runners::labels: ['self-hosted', 'hetzner-arm']
-
+profiles::github_runners::org_name: 'openvoxproject'
 classes:
   - profiles::github_runners
   - profiles::ssh_keys::nmburgan

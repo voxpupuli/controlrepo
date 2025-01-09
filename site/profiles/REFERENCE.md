@@ -181,6 +181,7 @@ The following parameters are available in the `profiles::github_runners` class:
 * [`setup_docker`](#-profiles--github_runners--setup_docker)
 * [`setup_libvirt`](#-profiles--github_runners--setup_libvirt)
 * [`runner_group`](#-profiles--github_runners--runner_group)
+* [`org_name`](#-profiles--github_runners--org_name)
 
 ##### <a name="-profiles--github_runners--labels"></a>`labels`
 
@@ -261,6 +262,14 @@ Data type: `Optional[String[1]]`
 the group that we will assign to the runners. Needs to exist
 
 Default value: `undef`
+
+##### <a name="-profiles--github_runners--org_name"></a>`org_name`
+
+Data type: `Enum['voxpupuli', 'openvoxproject']`
+
+
+
+Default value: `'voxpupuli'`
 
 ### <a name="profiles--grafana"></a>`profiles::grafana`
 
