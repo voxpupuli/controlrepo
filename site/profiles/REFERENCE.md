@@ -25,6 +25,7 @@
 * [`profiles::puppetcode`](#profiles--puppetcode): some resources to manage puppete code
 * [`profiles::puppetmodule`](#profiles--puppetmodule): configures puppetmodule.info
 * [`profiles::ssh`](#profiles--ssh): ssh profile to manage sshd + ssh keys
+* [`profiles::ssh_keys::nmburgan`](#profiles--ssh_keys--nmburgan): configure key from nmburgan from GitHubs in the authorized_keys file
 * [`profiles::ssh_keys::pmc`](#profiles--ssh_keys--pmc): configure keys from GitHubs in the authorized_keys file
 * [`profiles::vpt`](#profiles--vpt): this profile will, in the future, instal Vox Pupuli Tasks
 
@@ -403,6 +404,24 @@ Default value: `'puppetmodule'`
 ### <a name="profiles--ssh"></a>`profiles::ssh`
 
 ssh profile to manage sshd + ssh keys
+
+### <a name="profiles--ssh_keys--nmburgan"></a>`profiles::ssh_keys::nmburgan`
+
+configure key from nmburgan from GitHubs in the authorized_keys file
+
+#### Parameters
+
+The following parameters are available in the `profiles::ssh_keys::nmburgan` class:
+
+* [`github_users`](#-profiles--ssh_keys--nmburgan--github_users)
+
+##### <a name="-profiles--ssh_keys--nmburgan--github_users"></a>`github_users`
+
+Data type: `Array[String[1]]`
+
+list of github users, we will download their ssh keys
+
+Default value: `['nmburgan']`
 
 ### <a name="profiles--ssh_keys--pmc"></a>`profiles::ssh_keys::pmc`
 
