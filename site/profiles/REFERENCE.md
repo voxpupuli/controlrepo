@@ -25,7 +25,8 @@
 * [`profiles::puppetcode`](#profiles--puppetcode): some resources to manage puppete code
 * [`profiles::puppetmodule`](#profiles--puppetmodule): configures puppetmodule.info
 * [`profiles::ssh`](#profiles--ssh): ssh profile to manage sshd + ssh keys
-* [`profiles::ssh_keys`](#profiles--ssh_keys): configure keys from GitHubs in the authorized_keys file
+* [`profiles::ssh_keys::nmburgan`](#profiles--ssh_keys--nmburgan): configure key from nmburgan from GitHubs in the authorized_keys file
+* [`profiles::ssh_keys::pmc`](#profiles--ssh_keys--pmc): configure keys from GitHubs in the authorized_keys file
 * [`profiles::vpt`](#profiles--vpt): this profile will, in the future, instal Vox Pupuli Tasks
 
 #### Private Classes
@@ -35,6 +36,10 @@
 ### Defined types
 
 * [`profiles::certbot::nginx`](#profiles--certbot--nginx): configures location blocks for nginx
+
+### Functions
+
+* [`profiles::update_ssh_authorized_keys`](#profiles--update_ssh_authorized_keys): generate ssh_authorized_key root entries for a list of github users
 
 ## Classes
 
@@ -176,6 +181,7 @@ The following parameters are available in the `profiles::github_runners` class:
 * [`setup_docker`](#-profiles--github_runners--setup_docker)
 * [`setup_libvirt`](#-profiles--github_runners--setup_libvirt)
 * [`runner_group`](#-profiles--github_runners--runner_group)
+* [`org_name`](#-profiles--github_runners--org_name)
 
 ##### <a name="-profiles--github_runners--labels"></a>`labels`
 
@@ -207,7 +213,7 @@ Data type: `String[1]`
 
 version of the runner, matches their upstream github release names
 
-Default value: `'2.319.1'`
+Default value: `'2.321.0'`
 
 ##### <a name="-profiles--github_runners--instances"></a>`instances`
 
@@ -256,6 +262,14 @@ Data type: `Optional[String[1]]`
 the group that we will assign to the runners. Needs to exist
 
 Default value: `undef`
+
+##### <a name="-profiles--github_runners--org_name"></a>`org_name`
+
+Data type: `Enum['voxpupuli', 'openvoxproject']`
+
+name of the github org
+
+Default value: `'voxpupuli'`
 
 ### <a name="profiles--grafana"></a>`profiles::grafana`
 
@@ -400,17 +414,35 @@ Default value: `'puppetmodule'`
 
 ssh profile to manage sshd + ssh keys
 
-### <a name="profiles--ssh_keys"></a>`profiles::ssh_keys`
+### <a name="profiles--ssh_keys--nmburgan"></a>`profiles::ssh_keys::nmburgan`
+
+configure key from nmburgan from GitHubs in the authorized_keys file
+
+#### Parameters
+
+The following parameters are available in the `profiles::ssh_keys::nmburgan` class:
+
+* [`github_users`](#-profiles--ssh_keys--nmburgan--github_users)
+
+##### <a name="-profiles--ssh_keys--nmburgan--github_users"></a>`github_users`
+
+Data type: `Array[String[1]]`
+
+list of github users, we will download their ssh keys
+
+Default value: `['nmburgan']`
+
+### <a name="profiles--ssh_keys--pmc"></a>`profiles::ssh_keys::pmc`
 
 configure keys from GitHubs in the authorized_keys file
 
 #### Parameters
 
-The following parameters are available in the `profiles::ssh_keys` class:
+The following parameters are available in the `profiles::ssh_keys::pmc` class:
 
-* [`github_users`](#-profiles--ssh_keys--github_users)
+* [`github_users`](#-profiles--ssh_keys--pmc--github_users)
 
-##### <a name="-profiles--ssh_keys--github_users"></a>`github_users`
+##### <a name="-profiles--ssh_keys--pmc--github_users"></a>`github_users`
 
 Data type: `Array[String[1]]`
 
@@ -476,4 +508,24 @@ Data type: `Stdlib::Fqdn`
 the domain for the location blocks
 
 Default value: `$title`
+
+## Functions
+
+### <a name="profiles--update_ssh_authorized_keys"></a>`profiles::update_ssh_authorized_keys`
+
+Type: Puppet Language
+
+generate ssh_authorized_key root entries for a list of github users
+
+#### `profiles::update_ssh_authorized_keys(Array[String[1]] $github_users)`
+
+The profiles::update_ssh_authorized_keys function.
+
+Returns: `Any`
+
+##### `github_users`
+
+Data type: `Array[String[1]]`
+
+the list of users
 

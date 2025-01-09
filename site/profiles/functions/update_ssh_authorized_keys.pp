@@ -1,13 +1,11 @@
 #
-# @summary configure keys from GitHubs in the authorized_keys file
+# @summary generate ssh_authorized_key root entries for a list of github users
 #
-# @param github_users list of github users, we will download their ssh keys
+# @param github_users the list of users
 #
 # @author Tim Meusel <tim@bastelfreak.de>
 #
-class profiles::ssh_keys (
-  Array[String[1]] $github_users = ['bastelfreak', 'smortex', 'rwaffen', 'ekohl', 'sebastianrakel',],
-) {
+function profiles::update_ssh_authorized_keys(Array[String[1]] $github_users) {
   $github_users.each |$user| {
     $keys = extlib::read_url("https://github.com/${user}.keys")
     $keys.split("\n").each |$index, $key| {

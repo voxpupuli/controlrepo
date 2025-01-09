@@ -11,6 +11,7 @@
 # @param setup_docker installs docker for beaker jobs
 # @param setup_libvirt installs libvirt and adds the user to the group
 # @param runner_group the group that we will assign to the runners. Needs to exist
+# @param org_name name of the github org
 #
 # @see code provided by CERN
 #
@@ -20,13 +21,14 @@ class profiles::github_runners (
   Array[String[1]] $labels = ['self-hosted',],
   String[1] $user = 'runner',
   String[1] $group = $user,
-  String[1] $version = '2.319.1',
+  String[1] $version = '2.321.0',
   Optional[String[1]] $repo_name = undef,
   Array[String[1]] $instances = [],
   Boolean $setup_ruby = false,
   Boolean $setup_docker = false,
   Boolean $setup_libvirt = false,
   Optional[String[1]] $runner_group = undef,
+  Enum['voxpupuli', 'openvoxproject'] $org_name = 'voxpupuli',
 ) {
   package { ['jq', 'libffi-dev', 'libyaml-dev', 'libreadline-dev', 'zlib1g-dev', 'libssl-dev',]:
     ensure => 'installed',
@@ -79,7 +81,7 @@ class profiles::github_runners (
     base_dir_name  => "${home}/actions-runner",
     repository_url => 'https://github.com/actions/runner/releases/download',
     #personal_access_token => Deferred('teigi::get',['pat']),
-    org_name       => 'voxpupuli',
+    org_name       => $org_name,
     user           => $user,
     group          => $group,
     instances      => $_instances,
