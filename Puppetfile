@@ -3,7 +3,7 @@ forge "https://forge.puppet.com"
 mod 'puppetlabs/inifile', '6.2.0'
 mod 'puppetlabs/stdlib', '9.6.0'
 mod 'puppetlabs/vcsrepo', '6.1.0'
-mod 'puppet/r10k', '13.0.0'
+mod 'puppet/r10k', '14.0.0'
 mod 'puppet/systemd', '8.0.0'
 mod 'theforeman/puppet', '20.0.0'
 mod 'puppetlabs/concat', '9.1.0'
