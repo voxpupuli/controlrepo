@@ -20,6 +20,7 @@ source /etc/profile.d/puppet-agent.sh
 puppet module install puppet-r10k
 puppet apply -e 'include r10k'
 sed -i 's#remote:.*#remote: https://github.com/voxpupuli/controlrepo.git#' /etc/puppetlabs/r10k/r10k.yaml
-r10k deploy environment production --puppetfile --verbose
+puppet resource package toml ensure=installed provider=puppet_gem
+r10k deploy environment --modules --verbose --exclude-spec
 puppet apply /etc/puppetlabs/code/environments/production/manifests/site.pp --show_diff
 ```
