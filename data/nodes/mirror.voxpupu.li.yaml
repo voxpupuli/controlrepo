@@ -1,0 +1,5 @@
+---
+profiles::base::manage_borg: false
+
+classes:
+  - profiles::ssh_keys::genebean
