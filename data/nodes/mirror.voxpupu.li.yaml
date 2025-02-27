@@ -3,3 +3,5 @@ profiles::base::manage_borg: false
 
 classes:
   - profiles::ssh_keys::genebean
+  - nftables::rules::http
+  - nftables::rules::https
