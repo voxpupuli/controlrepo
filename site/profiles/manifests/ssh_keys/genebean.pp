@@ -5,7 +5,7 @@
 #
 # @author Tim Meusel <tim@bastelfreak.de>
 #
-class profiles::ssh_keys::nmburgan (
+class profiles::ssh_keys::genebean (
   Array[String[1]] $github_users = ['genebean'],
 ) {
   profiles::update_ssh_authorized_keys($github_users)
