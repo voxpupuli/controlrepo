@@ -1,6 +1,3 @@
-# include base profile that every node gets
-contain profiles::base
-
 ## pluginsync
 file { $::settings::libdir: # lint:ignore:top_scope_facts
   ensure  => directory,
@@ -11,7 +8,12 @@ file { $::settings::libdir: # lint:ignore:top_scope_facts
   noop    => false,
 }
 
-# include node specific profiles
-lookup('classes', Array[String[1]], 'unique', []).each |$c| {
-  contain $c
+# make sure EVERY node gets baseline settings, even if it doesn't yet have a role
+contain profiles::base
+
+# Look in Hiera for the role to be included. This method will only permit a
+# single role to be assigned to a node.
+$_node_role = lookup('role', String, 'first', '')
+unless empty($_node_role) {
+  include($_node_role)
 }

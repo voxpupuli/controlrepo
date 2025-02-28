@@ -1,12 +1,11 @@
+# @summary Configure keys from GitHub of PMC members in the authorized_keys file
 #
-# @summary configure keys from GitHubs in the authorized_keys file
+# Configure keys from GitHub of PMC members in the authorized_keys file.
+# The PMC's member list is maintained in global.yaml and looked up directly.
 #
-# @param github_users list of github users, we will download their ssh keys
-#
-# @author Tim Meusel <tim@bastelfreak.de>
-#
-class profiles::ssh_keys::pmc (
-  Array[String[1]] $github_users = ['bastelfreak', 'smortex', 'rwaffen', 'ekohl', 'sebastianrakel',],
-) {
-  profiles::update_ssh_authorized_keys($github_users)
+class profiles::ssh_keys::pmc {
+  $_pmc_members = lookup('pmc_members')
+  $_pmc_members.each |$member| {
+    include "profiles::ssh_keys::people::${member}"
+  }
 }
