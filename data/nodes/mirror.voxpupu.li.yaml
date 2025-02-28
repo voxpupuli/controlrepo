@@ -5,3 +5,4 @@ classes:
   - profiles::ssh_keys::genebean
   - nftables::rules::http
   - nftables::rules::https
+  - nftables::rules::rsync
