@@ -2,7 +2,7 @@ forge "https://forge.puppet.com"
 
 mod 'puppetlabs/inifile', '6.2.0'
 mod 'puppetlabs/stdlib', '9.7.0'
-mod 'puppetlabs/vcsrepo', '6.1.0'
+mod 'puppetlabs/vcsrepo', '7.0.0'
 mod 'puppet/r10k', '14.1.0'
 mod 'puppet/systemd', '8.1.0'
 mod 'theforeman/puppet', '20.1.0'
