@@ -1,12 +1,13 @@
+# @summary This role encompasses the various applications that makeup the host at voxpupu.li
 #
-# @summary ssh role that contains all of our profiles
-#
-# @author Tim Meusel <tim@bastelfreak.de>
+# This role encompasses the various applications that makeup the host at voxpupu.li
 #
 class roles::voxpupuli {
-  contain profiles::basics
-  contain profiles::ssh
-  contain profiles::puppetagent
-  Class['profiles::basics']
-  -> Class['profiles::puppetagent']
+  include profiles::grafana
+  include profiles::node_exporter
+  include profiles::postgres_exporter
+  include profiles::prometheus
+  include profiles::puppetcode
+  include profiles::puppetmodule
+  include profiles::vpt
 }

@@ -1,8 +1,7 @@
 ---
+role: roles::repo_frontend
+
 profiles::base::manage_borg: false
 
-classes:
-  - profiles::ssh_keys::genebean
-  - nftables::rules::http
-  - nftables::rules::https
-  - nftables::rules::rsync
+profiles::ssh_keys::additional_keys::user_list:
+  - genebean

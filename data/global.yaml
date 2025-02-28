@@ -1,4 +1,16 @@
 ---
+lookup_options:
+  profiles::ssh_keys::additional_keys::user_list:
+    merge: deep
+
+# current PMC members
+pmc_members:
+  - 'bastelfreak'
+  - 'ekohl'
+  - 'rwaffen'
+  - 'sebastianrakel'
+  - 'smortex'
+
 # config for theforeman/puppet
 puppet::puppetmaster: 'voxpupu.li'
 puppet::show_diff: true

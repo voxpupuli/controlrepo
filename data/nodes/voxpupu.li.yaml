@@ -1,12 +1,5 @@
 ---
-classes:
-  - profiles::puppetcode
-  - profiles::grafana
-  - profiles::vpt
-  - profiles::prometheus
-  - profiles::postgres_exporter
-  - profiles::node_exporter
-  - profiles::puppetmodule
+role: roles::voxpupuli
 
 prometheus::scrape_configs:
   - job_name: 'postgres_exporter'

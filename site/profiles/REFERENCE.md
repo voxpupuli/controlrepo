@@ -25,9 +25,15 @@
 * [`profiles::puppetcode`](#profiles--puppetcode): some resources to manage puppete code
 * [`profiles::puppetmodule`](#profiles--puppetmodule): configures puppetmodule.info
 * [`profiles::ssh`](#profiles--ssh): ssh profile to manage sshd + ssh keys
-* [`profiles::ssh_keys::genebean`](#profiles--ssh_keys--genebean): configure key from genebean from GitHubs in the authorized_keys file
-* [`profiles::ssh_keys::nmburgan`](#profiles--ssh_keys--nmburgan): configure key from nmburgan from GitHubs in the authorized_keys file
-* [`profiles::ssh_keys::pmc`](#profiles--ssh_keys--pmc): configure keys from GitHubs in the authorized_keys file
+* [`profiles::ssh_keys::additional_keys`](#profiles--ssh_keys--additional_keys): Allow additional admins' keys to be pulled in via Hiera
+* [`profiles::ssh_keys::people::bastelfreak`](#profiles--ssh_keys--people--bastelfreak): Configure key from bastelfreak from GitHubs in the authorized_keys file along with supplemental keys
+* [`profiles::ssh_keys::people::ekohl`](#profiles--ssh_keys--people--ekohl): Configure key from ekohl from GitHubs in the authorized_keys file along with supplemental keys
+* [`profiles::ssh_keys::people::genebean`](#profiles--ssh_keys--people--genebean): configure key from genebean from GitHubs in the authorized_keys file
+* [`profiles::ssh_keys::people::nmburgan`](#profiles--ssh_keys--people--nmburgan): configure key from nmburgan from GitHubs in the authorized_keys file
+* [`profiles::ssh_keys::people::rwaffen`](#profiles--ssh_keys--people--rwaffen): configure key from rwaffen from GitHubs in the authorized_keys file
+* [`profiles::ssh_keys::people::sebastianrakel`](#profiles--ssh_keys--people--sebastianrakel): Configure key from sebastianrakel from GitHubs in the authorized_keys file along with supplemental keys
+* [`profiles::ssh_keys::people::smortex`](#profiles--ssh_keys--people--smortex): Configure key from smortex from GitHubs in the authorized_keys file along with supplemental keys
+* [`profiles::ssh_keys::pmc`](#profiles--ssh_keys--pmc): Configure keys from GitHub of PMC members in the authorized_keys file
 * [`profiles::vpt`](#profiles--vpt): this profile will, in the future, instal Vox Pupuli Tasks
 
 #### Private Classes
@@ -415,59 +421,57 @@ Default value: `'puppetmodule'`
 
 ssh profile to manage sshd + ssh keys
 
-### <a name="profiles--ssh_keys--genebean"></a>`profiles::ssh_keys::genebean`
+### <a name="profiles--ssh_keys--additional_keys"></a>`profiles::ssh_keys::additional_keys`
+
+Allow additional admins' keys to be pulled in via Hiera
+
+#### Parameters
+
+The following parameters are available in the `profiles::ssh_keys::additional_keys` class:
+
+* [`user_list`](#-profiles--ssh_keys--additional_keys--user_list)
+
+##### <a name="-profiles--ssh_keys--additional_keys--user_list"></a>`user_list`
+
+Data type: `Array[String[1]]`
+
+The list of users whose ssh keys should be pulled in. Each listed user will
+need to be represented by a manifest under `site/profiles/manifests/ssh_keys/people`.
+
+Default value: `[]`
+
+### <a name="profiles--ssh_keys--people--bastelfreak"></a>`profiles::ssh_keys::people::bastelfreak`
+
+Configure key from bastelfreak from GitHubs in the authorized_keys file along with supplemental keys
+
+### <a name="profiles--ssh_keys--people--ekohl"></a>`profiles::ssh_keys::people::ekohl`
+
+Configure key from ekohl from GitHubs in the authorized_keys file along with supplemental keys
+
+### <a name="profiles--ssh_keys--people--genebean"></a>`profiles::ssh_keys::people::genebean`
 
 configure key from genebean from GitHubs in the authorized_keys file
 
-#### Parameters
-
-The following parameters are available in the `profiles::ssh_keys::genebean` class:
-
-* [`github_users`](#-profiles--ssh_keys--genebean--github_users)
-
-##### <a name="-profiles--ssh_keys--genebean--github_users"></a>`github_users`
-
-Data type: `Array[String[1]]`
-
-list of github users, we will download their ssh keys
-
-Default value: `['genebean']`
-
-### <a name="profiles--ssh_keys--nmburgan"></a>`profiles::ssh_keys::nmburgan`
+### <a name="profiles--ssh_keys--people--nmburgan"></a>`profiles::ssh_keys::people::nmburgan`
 
 configure key from nmburgan from GitHubs in the authorized_keys file
 
-#### Parameters
+### <a name="profiles--ssh_keys--people--rwaffen"></a>`profiles::ssh_keys::people::rwaffen`
 
-The following parameters are available in the `profiles::ssh_keys::nmburgan` class:
+configure key from rwaffen from GitHubs in the authorized_keys file
 
-* [`github_users`](#-profiles--ssh_keys--nmburgan--github_users)
+### <a name="profiles--ssh_keys--people--sebastianrakel"></a>`profiles::ssh_keys::people::sebastianrakel`
 
-##### <a name="-profiles--ssh_keys--nmburgan--github_users"></a>`github_users`
+Configure key from sebastianrakel from GitHubs in the authorized_keys file along with supplemental keys
 
-Data type: `Array[String[1]]`
+### <a name="profiles--ssh_keys--people--smortex"></a>`profiles::ssh_keys::people::smortex`
 
-list of github users, we will download their ssh keys
-
-Default value: `['nmburgan']`
+Configure key from smortex from GitHubs in the authorized_keys file along with supplemental keys
 
 ### <a name="profiles--ssh_keys--pmc"></a>`profiles::ssh_keys::pmc`
 
-configure keys from GitHubs in the authorized_keys file
-
-#### Parameters
-
-The following parameters are available in the `profiles::ssh_keys::pmc` class:
-
-* [`github_users`](#-profiles--ssh_keys--pmc--github_users)
-
-##### <a name="-profiles--ssh_keys--pmc--github_users"></a>`github_users`
-
-Data type: `Array[String[1]]`
-
-list of github users, we will download their ssh keys
-
-Default value: `['bastelfreak', 'smortex', 'rwaffen', 'ekohl', 'sebastianrakel',]`
+Configure keys from GitHub of PMC members in the authorized_keys file.
+The PMC's member list is maintained in global.yaml and looked up directly.
 
 ### <a name="profiles--vpt"></a>`profiles::vpt`
 
