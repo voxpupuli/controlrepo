@@ -171,4 +171,10 @@ class profiles::base (
     reject_with      => false,
     out_all          => true,
   }
+
+  # colourize the shell
+  file { '/etc/profile.d/shell_setup.sh':
+    ensure  => 'file',
+    content => file("${module_name}/shell_setup.sh"),
+  }
 }
