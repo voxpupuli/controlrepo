@@ -1,7 +1,36 @@
 ---
-role: roles::repo_frontend
+role: roles::download_server
 
 profiles::base::manage_borg: false
+
+profiles::download_server::server_names:
+  'apt.voxpupuli.org':
+    locations:
+      '/':
+        autoindex: 'on'
+        www_root: /var/mirror/apt
+  'artifacts.voxpupuli.org':
+    locations:
+      '/':
+        autoindex: 'on'
+        www_root: /var/mirror/artifacts
+  'downloads.voxpupuli.org':
+    locations:
+      '/':
+        autoindex: 'on'
+        www_root: /var/mirror/downloads
+  'rsync.voxpupuli.org':
+    aliases:
+      - 'mirror.voxpupu.li'
+    locations:
+      '/':
+        autoindex: 'on'
+        www_root: /var/mirror
+  'yum.voxpupuli.org':
+    locations:
+      '/':
+        autoindex: 'on'
+        www_root: /var/mirror/yum
 
 profiles::ssh_keys::additional_keys::user_list:
   - genebean

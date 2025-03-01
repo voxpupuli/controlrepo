@@ -27,6 +27,7 @@ class profiles::base (
     'lsb-release',
     'make',
     'tree',
+    'unzip',
     'uptimed',
     "linux-generic-hwe-${facts['os']['release']['major']}",
   ]
