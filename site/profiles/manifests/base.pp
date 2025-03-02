@@ -42,9 +42,9 @@ class profiles::base (
   }
 
   # disable services that talk to Canonical
-  service { ['update-notifier-motd.timer', 'apt-news.service']:
+  service { ['update-notifier-motd.timer', 'apt-news.service',  'esm-cache.service']:
     ensure => 'stopped',
-    enable => false,
+    enable => 'mask',
   }
 
   exec { 'refresh apt-file cache':
