@@ -1,3 +1,4 @@
 ---
 profiles::puppet::server: true
 profiles::postgresql::version: '15'
+profiles::base::manage_borg: false
