@@ -31,6 +31,7 @@ class profiles::base (
     'tree',
     'unzip',
     'uptimed',
+    'whois',
   ]
 
   package { $_base_packages:
