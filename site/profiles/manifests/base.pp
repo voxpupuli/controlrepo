@@ -147,4 +147,11 @@ class profiles::base (
 
   # configure puppet agent/server
   contain profiles::puppet
+
+  # ensure we've the correct FQDN set
+  if $trusted['certname'] {
+    file { '/etc/hostname':
+      content => "${trusted['certname']}\n",
+    }
+  }
 }
