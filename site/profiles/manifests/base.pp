@@ -41,6 +41,12 @@ class profiles::base (
     ensure => 'absent',
   }
 
+  # disable services that talk to Canonical
+  service { ['update-notifier-motd.timer', 'apt-news.service']:
+    ensure => 'stopped',
+    enable => false,
+  }
+
   exec { 'refresh apt-file cache':
     refreshonly => true,
     command     => '/usr/bin/apt-file update',
