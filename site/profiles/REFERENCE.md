@@ -449,7 +449,7 @@ The following parameters are available in the `profiles::postgresql` class:
 
 ##### <a name="-profiles--postgresql--version"></a>`version`
 
-Data type: `Enum['11', '12', '13', '14', '15']`
+Data type: `Enum['11', '12', '13', '14', '15', '16', '17', '18']`
 
 desired postgresql version
 
