@@ -48,6 +48,11 @@ class profiles::base (
     enable => 'mask',
   }
 
+  # remove apt hook that talks to canonical
+  file { '/etc/apt/apt.conf.d/20apt-esm-hook.conf':
+    ensure => 'absent',
+  }
+
   exec { 'refresh apt-file cache':
     refreshonly => true,
     command     => '/usr/bin/apt-file update',
