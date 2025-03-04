@@ -12,8 +12,10 @@
 * [`profiles::borg`](#profiles--borg): configures borg backups
 * [`profiles::certbot`](#profiles--certbot): configures the certbot foo. Doesn't create certificates!
 * [`profiles::docker`](#profiles--docker): installs docker
+* [`profiles::download_server`](#profiles--download_server): Setup a server to present Vox Pupuli's files and packages for download over http and rsync
 * [`profiles::github_runners`](#profiles--github_runners): configures a self-hosted github runner
 * [`profiles::grafana`](#profiles--grafana): installs grafana to display stats from dropsonde about Vox Pupuli modules
+* [`profiles::lets_encrypt`](#profiles--lets_encrypt): Common Let's Encrypt settings
 * [`profiles::libvirt`](#profiles--libvirt): installs libvirt
 * [`profiles::nginx`](#profiles--nginx): multiple profiles requires nginx vhosts, this profile pulls in the nginx class/package/service setup
 * [`profiles::node_exporter`](#profiles--node_exporter): install node_exporter
@@ -38,6 +40,9 @@
 
 #### Private Classes
 
+* `profiles::download_server::nginx`: Configures an nginx server to present the files under /var/mirror
+* `profiles::download_server::rclone`: Configures a server with rclone and mirrors data from OSL's S3-compatible buckets
+* `profiles::download_server::rsync`: Configures an rsync server to present the files under /var/mirror
 * `profiles::github_runners::ruby`: install ruby for GitHub self hosted runners
 
 ### Defined types
@@ -165,6 +170,38 @@ configures the certbot foo. Doesn't create certificates!
 ### <a name="profiles--docker"></a>`profiles::docker`
 
 installs docker
+
+### <a name="profiles--download_server"></a>`profiles::download_server`
+
+Setup a server to present Vox Pupuli's files and packages for download over
+http and rsync. The files being served are sourced from OSL's S3-compatible
+bucket via rclone.
+
+#### Parameters
+
+The following parameters are available in the `profiles::download_server` class:
+
+* [`server_names`](#-profiles--download_server--server_names)
+
+##### <a name="-profiles--download_server--server_names"></a>`server_names`
+
+Data type:
+
+```puppet
+Hash[Stdlib::Fqdn, Struct[
+      {
+        locations => Hash,
+        aliases   => Optional[Array[Stdlib::Fqdn]]
+      }
+    ]
+  ]
+```
+
+A hash of Nginx server names to create. Each top-level key is a FQDN and
+its value is made up of a location block and, optionally, a list of
+aliases by which the server should also be known. The value of the
+locations block is passed directly to a splat within an
+`nginx::resource::location` resource.
 
 ### <a name="profiles--github_runners"></a>`profiles::github_runners`
 
@@ -317,6 +354,10 @@ Data type: `String[1]`
 
 
 Default value: `$postgresql_user`
+
+### <a name="profiles--lets_encrypt"></a>`profiles::lets_encrypt`
+
+Common Let's Encrypt settings
 
 ### <a name="profiles--libvirt"></a>`profiles::libvirt`
 

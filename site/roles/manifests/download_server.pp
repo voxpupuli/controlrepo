@@ -7,8 +7,10 @@
 # ones are simple directory listings while apt, rsync, and rsync are presented
 # in an applications-specific way.
 #
-class roles::repo_frontend {
+class roles::download_server {
   include nftables::rules::http
   include nftables::rules::https
   include nftables::rules::rsync
+  include profiles::download_server
+  include profiles::lets_encrypt
 }
