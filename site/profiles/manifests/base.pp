@@ -16,6 +16,7 @@ class profiles::base (
   }
 
   $_base_packages = [
+    "linux-generic-hwe-${facts['os']['release']['major']}",
     'apt-file',
     'build-essential',
     'ca-certificates',
@@ -26,10 +27,10 @@ class profiles::base (
     'htop',
     'lsb-release',
     'make',
+    'ncdu',
     'tree',
     'unzip',
     'uptimed',
-    "linux-generic-hwe-${facts['os']['release']['major']}",
   ]
 
   package { $_base_packages:
