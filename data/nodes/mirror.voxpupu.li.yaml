@@ -34,3 +34,6 @@ profiles::download_server::server_names:
 
 profiles::ssh_keys::additional_keys::user_list:
   - genebean
+
+classes:
+  - profiles::ssh_keys::people::nmburgan
