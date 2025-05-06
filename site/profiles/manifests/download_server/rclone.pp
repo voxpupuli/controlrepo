@@ -37,13 +37,26 @@ class profiles::download_server::rclone {
       ;
   }
 
-  # Manage a hardlink for the downloads directory so that it can be presented
-  # both Nginx and rsync. The hardlink is need so that it still works from
-  # rsync's chroot when /var/mirror/artifacts is excluded
-  exec { 'hardlink-downloads':
-    command => 'cp -r --link /var/mirror/artifacts/downloads /var/mirror/downloads',
-    path    => '/usr/bin:/bin',
-    creates => '/var/mirror/downloads';
+  file {
+    default:
+      ensure  => directory,
+      owner   => 'www-data',
+      group   => 'www-data',
+      require => File['/var/mirror'],
+      ;
+    '/var/mirror/downloads': ;
+    '/var/mirror/apt': ;
+    '/var/mirror/yum': ;
+    '/var/mirror/artifacts': ;
+  }
+
+  mount { '/var/mirror/downloads':
+    ensure  => mounted,
+    atboot  => true,
+    device  => '/var/mirror/artifacts/downloads',
+    fstype  => 'none',
+    options => 'bind',
+    require => File['/var/mirror/downloads'],
   }
 
   cron::hourly {
