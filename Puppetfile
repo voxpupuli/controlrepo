@@ -1,6 +1,6 @@
 forge "https://forge.puppet.com"
 
-mod 'cirrax-libvirt', '5.0.5'
+mod 'cirrax-libvirt', '5.1.0'
 mod 'puppet-archive', '7.1.0'
 mod 'puppet-borg', '4.2.0'
 mod 'puppet-cron', '5.0.0'
