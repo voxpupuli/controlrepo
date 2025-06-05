@@ -4,3 +4,7 @@ profiles::base::manage_borg: false
 
 profiles::ssh_keys::additional_keys::user_list:
   - nmburgan
+profiles::github_runners::runner_group: 'Hetzner-x86'
+profiles::github_runners::labels: ['self-hosted', 'hetzner-x86']
+profiles::github_runners::setup_libvirt: true
+profiles::github_runners::repo_name: controlrepo
