@@ -33,7 +33,7 @@ class profiles::github_runners::ruby (
     provider    => 'shell',
   }
 
-  ['2.7.8', '3.2.5', '3.3.4'].each |$ruby| {
+  ['2.7.8', '3.2.8', '3.3.8', '3.4.4'].each |$ruby| {
     # $ ruby-build 3.2.2 /scratch/actions/try/_work/_tool/Ruby/3.2.2/x64
     # Once that completes successfully, mark it as complete with:
     #  $ touch /scratch/actions/try/_work/_tool/Ruby/3.2.2/x64.complete
