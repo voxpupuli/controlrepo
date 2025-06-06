@@ -10,6 +10,7 @@ profiles::github_runners::runner_group: 'Hetzner-x86'
 profiles::github_runners::labels: ['self-hosted', 'hetzner-x86']
 profiles::github_runners::setup_libvirt: true
 profiles::github_runners::setup_ruby: true
+profiles::github_runners::setup_beaker: true
 profiles::github_runners::repo_name: reference-architecture
 profiles::github_runners::instances: ['second',]
 runner_second_reference-architecture: ENC[PKCS7,MIIBiQYJKoZIhvcNAQcDoIIBejCCAXYCAQAxggEhMIIBHQIBADAFMAACAQEwDQYJKoZIhvcNAQEBBQAEggEAMPCPp6MQzDixbjGKbaz0qpnFf2Rw8fZtUUV2I3wtkzRf6o8IiLt56s1+RpUF6VmINdguIaXVZ4J4FAqVbDOf5zCNYu56Id27bbzrcuD8WaeAQqWbgmKFmUTh78Z7FU7o8chgCLCYxo7t04dpu08wbf1D2L7WbwB5rhPLczYrYJ2PpIOySqWOMT4zRnHS/fwtzOoaH4QQNW0MkeQtqrhXDRoWndeW1JqwVS+3fxYT0otbezx+6q38eB8LRRpDsSnPUuvM/ZsaykI6HLECBRt2awIjdpFEsv8Os6WOzu7F2oqFuN6Goa+3KZeK8JeHBIWDtEGcOgMSY67AwvDP76peHjBMBgkqhkiG9w0BBwEwHQYJYIZIAWUDBAEqBBDHn0exUk6y6KAW2Id7Qy99gCDoR8/HXjGm8NpVL1cEKkzmnIWd5FVm3VUeSDmHGNe6yg==]
