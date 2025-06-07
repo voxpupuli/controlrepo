@@ -28,4 +28,5 @@ class profiles::libvirt {
   }
 
   include nftables::rules::qemu
+  nftables::chain { 'LIBVIRT_INP': }
 }
