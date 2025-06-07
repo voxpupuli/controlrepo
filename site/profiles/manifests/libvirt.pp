@@ -26,7 +26,4 @@ class profiles::libvirt {
   $chains.each |$chain| {
     nftables::chain { $chain: }
   }
-
-  include nftables::rules::qemu
-  nftables::chain { 'LIBVIRT_INP': }
 }
