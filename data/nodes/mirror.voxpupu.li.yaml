@@ -1,7 +1,12 @@
 ---
 role: roles::download_server
 
-profiles::base::manage_borg: false
+profiles::base::manage_borg: true
+profiles::borg::borg_excludes:
+  - /var/mirror/downloads
+profiles::borg::borg_includes:
+  - /var/mirror/yum
+  - /var/mirror/apt
 
 profiles::download_server::server_names:
   'apt.voxpupuli.org':

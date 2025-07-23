@@ -25,17 +25,17 @@ class profiles::borg (
   String[1] $absolutebackupdestdir = $facts['networking']['hostname'],
 ) {
   # setup borg. Requires powertools and epel repo on RedHat os family
-  if $facts['os']['family'] == 'RedHat' {
-    $borg_require = [Yumrepo['powertools'],Package['epel-release']]
+  $borg_require = if $facts['os']['family'] == 'RedHat' {
+    [Yumrepo['powertools'],Package['epel-release']]
   } else {
-    $borg_require = undef
+    undef
   }
   class { 'borg':
     create_prometheus_metrics              => false,
     update_borg_restore_db_after_backuprun => false,
     install_restore_script                 => false,
-    backupserver                           => 'u263171.your-storagebox.de',
-    username                               => 'u263171',
+    backupserver                           => 'u477156.your-storagebox.de',
+    username                               => 'u477156',
     ssh_port                               => 23,
     absolutebackupdestdir                  => $absolutebackupdestdir,
     additional_excludes                    => $borg_excludes,
