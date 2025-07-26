@@ -130,4 +130,9 @@ class profiles::base (
     ensure  => 'file',
     content => file("${module_name}/shell_setup.sh"),
   }
+
+  # purge Canonical backdoors
+  file { '/etc/apt/apt.conf.d/20apt-esm-hook.conf':
+    ensure => 'absent',
+  }
 }
