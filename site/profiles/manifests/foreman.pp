@@ -29,17 +29,8 @@ class profiles::foreman {
     },
   }
   include foreman::plugin::puppet
-  $packages = $facts['os']['family'] ? {
-    'RedHat' => ['rubygem-puppetdb_foreman'],
-    'Debian' => ['ruby-puppetdb-foreman'],
-  }
-  $packages.each |$package| {
-    package { $package:
-      ensure  => 'installed',
-      require => Package['foreman-service'],
-      notify  => Service['foreman'],
-    }
-  }
+  include foreman::plugin::puppetdb
+
   class { 'foreman_proxy':
     register_in_foreman => true, # is a foreman 3.1+ feature
     puppet              => true,
