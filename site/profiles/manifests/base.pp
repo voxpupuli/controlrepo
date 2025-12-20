@@ -106,16 +106,16 @@ class profiles::base (
       ensure => 'present',
       user   => 'root',
       type   => 'ssh-ed25519',
-      ;
+    ;
     'robert@Roberts-MBP.fritz.box':
       key => 'AAAAC3NzaC1lZDI1NTE5AAAAIKpAtp1I07CyFhixqy97toXzv2cuhRJZj22YorhhH7Ds',
-      ;
+    ;
     'robert@pc-mueller-2016-07-15':
       key => 'AAAAC3NzaC1lZDI1NTE5AAAAIGEVvWqFedfEkG63cWq5iwdkptC/lXr/jWjpqW0EktU3',
-      ;
+    ;
     'robert@DESKTOP-EV17QP6':
       key => 'AAAAC3NzaC1lZDI1NTE5AAAAIHwJ9FqCygbcCLNNqKlyN9nflIcHrxfxWmgEz08+EEUY',
-      ;
+    ;
   }
 
   # manage root so we can purge unknown keys

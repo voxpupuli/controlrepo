@@ -28,13 +28,13 @@ class profiles::download_server::rclone {
       owner   => 'www-data',
       group   => 'www-data',
       require => Class['nginx'],
-      ;
+    ;
     '/var/mirror': ;
     '/var/www': ;
     '/var/www/.rclone.conf':
       ensure  => file,
       content => $_rclone_config,
-      ;
+    ;
   }
 
   file {
@@ -43,7 +43,7 @@ class profiles::download_server::rclone {
       owner   => 'www-data',
       group   => 'www-data',
       require => File['/var/mirror'],
-      ;
+    ;
     '/var/mirror/downloads': ;
     '/var/mirror/apt': ;
     '/var/mirror/yum': ;
@@ -70,18 +70,18 @@ class profiles::download_server::rclone {
           '/var/www/.rclone.conf',
         ],
       ],
-      ;
+    ;
     'sync-apt-from-OSL':
       minute  => '20',
       command => 'rclone sync --exclude index.html OpenVox:openvox-apt /var/mirror/apt',
-      ;
+    ;
     'sync-artifacts-from-OSL':
       minute  => '25',
       command => 'rclone sync --exclude index.html OpenVox:openvox-artifacts /var/mirror/artifacts',
-      ;
+    ;
     'sync-yum-from-OSL':
       minute  => '30',
       command => 'rclone sync --exclude index.html OpenVox:openvox-yum /var/mirror/yum',
-      ;
+    ;
   }
 }
