@@ -27,13 +27,13 @@ class profiles::download_server::rsync {
       outgoing_chmod  => false,
       uid             => 'nobody',
       gid             => 'nogroup',
-      ;
+    ;
     'all':
       comment => 'Vox Pupuli Artifacts, Downloads, and Repositories',
-      ;
+    ;
     'packages':
       comment => 'Vox Pupuli Downloads and Repositories',
       exclude => ['/artifacts/'],
-      ;
+    ;
   }
 }
