@@ -1,5 +1,3 @@
-class a {}
-class a {}
 # hack pluginsync as file resource. only required for `puppet apply` usage
 # this works by accident with puppet agent, but only on the puppetserver
 # it breaks puppet agent on other systems, so we need to guard it
