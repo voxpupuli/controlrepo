@@ -24,4 +24,7 @@ class profiles::nftables (
   include nftables::rules::out::ssh
   include nftables::rules::out::whois
   include nftables::rules::out::hkp
+  class { 'nftables::rules::out::puppet':
+    puppetserver => ['116.202.97.65', '2a01:4f8:c013:359b::1',],
+  }
 }
