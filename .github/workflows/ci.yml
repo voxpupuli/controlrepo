@@ -29,7 +29,7 @@ jobs:
       - name: Setup ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.0'
+          ruby-version: '3.4'
           bundler-cache: true
           working-directory: ./site/profiles
       - name: Run static validations
@@ -78,7 +78,7 @@ jobs:
       - name: Setup ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.0'
+          ruby-version: '3.4'
           bundler-cache: true
           working-directory: ./site/profiles
       - name: Prepare fixtures
@@ -102,7 +102,7 @@ jobs:
       - name: Setup ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.1'
+          ruby-version: '3.4'
           bundler-cache: true
       - name: Check for puppetfile syntax correctness
         run: bundle exec rake r10k:syntax
