@@ -31,6 +31,7 @@ class profiles::base (
     'tree',
     'unzip',
     'uptimed',
+    'whois',
   ]
 
   package { $_base_packages:
@@ -38,6 +39,17 @@ class profiles::base (
   }
 
   package { 'snapd':
+    ensure => 'absent',
+  }
+
+  # disable services that talk to Canonical
+  service { ['update-notifier-motd.timer', 'apt-news.service',  'esm-cache.service']:
+    ensure => 'stopped',
+    enable => 'mask',
+  }
+
+  # remove apt hook that talks to canonical
+  file { '/etc/apt/apt.conf.d/20apt-esm-hook.conf':
     ensure => 'absent',
   }
 
@@ -52,6 +64,16 @@ class profiles::base (
     enable  => true,
     require => Package['uptimed'],
   }
+
+  # do an apt update daily, don't log it, run it before packages
+  class { 'apt':
+    update => {
+      frequency => 'daily',
+      loglevel  => 'debug',
+    },
+  }
+  # ensure update runs before installing packages
+  Class['apt::update'] -> Package <| provider == 'apt' |>
 
   # https://www.sshaudit.com/hardening_guides.html
   class { 'ssh':
@@ -116,14 +138,7 @@ class profiles::base (
     }
   }
 
-  class { 'nftables':
-    in_ssh           => true,
-    in_icmp          => true,
-    out_icmp         => true,
-    in_out_conntrack => true,
-    reject_with      => false,
-    out_all          => true,
-  }
+  include profiles::nftables
 
   # colourize the shell
   file { '/etc/profile.d/shell_setup.sh':
@@ -131,8 +146,13 @@ class profiles::base (
     content => file("${module_name}/shell_setup.sh"),
   }
 
-  # purge Canonical backdoors
-  file { '/etc/apt/apt.conf.d/20apt-esm-hook.conf':
-    ensure => 'absent',
+  # configure puppet agent/server
+  contain profiles::puppet
+
+  # ensure we've the correct FQDN set
+  if $trusted['certname'] {
+    file { '/etc/hostname':
+      content => "${trusted['certname']}\n",
+    }
   }
 }

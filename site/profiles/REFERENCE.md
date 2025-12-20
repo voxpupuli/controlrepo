@@ -13,19 +13,21 @@
 * [`profiles::certbot`](#profiles--certbot): configures the certbot foo. Doesn't create certificates!
 * [`profiles::docker`](#profiles--docker): installs docker
 * [`profiles::download_server`](#profiles--download_server): Setup a server to present Vox Pupuli's files and packages for download over http and rsync
+* [`profiles::foreman`](#profiles--foreman): configure foreman + plugins
 * [`profiles::github_runners`](#profiles--github_runners): configures a self-hosted github runner
 * [`profiles::grafana`](#profiles--grafana): installs grafana to display stats from dropsonde about Vox Pupuli modules
 * [`profiles::lets_encrypt`](#profiles--lets_encrypt): Common Let's Encrypt settings
 * [`profiles::libvirt`](#profiles--libvirt): installs libvirt
+* [`profiles::nftables`](#profiles--nftables): configure certain nftable rules
 * [`profiles::nginx`](#profiles--nginx): multiple profiles requires nginx vhosts, this profile pulls in the nginx class/package/service setup
 * [`profiles::node_exporter`](#profiles--node_exporter): install node_exporter
 * [`profiles::postfix`](#profiles--postfix): installs postfix
 * [`profiles::postgres_exporter`](#profiles--postgres_exporter): installs a postgres exporter
 * [`profiles::postgresql`](#profiles--postgresql): install latest postgresql with upstream repositories
 * [`profiles::prometheus`](#profiles--prometheus): install Prometheus
-* [`profiles::puppetagent`](#profiles--puppetagent): profile to manage puppet agent + deps
-* [`profiles::puppetcode`](#profiles--puppetcode): some resources to manage puppete code
+* [`profiles::puppet`](#profiles--puppet): configure puppet agent and server
 * [`profiles::puppetmodule`](#profiles--puppetmodule): configures puppetmodule.info
+* [`profiles::redis`](#profiles--redis): configures redis on different platforms
 * [`profiles::ssh`](#profiles--ssh): ssh profile to manage sshd + ssh keys
 * [`profiles::ssh_keys::additional_keys`](#profiles--ssh_keys--additional_keys): Allow additional admins' keys to be pulled in via Hiera
 * [`profiles::ssh_keys::people::bastelfreak`](#profiles--ssh_keys--people--bastelfreak): Configure key from bastelfreak from GitHubs in the authorized_keys file along with supplemental keys
@@ -44,6 +46,9 @@
 * `profiles::download_server::rclone`: Configures a server with rclone and mirrors data from OSL's S3-compatible buckets
 * `profiles::download_server::rsync`: Configures an rsync server to present the files under /var/mirror
 * `profiles::github_runners::ruby`: install ruby for GitHub self hosted runners
+* `profiles::puppet::code`: some resources to manage puppete code
+* `profiles::puppet::db`: installs puppetdb *on a puppetserver that also runs foreman*
+* `profiles::puppet::server_firewalling`: manages nft rules on Puppetserver/PuppetDB
 
 ### Defined types
 
@@ -202,6 +207,14 @@ its value is made up of a location block and, optionally, a list of
 aliases by which the server should also be known. The value of the
 locations block is passed directly to a splat within an
 `nginx::resource::location` resource.
+
+### <a name="profiles--foreman"></a>`profiles::foreman`
+
+configure foreman + plugins
+
+* **See also**
+  * `cat
+    * /opt/puppetlabs/puppet/cache/foreman_cache_data/admin_password` provides the admin password
 
 ### <a name="profiles--github_runners"></a>`profiles::github_runners`
 
@@ -363,6 +376,51 @@ Common Let's Encrypt settings
 
 installs libvirt
 
+### <a name="profiles--nftables"></a>`profiles::nftables`
+
+configure certain nftable rules
+
+#### Parameters
+
+The following parameters are available in the `profiles::nftables` class:
+
+* [`in_ssh`](#-profiles--nftables--in_ssh)
+* [`icmp`](#-profiles--nftables--icmp)
+* [`nat`](#-profiles--nftables--nat)
+* [`out_all`](#-profiles--nftables--out_all)
+
+##### <a name="-profiles--nftables--in_ssh"></a>`in_ssh`
+
+Data type: `Boolean`
+
+allows incoming ssh connections
+
+Default value: `true`
+
+##### <a name="-profiles--nftables--icmp"></a>`icmp`
+
+Data type: `Boolean`
+
+allow all ICMP traffic
+
+Default value: `true`
+
+##### <a name="-profiles--nftables--nat"></a>`nat`
+
+Data type: `Boolean`
+
+decide if the box should be allowed to handle NAT traffic
+
+Default value: `false`
+
+##### <a name="-profiles--nftables--out_all"></a>`out_all`
+
+Data type: `Boolean`
+
+Allow all outbound connections
+
+Default value: `false`
+
 ### <a name="profiles--nginx"></a>`profiles::nginx`
 
 multiple profiles requires nginx vhosts, this profile pulls in the nginx class/package/service setup
@@ -391,7 +449,7 @@ The following parameters are available in the `profiles::postgresql` class:
 
 ##### <a name="-profiles--postgresql--version"></a>`version`
 
-Data type: `Enum['11', '12', '13', '14']`
+Data type: `Enum['11', '12', '13', '14', '15', '16', '17', '18']`
 
 desired postgresql version
 
@@ -401,13 +459,32 @@ Default value: `'13'`
 
 install Prometheus
 
-### <a name="profiles--puppetagent"></a>`profiles::puppetagent`
+### <a name="profiles--puppet"></a>`profiles::puppet`
 
-profile to manage puppet agent + deps
+configure puppet agent and server
 
-### <a name="profiles--puppetcode"></a>`profiles::puppetcode`
+#### Parameters
 
-some resources to manage puppete code
+The following parameters are available in the `profiles::puppet` class:
+
+* [`server`](#-profiles--puppet--server)
+* [`manage_msgpack`](#-profiles--puppet--manage_msgpack)
+
+##### <a name="-profiles--puppet--server"></a>`server`
+
+Data type: `Boolean`
+
+decide if the server should be configured as well
+
+Default value: `($trusted['pp_role'] == 'puppetserver'`
+
+##### <a name="-profiles--puppet--manage_msgpack"></a>`manage_msgpack`
+
+Data type: `Boolean`
+
+configure if we should install msgpack on the agent
+
+Default value: `($facts['os']['name'] != 'gentoo'`
 
 ### <a name="profiles--puppetmodule"></a>`profiles::puppetmodule`
 
@@ -457,6 +534,10 @@ Data type: `String[1]`
 the database user
 
 Default value: `'puppetmodule'`
+
+### <a name="profiles--redis"></a>`profiles::redis`
+
+configures redis on different platforms
 
 ### <a name="profiles--ssh"></a>`profiles::ssh`
 

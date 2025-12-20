@@ -32,11 +32,11 @@
   "dependencies": [
     {
       "name": "puppetlabs/stdlib",
-      "version_requirement": ">= 8.1.0 < 9.0.0"
+      "version_requirement": ">= 9.2.0 < 10.0.0"
     },
     {
       "name": "puppet/nginx",
-      "version_requirement": ">= 4.2.0 < 5.0.0"
+      "version_requirement": ">= 4.2.0 < 6.0.0"
     },
     {
       "name": "puppet/ferm",
@@ -44,7 +44,7 @@
     },
     {
       "name": "saz/ssh",
-      "version_requirement": ">= 10.0.0 < 11.0.0"
+      "version_requirement": ">= 10.0.0 < 12.0.0"
     },
     {
       "name": "puppet/ssh_keygen",
@@ -52,11 +52,11 @@
     },
     {
       "name": "puppet/r10k",
-      "version_requirement": ">= 10.1.1 < 11.0.0"
+      "version_requirement": ">= 10.1.1 < 12.0.0"
     },
     {
       "name": "puppet/grafana",
-      "version_requirement": ">= 10.0.1 < 12.0.0"
+      "version_requirement": ">= 10.0.1 < 14.0.0"
     },
     {
       "name": "puppet/letsencrypt",
@@ -76,15 +76,19 @@
     },
     {
       "name": "puppet/systemd",
-      "version_requirement": ">= 3.8.0 < 5.0.0"
+      "version_requirement": ">= 3.8.0 < 6.0.0"
     },
     {
       "name": "puppetlabs/postgresql",
-      "version_requirement": ">= 8.0.0 < 10.0.0"
+      "version_requirement": ">= 8.0.0 < 14.0.0"
+    },
+    {
+      "name": "puppetlabs/puppetdb",
+      "version_requirement": ">= 7.13.0 < 8.0.0"
     },
     {
       "name": "puppet/prometheus",
-      "version_requirement": ">= 12.3.0 < 13.0.0"
+      "version_requirement": ">= 12.3.0 < 14.0.0"
     },
     {
       "name": "puppet/borg",
@@ -93,6 +97,14 @@
     {
       "name": "theforeman/puppet",
       "version_requirement": ">= 20.0.0 < 21.0.0"
+    },
+    {
+      "name": "theforeman/foreman",
+      "version_requirement": ">= 23.0.0 < 24.0.0"
+    },
+    {
+      "name": "theforeman/foreman_proxy",
+      "version_requirement": ">= 25.0.0 < 26.0.0"
     },
     {
       "name": "puppet/extlib",
@@ -109,6 +121,10 @@
     {
       "name": "cirrax/libvirt",
       "version_requirement": ">= 5.0.4 < 6.0.0"
+    },
+    {
+      "name": "puppet/redis",
+      "version_requirement": ">= 9.0.0 < 10.0.0"
     }
   ]
 }
