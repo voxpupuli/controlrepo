@@ -25,12 +25,21 @@ fixtures:
     docker: https://github.com/puppetlabs/puppetlabs-docker
     libvirt: https://github.com/cirrax/puppet-libvirt
     redis: https://github.com/voxpupuli/puppet-redis.git
+    choria: https://github.com/choria-io/puppet-choria
+    augeasproviders_sysctl: https://github.com/voxpupuli/puppet-augeasproviders_sysctl
     archive: https://github.com/voxpupuli/puppet-archive
+    augeas_core: https://github.com/puppetlabs/puppetlabs-augeas_core.git
+    augeasproviders_core: https://github.com/voxpupuli/puppet-augeasproviders_core.git
     concat: https://github.com/puppetlabs/puppetlabs-concat
+    cron: https://github.com/puppetlabs/puppetlabs-cron_core
+    mcollective: https://github.com/choria-io/puppet-mcollective
+    mcollective_agent_filemgr: https://github.com/choria-plugins/filemgr-agent
+    mcollective_agent_package: https://github.com/choria-plugins/package-agent
+    mcollective_agent_puppet: https://github.com/choria-plugins/puppet-agent
+    mcollective_agent_service: https://github.com/choria-plugins/service-agent
+    mcollective_choria: https://github.com/choria-plugins/mcollective_choria
+    mcollective_util_actionpolicy: https://github.com/choria-plugins/action-policy
+    mount: https://github.com/puppetlabs/puppetlabs-mount_core
+    selinux_core: https://github.com/puppetlabs/puppetlabs-selinux_core
     ssh_keys: https://github.com/puppetlabs/puppetlabs-sshkeys_core
     yumrepo: https://github.com/puppetlabs/puppetlabs-yumrepo_core
-    mount: https://github.com/puppetlabs/puppetlabs-mount_core
-    cron: https://github.com/puppetlabs/puppetlabs-cron_core
-    augeasproviders_core: https://github.com/voxpupuli/puppet-augeasproviders_core.git
-    augeas_core: https://github.com/puppetlabs/puppetlabs-augeas_core.git
-    selinux_core: https://github.com/puppetlabs/puppetlabs-selinux_core

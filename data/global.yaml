@@ -27,3 +27,13 @@ ssh::server_options:
   X11Forwarding: 'no'
   PrintMotd: 'yes'
   AllowAgentForwarding: 'no'
+
+# this is the global certificate for the mco user on puppetserver
+# it allows everything
+# https://choria.io/docs/deployment/first-user/
+mcollective::site_policies:
+  - action: "allow"
+    callers: "choria=mco.mcollective"
+    actions: "*"
+    facts: "*"
+    classes: "*"

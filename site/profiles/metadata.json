@@ -125,6 +125,14 @@
     {
       "name": "puppet/redis",
       "version_requirement": ">= 9.0.0 < 10.0.0"
+    },
+    {
+      "name": "choria/choria",
+      "version_requirement": ">= 0.31.0 < 1.0.0"
+    },
+    {
+      "name": "puppet/augeasproviders_sysctl",
+      "version_requirement": ">= 3.3.0 < 4.0.0"
     }
   ]
 }

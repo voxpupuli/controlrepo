@@ -2,3 +2,4 @@
 profiles::puppet::server: true
 profiles::postgresql::version: '17'
 profiles::base::manage_borg: false
+profiles::choria::broker: true
