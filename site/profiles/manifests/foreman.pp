@@ -13,13 +13,16 @@ class profiles::foreman {
   }
 
   class { 'foreman':
-    logging_type             => 'journald',
-    initial_admin_username   => 'admin',
-    initial_admin_first_name => 'Vox',
-    initial_admin_last_name  => 'Pupuli',
-    initial_admin_email      => 'pmc@voxpupuli.org',
-    register_in_foreman      => true, # is a foreman 3.1+ feature
-    rails_cache_store        => {
+    foreman_service_puma_workers     => 3,
+    foreman_service_puma_threads_min => 3,
+    foreman_service_puma_threads_max => 3,
+    logging_type                     => 'journald',
+    initial_admin_username           => 'admin',
+    initial_admin_first_name         => 'Vox',
+    initial_admin_last_name          => 'Pupuli',
+    initial_admin_email              => 'pmc@voxpupuli.org',
+    register_in_foreman              => true, # is a foreman 3.1+ feature
+    rails_cache_store                => {
       'type'    => 'redis',
       'urls'    => ['localhost:6379/0'],
       'options' => {
