@@ -18,7 +18,7 @@ class profiles::choria (
     action => 'accept',
     proto  => 'tcp',
     dport  => [4222, 4333,],
-    saddr  => '116.202.97.65',
+    daddr  => '116.202.97.65',
     chain  => 'default_out',
   }
   nftables::simplerule { 'allow_choria_6_out':
