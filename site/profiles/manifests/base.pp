@@ -39,7 +39,7 @@ class profiles::base (
     ensure => 'installed',
   }
 
-  package { 'snapd':
+  package { ['snapd', 'ubuntu-pro-client-l10n', 'ubuntu-pro-client']:
     ensure => 'absent',
   }
 
