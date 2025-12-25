@@ -11,6 +11,7 @@
 * [`profiles::base`](#profiles--base): ssh profile to manage basic stuff that doesn't fit into a dedicated profile
 * [`profiles::borg`](#profiles--borg): configures borg backups
 * [`profiles::certbot`](#profiles--certbot): configures the certbot foo. Doesn't create certificates!
+* [`profiles::choria`](#profiles--choria): setup choria
 * [`profiles::docker`](#profiles--docker): installs docker
 * [`profiles::download_server`](#profiles--download_server): Setup a server to present Vox Pupuli's files and packages for download over http and rsync
 * [`profiles::foreman`](#profiles--foreman): configure foreman + plugins
@@ -172,6 +173,28 @@ Default value: `$facts['networking']['hostname']`
 ### <a name="profiles--certbot"></a>`profiles::certbot`
 
 configures the certbot foo. Doesn't create certificates!
+
+### <a name="profiles--choria"></a>`profiles::choria`
+
+setup choria
+
+* **See also**
+  * https://choria.io/docs/
+    * @author Tim Meusel <tim@bastelfreak.de>
+
+#### Parameters
+
+The following parameters are available in the `profiles::choria` class:
+
+* [`broker`](#-profiles--choria--broker)
+
+##### <a name="-profiles--choria--broker"></a>`broker`
+
+Data type: `Boolean`
+
+decide if this is just a server or also a broker
+
+Default value: `false`
 
 ### <a name="profiles--docker"></a>`profiles::docker`
 

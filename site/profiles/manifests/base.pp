@@ -10,6 +10,7 @@ class profiles::base (
 ) {
   include profiles::ssh_keys::additional_keys
   include profiles::ssh_keys::pmc
+  include profiles::choria
 
   if $manage_borg {
     contain profiles::borg
