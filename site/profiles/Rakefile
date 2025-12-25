@@ -9,5 +9,14 @@ begin
 rescue LoadError
   # only available if gem group acceptance is installed
 end
-
+desc 'Generate .fixtures.yml from metadata.json + .fixtures-deps.yml'
+task :generate_fixtures do
+  #fixtures = MetadataJsonDeps.build_fixtures(File.join(__dir__, 'metadata.json'))
+  generated_fixtures = %x(bundle exec generate-fixtures-yaml metadata.json)
+  fixtures_deps = File.read(File.join(__dir__, '.fixtures-deps.yml'))
+  generated_fixtures_yaml = YAML.safe_load(generated_fixtures)
+  fixtures_deps_yaml = YAML.safe_load(fixtures_deps)
+  generated_fixtures_yaml['fixtures']['repositories'].merge!(fixtures_deps_yaml['fixtures']['repositories'])
+  File.open(File.join(__dir__, '.fixtures.yml'), 'w') {|file| file.puts generated_fixtures_yaml.to_yaml }
+end
 # vim: syntax=ruby
