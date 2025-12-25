@@ -11,13 +11,13 @@ class profiles::puppet::server_firewalling {
     action => 'accept',
     proto  => 'tcp',
     dport  => 8140,
-    saddr  => ['95.217.246.117/32', '77.42.36.83/32', "${facts['networking']['ip']}/32",],
+    saddr  => ['159.69.85.37/32', '95.217.246.117/32', '77.42.36.83/32', "${facts['networking']['ip']}/32",],
   }
   nftables::simplerule { 'allow_puppet_6':
     action => 'accept',
     proto  => 'tcp',
     dport  => 8140,
-    saddr  => ['2a01:4f9:c01f:9f8a::/64','2a01:4f9:c011:bcee::1', "${facts['networking']['ip6']}/128",],
+    saddr  => ['2a01:4f8:c2c:7501::1/64', '2a01:4f9:c01f:9f8a::/64','2a01:4f9:c011:bcee::1', "${facts['networking']['ip6']}/128",],
   }
   nftables::simplerule { 'allow_puppetdb_4':
     action => 'accept',
