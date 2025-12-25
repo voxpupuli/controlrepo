@@ -42,6 +42,7 @@ class profiles::puppet (
   class { 'puppet':
     runmode              => 'unmanaged',
     unavailable_runmodes => ['cron', 'systemd.timer'],
+    usecacheonfailure    => false,
     *                    => $params,
   }
   if $manage_msgpack {
