@@ -11,7 +11,7 @@ class profiles::puppet::server_firewalling {
     action => 'accept',
     proto  => 'tcp',
     dport  => 8140,
-    saddr  => ['157.90.132.251/32', '159.69.85.37/32', '95.217.246.117/32', '77.42.36.83/32', "${facts['networking']['ip']}/32",],
+    saddr  => ['194.249.5.47/32', '157.90.132.251/32', '159.69.85.37/32', '95.217.246.117/32', '77.42.36.83/32', "${facts['networking']['ip']}/32",],
   }
   nftables::simplerule { 'allow_puppet_6':
     action => 'accept',
