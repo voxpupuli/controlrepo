@@ -29,6 +29,7 @@ class profiles::puppet (
       server_multithreaded                   => true,
       server_environment_class_cache_enabled => true,
       server_check_for_updates               => false,
+      server_environment_timeout             => 'unlimited',
     }
     package { 'msgpack-server':
       ensure   => 'installed',
