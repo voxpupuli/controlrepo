@@ -17,16 +17,17 @@ class profiles::puppet (
     require profiles::foreman
     include profiles::puppet::db
     $params = {
-      server                     => true,
-      server_reports             => 'puppetdb,foreman',
-      server_storeconfigs        => true,
-      server_foreman             => true,
+      server                                 => true,
+      server_reports                         => 'puppetdb,foreman',
+      server_storeconfigs                    => true,
+      server_foreman                         => true,
       # don't create /etc/puppetlabs/code/environments/common
-      server_common_modules_path => [],
-      server_jvm_min_heap_size   => '1G',
-      server_jvm_max_heap_size   => '1G',
-      #server_jvm_extra_args      => ['-Djruby.logger.class=com.puppetlabs.jruby_utils.jruby.Slf4jLogger', '-XX:+UseParallelGC'],
-      server_multithreaded       => true,
+      server_common_modules_path             => [],
+      server_jvm_min_heap_size               => '1G',
+      server_jvm_max_heap_size               => '1G',
+      #server_jvm_extra_args                 => ['-Djruby.logger.class=com.puppetlabs.jruby_utils.jruby.Slf4jLogger', '-XX:+UseParallelGC'],
+      server_multithreaded                   => true,
+      server_environment_class_cache_enabled => true,
     }
     package { 'msgpack-server':
       ensure   => 'installed',
