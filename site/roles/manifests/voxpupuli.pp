@@ -6,7 +6,6 @@ class roles::voxpupuli {
   include profiles::grafana
   include profiles::node_exporter
   include profiles::postgres_exporter
-  include profiles::puppetcode
   include profiles::puppetmodule
   include profiles::vpt
 }
