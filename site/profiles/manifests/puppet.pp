@@ -28,6 +28,7 @@ class profiles::puppet (
       #server_jvm_extra_args                 => ['-Djruby.logger.class=com.puppetlabs.jruby_utils.jruby.Slf4jLogger', '-XX:+UseParallelGC'],
       server_multithreaded                   => true,
       server_environment_class_cache_enabled => true,
+      server_check_for_updates               => false,
     }
     package { 'msgpack-server':
       ensure   => 'installed',
