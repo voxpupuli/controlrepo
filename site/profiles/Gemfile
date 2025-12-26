@@ -20,4 +20,5 @@ gem 'rake', require: false
 puppetversion = ENV['PUPPET_GEM_VERSION'] || '>= 7.24'
 gem 'metadata_json_deps', require: false
 gem 'openvox', puppetversion, require: false, groups: [:test]
+gem 'syslog'
 # vim: syntax=ruby

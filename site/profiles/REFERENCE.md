@@ -16,6 +16,7 @@
 * [`profiles::download_server`](#profiles--download_server): Setup a server to present Vox Pupuli's files and packages for download over http and rsync
 * [`profiles::foreman`](#profiles--foreman): configure foreman + plugins
 * [`profiles::github_runners`](#profiles--github_runners): configures a self-hosted github runner
+* [`profiles::github_runners::beaker`](#profiles--github_runners--beaker): configures beaker/libvirt/kvm
 * [`profiles::grafana`](#profiles--grafana): installs grafana to display stats from dropsonde about Vox Pupuli modules
 * [`profiles::lets_encrypt`](#profiles--lets_encrypt): Common Let's Encrypt settings
 * [`profiles::libvirt`](#profiles--libvirt): installs libvirt
@@ -261,6 +262,7 @@ The following parameters are available in the `profiles::github_runners` class:
 * [`setup_ruby`](#-profiles--github_runners--setup_ruby)
 * [`setup_docker`](#-profiles--github_runners--setup_docker)
 * [`setup_libvirt`](#-profiles--github_runners--setup_libvirt)
+* [`setup_beaker`](#-profiles--github_runners--setup_beaker)
 * [`runner_group`](#-profiles--github_runners--runner_group)
 * [`org_name`](#-profiles--github_runners--org_name)
 
@@ -294,7 +296,7 @@ Data type: `String[1]`
 
 version of the runner, matches their upstream github release names
 
-Default value: `'2.321.0'`
+Default value: `'2.330.0'`
 
 ##### <a name="-profiles--github_runners--instances"></a>`instances`
 
@@ -336,6 +338,14 @@ installs libvirt and adds the user to the group
 
 Default value: `false`
 
+##### <a name="-profiles--github_runners--setup_beaker"></a>`setup_beaker`
+
+Data type: `Boolean`
+
+sets up authentication and beaker foo
+
+Default value: `false`
+
 ##### <a name="-profiles--github_runners--runner_group"></a>`runner_group`
 
 Data type: `Optional[String[1]]`
@@ -351,6 +361,14 @@ Data type: `Enum['voxpupuli', 'openvoxproject']`
 name of the github org
 
 Default value: `'voxpupuli'`
+
+### <a name="profiles--github_runners--beaker"></a>`profiles::github_runners::beaker`
+
+configures beaker/libvirt/kvm
+
+* **See also**
+  * https://github.com/jpartlow/nested_vms
+  * https://github.com/jpartlow/kvm_automation_tooling
 
 ### <a name="profiles--grafana"></a>`profiles::grafana`
 

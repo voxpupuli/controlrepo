@@ -10,6 +10,7 @@
 # @param setup_ruby installs ruby for rspec-puppet unit tests
 # @param setup_docker installs docker for beaker jobs
 # @param setup_libvirt installs libvirt and adds the user to the group
+# @param setup_beaker sets up authentication and beaker foo
 # @param runner_group the group that we will assign to the runners. Needs to exist
 # @param org_name name of the github org
 #
@@ -21,12 +22,13 @@ class profiles::github_runners (
   Array[String[1]] $labels = ['self-hosted',],
   String[1] $user = 'runner',
   String[1] $group = $user,
-  String[1] $version = '2.321.0',
+  String[1] $version = '2.330.0',
   Optional[String[1]] $repo_name = undef,
   Array[String[1]] $instances = [],
   Boolean $setup_ruby = false,
   Boolean $setup_docker = false,
   Boolean $setup_libvirt = false,
+  Boolean $setup_beaker = false,
   Optional[String[1]] $runner_group = undef,
   Enum['voxpupuli', 'openvoxproject'] $org_name = 'voxpupuli',
 ) {
@@ -40,7 +42,7 @@ class profiles::github_runners (
     []
   }
   $groups_l = if $setup_libvirt {
-    ['libvirt']
+    ['libvirt', 'kvm']
   } else {
     []
   }
@@ -104,6 +106,10 @@ class profiles::github_runners (
 
   if $setup_libvirt {
     require profiles::libvirt
+  }
+
+  if $setup_beaker {
+    include profiles::github_runners::beaker
   }
 
   # some github actions want to configure repos
