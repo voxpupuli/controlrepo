@@ -49,4 +49,8 @@ class profiles::borg (
     additional_exclude_pattern             => ['sh:/opt/puppetlabs/puppet/cache/r10k/*'],
     require                                => $borg_require,
   }
+  # ssh on storage box runs on port 23 and not 22
+  nftables::rule { 'default_out-storageboxssh':
+    content => 'tcp dport 23 accept',
+  }
 }
