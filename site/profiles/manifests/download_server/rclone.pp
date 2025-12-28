@@ -73,15 +73,15 @@ class profiles::download_server::rclone {
     ;
     'sync-apt-from-OSL':
       minute  => '20',
-      command => 'rclone sync --exclude index.html OpenVox:openvox-apt /var/mirror/apt',
+      command => 'rclone sync --exclude index.html --exclude "/lost+found/**" OpenVox:openvox-apt /var/mirror/apt',
     ;
     'sync-artifacts-from-OSL':
       minute  => '25',
-      command => 'rclone sync --exclude index.html OpenVox:openvox-artifacts /var/mirror/artifacts',
+      command => 'rclone sync --exclude index.html --exclude "/lost+found/**" OpenVox:openvox-artifacts /var/mirror/artifacts',
     ;
     'sync-yum-from-OSL':
       minute  => '30',
-      command => 'rclone sync --exclude index.html OpenVox:openvox-yum /var/mirror/yum',
+      command => 'rclone sync --exclude index.html --exclude "/lost+found/**" OpenVox:openvox-yum /var/mirror/yum',
     ;
   }
 }
