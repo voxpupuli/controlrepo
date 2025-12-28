@@ -31,6 +31,9 @@ class profiles::puppet (
       server_check_for_updates               => false,
       server_environment_timeout             => 'unlimited',
       server_strict_variables                => true,
+      server_ca_allow_sans                   => true,
+      server_ca_allow_auth_extensions        => true,
+      server_ca_allow_auto_renewal           => true,
     }
     package { 'msgpack-server':
       ensure   => 'installed',
