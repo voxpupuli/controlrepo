@@ -42,6 +42,33 @@ class profiles::puppet (
       require  => [Package['make'],Package['gcc'],Class['puppet']],
     }
     contain profiles::puppet::server_firewalling
+    file { '/usr/local/bin/r10k-postrun':
+      content => file("${module_name}/r10k-postrun"),
+      owner   => 'root',
+      group   => 'root',
+      mode    => '755',
+    }
+    class { 'r10k':
+      pool_size       => $facts['processors']['count']*2,
+      sources         => {
+        'puppet' => {
+          'remote'  => 'https://github.com/voxpupuli/controlrepo.git',
+          'basedir' => '/etc/puppetlabs/code/environments',
+        },
+      },
+      version         => '5.0.2',
+
+      deploy_settings => {
+        'generate_types' => true,
+        'purge_levels'   => ['deployment'],
+        'exclude_spec'   => true,
+    },
+    postrun         => [
+      '/usr/local/bin/r10k-postrun',
+      '$modifiedenvs',
+    ],
+    }
+    contain r10k
   } else {
     $params = {}
   }

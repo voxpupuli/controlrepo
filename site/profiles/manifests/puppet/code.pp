@@ -34,7 +34,7 @@ class profiles::puppet::code {
     $deploy = { 'generate_types' => true, 'exclude_spec' => true, }
     # we hardcode this and update it from time to time.
     # agent runs faster compared to ensure latest
-    $version = '3.16.0'
+    $version = '5.0.2'
   }
   class { 'r10k':
     pool_size       => $facts['processors']['count']*2,

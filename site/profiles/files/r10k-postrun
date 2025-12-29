@@ -1,0 +1,28 @@
+#!/bin/bash
+
+set -e
+
+clear_environment() {
+  fqdn=$(hostname -f)
+  if [ -n "$1" ]; then
+    query="?environment=$1"
+  else
+    query=''
+  fi
+  curl \
+    --cert "/etc/puppetlabs/puppet/ssl/certs/${fqdn}.pem" \
+    --key "/etc/puppetlabs/puppet/ssl/private_keys/${fqdn}.pem" \
+    --cacert '/etc/puppetlabs/puppet/ssl/certs/ca.pem' \
+    -X delete \
+    "https://${fqdn}:8140/puppet-admin-api/v1/environment-cache$query"
+}
+
+envs="$1"
+
+if [ -z "$envs" ]; then
+  clear_environment
+else
+  printf '%s\n' "$envs" | tr ' ' '\n' | while read -r env; do
+    clear_environment "${env}"
+  done
+fi
