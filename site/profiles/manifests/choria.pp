@@ -14,19 +14,9 @@ class profiles::choria (
     manage_package_repo => true,
     log_level           => 'info',
   }
-  nftables::simplerule { 'allow_choria_4_out':
-    action => 'accept',
-    proto  => 'tcp',
-    dport  => [4222, 4333,],
-    daddr  => '116.202.97.65',
-    chain  => 'default_out',
-  }
-  nftables::simplerule { 'allow_choria_6_out':
-    action => 'accept',
-    proto  => 'tcp',
-    dport  => [4222, 4333,],
-    daddr  => '2a01:4f8:c013:359b::1',
-    chain  => 'default_out',
+
+  class { 'nftables::rules::out::choria':
+    brokers => ['116.202.97.65', '2a01:4f8:c013:359b::1'],
   }
 
   if $broker {
