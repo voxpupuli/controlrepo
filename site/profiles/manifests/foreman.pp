@@ -50,6 +50,9 @@ class profiles::foreman {
   }
   include foreman_proxy::plugin::remote_execution::script
   include foreman_proxy::plugin::openbolt
+  class { 'foreman_proxy::plugin::hdm':
+    hdm_url => 'http://localhost:3000',
+  }
 
   # open http/https in firewall
   require nftables::rules::http

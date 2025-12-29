@@ -82,3 +82,7 @@ mod 'puppet-augeasproviders_core', '4.2.0'
 mod 'puppet-hashi_stack', '4.1.0'
 mod 'puppet-mosquitto', '3.0.0'
 mod 'ipcrm-echo', '0.1.8'
+mod 'puppet-hdm', '4.1.0'
+mod 'puppet-quadlets',
+  git: 'https://github.com/voxpupuli/puppet-quadlets/',
+  branch: 'master'
