@@ -33,6 +33,10 @@ class profiles::foreman {
   }
   include foreman::plugin::puppet
   include foreman::plugin::puppetdb
+  include foreman::plugin::tasks
+  include foreman::plugin::remote_execution
+  include foreman::plugin::openbolt
+  include foreman::plugin::hdm
 
   class { 'foreman_proxy':
     register_in_foreman => true, # is a foreman 3.1+ feature
@@ -44,7 +48,30 @@ class profiles::foreman {
     bmc                 => false,
     realm               => false,
   }
+  include foreman_proxy::plugin::remote_execution::script
+  include foreman_proxy::plugin::openbolt
+
   # open http/https in firewall
   require nftables::rules::http
   require nftables::rules::https
+
+  # migrate to puppet/bolt as soon as it's updated
+  package { 'openbolt':
+    ensure => 'installed',
+  }
+
+  # setup ssh defaults for openbolt
+  ssh::client::config::user { 'foreman-proxy-bolt':
+    ensure              => present,
+    user                => 'foreman-proxy',
+    user_home_dir       => '/usr/share/foreman-proxy',
+    manage_user_ssh_dir => false,
+    options             => {
+      'Host *' => {
+        'IdentityFile' => '~/.ssh/id_rsa_foreman_proxy',
+        'User'         => 'root',
+      },
+    },
+    require             => Class['foreman_proxy::plugin::remote_execution::script'], # creates ~/.ssh/id_rsa_foreman_proxy
+  }
 }

@@ -156,4 +156,7 @@ class profiles::base (
       content => "${trusted['certname']}\n",
     }
   }
+
+  # adds the foreman smartproxy ssh key to all nodes for openbolt
+  include 'foreman_proxy::plugin::remote_execution::ssh_user'
 }
