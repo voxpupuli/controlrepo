@@ -1,3 +1,6 @@
 ---
 
 profiles::base::manage_borg: false
+
+profiles::ssh_keys::additional_keys::user_list:
+  - nmburgan
