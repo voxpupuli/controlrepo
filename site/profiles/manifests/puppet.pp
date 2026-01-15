@@ -46,7 +46,7 @@ class profiles::puppet (
       content => file("${module_name}/r10k-postrun"),
       owner   => 'root',
       group   => 'root',
-      mode    => '755',
+      mode    => '0755',
     }
     class { 'r10k':
       pool_size       => $facts['processors']['count']*2,
@@ -62,11 +62,11 @@ class profiles::puppet (
         'generate_types' => true,
         'purge_levels'   => ['deployment'],
         'exclude_spec'   => true,
-    },
-    postrun         => [
-      '/usr/local/bin/r10k-postrun',
-      '$modifiedenvs',
-    ],
+      },
+      postrun         => [
+        '/usr/local/bin/r10k-postrun',
+        '$modifiedenvs',
+      ],
     }
     contain r10k
   } else {
