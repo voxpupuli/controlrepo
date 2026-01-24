@@ -7,6 +7,7 @@ profiles::borg::borg_excludes:
 profiles::borg::borg_includes:
   - /var/mirror/yum
   - /var/mirror/apt
+  - /var/mirror/artifacts
 
 profiles::download_server::server_names:
   'apt.voxpupuli.org':
