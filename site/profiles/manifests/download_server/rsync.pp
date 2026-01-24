@@ -30,7 +30,7 @@ class profiles::download_server::rsync {
     ;
     'all':
       comment => 'Vox Pupuli Artifacts, Downloads, and Repositories',
-      exclude => ['/yum/lost+found/', '/apt/lost+found/'],
+      exclude => ['/artifacts/lost+found/', '/yum/lost+found/', '/apt/lost+found/'],
     ;
     'packages':
       comment => 'Vox Pupuli Downloads and Repositories',
