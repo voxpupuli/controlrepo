@@ -38,4 +38,19 @@ class profiles::puppet::server_firewalling {
   nftables::rule { 'default_out-puppetdbv4':
     content => "tcp dport { 8080, 8081 } ip daddr ${facts['networking']['ip']}/32 accept",
   }
+
+  # allow webhook access
+  # https://api.github.com/meta
+  nftables::simplerule { 'allow_webhook_4':
+    action => 'accept',
+    proto  => 'tcp',
+    dport  => 4000,
+    saddr  => ['192.30.252.0/22', '185.199.108.0/22', '140.82.112.0/20', '143.55.64.0/20',],
+  }
+  nftables::simplerule { 'allow_webhook_6':
+    action => 'accept',
+    proto  => 'tcp',
+    dport  => 4000,
+    saddr  => ['2a0a:a440::/29', '2606:50c0::/32'],
+  }
 }

@@ -69,6 +69,9 @@ class profiles::puppet (
       ],
     }
     contain r10k
+    class { 'r10k::webhook':
+      version => '2.14.3',
+    }
   } else {
     $params = {}
   }
