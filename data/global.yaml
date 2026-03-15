@@ -37,3 +37,10 @@ mcollective::site_policies:
     actions: "*"
     facts: "*"
     classes: "*"
+
+mcollective::plugin_classes:
+  - mcollective_agent_bolt_tasks
+  - mcollective_agent_shell
+  - mcollective_agent_nettest
+  - mcollective_agent_process
+  - mcollective_agent_iptables
