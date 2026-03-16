@@ -4,8 +4,7 @@
 # @author Tim Meusel <tim@bastelfreak.de>
 #
 class profiles::nginx {
-  # do not contain it because it triggers also apt, which is triggerd by other profiles as well
-  require profiles::certbot
+  include profiles::lets_encrypt
   $manage_repo = $facts['os']['name'] ? {
     'Archlinux' => false,
     default     => true,
