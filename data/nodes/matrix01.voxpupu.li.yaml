@@ -2,3 +2,6 @@
 profiles::ssh_keys::additional_keys::user_list:
   - genebean
   - ananace
+
+classes:
+  - profiles::nginx
