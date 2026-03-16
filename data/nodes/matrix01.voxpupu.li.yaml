@@ -5,3 +5,6 @@ profiles::ssh_keys::additional_keys::user_list:
 
 classes:
   - profiles::nginx
+
+profiles::borg::borg_includes:
+  - /srv/pg_dumps
