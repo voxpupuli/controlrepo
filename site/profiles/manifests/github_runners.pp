@@ -32,7 +32,7 @@ class profiles::github_runners (
   Optional[String[1]] $runner_group = undef,
   Enum['voxpupuli', 'openvoxproject'] $org_name = 'voxpupuli',
 ) {
-  package { ['jq', 'libffi-dev', 'libyaml-dev', 'libreadline-dev', 'zlib1g-dev', 'libssl-dev',]:
+  package { ['libffi-dev', 'libyaml-dev', 'libreadline-dev', 'zlib1g-dev', 'libssl-dev',]:
     ensure => 'installed',
   }
   $home = "/opt/${user}"

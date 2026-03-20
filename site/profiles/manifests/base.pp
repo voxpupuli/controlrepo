@@ -33,6 +33,7 @@ class profiles::base (
     'unzip',
     'uptimed',
     'whois',
+    'jq',
   ]
 
   package { $_base_packages:
