@@ -2,3 +2,5 @@
 classes:
   - profiles::puppet
   - profiles::openvoxview
+
+mcollective::client: true

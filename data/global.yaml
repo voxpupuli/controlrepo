@@ -31,6 +31,8 @@ ssh::server_options:
 # this is the global certificate for the mco user on puppetserver
 # it allows everything
 # https://choria.io/docs/deployment/first-user/
+# mcollective class is managed via choria:
+# https://github.com/choria-io/puppet-choria/blob/main/manifests/init.pp#L112-L114
 mcollective::site_policies:
   - action: "allow"
     callers: "choria=mco.mcollective"
@@ -38,9 +40,13 @@ mcollective::site_policies:
     facts: "*"
     classes: "*"
 
+# merged with https://github.com/choria-io/puppet-mcollective/blob/main/data/common.yaml#L48
 mcollective::plugin_classes:
   - mcollective_agent_bolt_tasks
   - mcollective_agent_shell
   - mcollective_agent_nettest
   - mcollective_agent_process
   - mcollective_agent_iptables
+
+# don't rely on ancient cron
+mcollective::facts_refresh_type: 'systemd'
