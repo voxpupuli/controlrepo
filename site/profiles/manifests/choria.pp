@@ -13,6 +13,7 @@ class profiles::choria (
   class { 'choria':
     manage_package_repo => true,
     log_level           => 'info',
+    logfile             => 'stdout',
   }
 
   class { 'nftables::rules::out::choria':
