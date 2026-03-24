@@ -20,6 +20,7 @@
 * [`profiles::grafana`](#profiles--grafana): installs grafana to display stats from dropsonde about Vox Pupuli modules
 * [`profiles::lets_encrypt`](#profiles--lets_encrypt): Common Let's Encrypt settings
 * [`profiles::libvirt`](#profiles--libvirt): installs libvirt
+* [`profiles::matrix`](#profiles--matrix)
 * [`profiles::nftables`](#profiles--nftables): configure certain nftable rules
 * [`profiles::nginx`](#profiles--nginx): multiple profiles requires nginx vhosts, this profile pulls in the nginx class/package/service setup
 * [`profiles::node_exporter`](#profiles--node_exporter): install node_exporter
@@ -32,6 +33,7 @@
 * [`profiles::redis`](#profiles--redis): configures redis on different platforms
 * [`profiles::ssh`](#profiles--ssh): ssh profile to manage sshd + ssh keys
 * [`profiles::ssh_keys::additional_keys`](#profiles--ssh_keys--additional_keys): Allow additional admins' keys to be pulled in via Hiera
+* [`profiles::ssh_keys::people::ananace`](#profiles--ssh_keys--people--ananace): Configure key from ananace from GitHubs in the authorized_keys file along with supplemental keys
 * [`profiles::ssh_keys::people::bastelfreak`](#profiles--ssh_keys--people--bastelfreak): Configure key from bastelfreak from GitHubs in the authorized_keys file along with supplemental keys
 * [`profiles::ssh_keys::people::binford2k`](#profiles--ssh_keys--people--binford2k): Configure key from binford2k from GitHubs in the authorized_keys file
 * [`profiles::ssh_keys::people::ekohl`](#profiles--ssh_keys--people--ekohl): Configure key from ekohl from GitHubs in the authorized_keys file along with supplemental keys
@@ -418,6 +420,10 @@ Common Let's Encrypt settings
 
 installs libvirt
 
+### <a name="profiles--matrix"></a>`profiles::matrix`
+
+The profiles::matrix class.
+
 ### <a name="profiles--nftables"></a>`profiles::nftables`
 
 configure certain nftable rules
@@ -603,6 +609,10 @@ The list of users whose ssh keys should be pulled in. Each listed user will
 need to be represented by a manifest under `site/profiles/manifests/ssh_keys/people`.
 
 Default value: `[]`
+
+### <a name="profiles--ssh_keys--people--ananace"></a>`profiles::ssh_keys::people::ananace`
+
+Configure key from ananace from GitHubs in the authorized_keys file along with supplemental keys
 
 ### <a name="profiles--ssh_keys--people--bastelfreak"></a>`profiles::ssh_keys::people::bastelfreak`
 
