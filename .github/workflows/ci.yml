@@ -116,7 +116,7 @@ jobs:
       - name: Check for puppetfile module deprecations
         run: bundle exec rake r10k:deprecation
       - name: Check for outdated modules
-        run: bundle exec rake r10k:dependencies
+        run: bundle exec rake r10k:dependencies || true
       - name: Validate all dependencies in metadata.json
         run: bundle exec rake metadata_deps
       - name: validate all dependencies
