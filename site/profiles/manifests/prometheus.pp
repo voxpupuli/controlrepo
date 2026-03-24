@@ -8,7 +8,7 @@ class profiles::prometheus {
     manage_prometheus_server => true,
   }
   require profiles::nginx
-  require profiles::certbot
+  #require profiles::certbot
 
   # setup vhost
   # how to get a cert
