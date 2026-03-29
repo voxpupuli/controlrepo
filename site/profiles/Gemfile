@@ -6,8 +6,8 @@
 source ENV['GEM_SOURCE'] || 'https://rubygems.org'
 
 group :test do
-  gem 'voxpupuli-test', '~> 13.2', require: false
-  gem 'puppet_metadata', '~> 5.3', require: false
+  gem 'voxpupuli-test', '~> 14.0', require: false
+  gem 'puppet_metadata', '~> 6.0', require: false
 end
 
 group :system_tests do
@@ -17,7 +17,7 @@ end
 gem 'openfact', ENV['FACTER_GEM_VERSION'], require: false, groups: [:test]
 gem 'rake', require: false
 
-puppetversion = ENV['PUPPET_GEM_VERSION'] || '>= 7.24'
+puppetversion = ENV['PUPPET_GEM_VERSION'] || '>= 8.19'
 gem 'metadata_json_deps', require: false
 gem 'openvox', puppetversion, require: false, groups: [:test]
 gem 'syslog'
