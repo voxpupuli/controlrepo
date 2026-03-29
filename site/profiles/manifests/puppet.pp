@@ -25,6 +25,7 @@ class profiles::puppet (
       server_common_modules_path             => [],
       server_jvm_min_heap_size               => '1G',
       server_jvm_max_heap_size               => '1G',
+      server_jvm_java_bin                    => '/usr/lib/jvm/java-21-openjdk-amd64/bin/java',
       #server_jvm_extra_args                 => ['-Djruby.logger.class=com.puppetlabs.jruby_utils.jruby.Slf4jLogger', '-XX:+UseParallelGC'],
       server_multithreaded                   => true,
       server_environment_class_cache_enabled => true,
@@ -40,6 +41,10 @@ class profiles::puppet (
       provider => 'puppetserver_gem',
       name     => 'msgpack',
       require  => [Package['make'],Package['gcc'],Class['puppet']],
+    }
+    package { 'openjdk-21-jre-headless':
+      ensure => 'installed',
+      before => Service['puppetserver'],
     }
     contain profiles::puppet::server_firewalling
     file { '/usr/local/bin/r10k-postrun':
