@@ -11,6 +11,16 @@ fixtures:
     mcollective_agent_package: https://github.com/choria-plugins/package-agent
     mcollective_agent_puppet: https://github.com/choria-plugins/puppet-agent
     mcollective_agent_service: https://github.com/choria-plugins/service-agent
+    mcollective_agent_bolt_tasks: https://github.com/choria-plugins/tasks-agent
+    mcollective_agent_shell: https://github.com/choria-plugins/shell-agent
+    mcollective_agent_nettest: https://github.com/choria-plugins/nettest-agent
+    mcollective_agent_service: https://github.com/choria-plugins/service-agent
+    mcollective_agent_process: https://github.com/choria-plugins/process-agent
+    mcollective_agent_iptables: https://github.com/choria-plugins/iptables-agent
+    mcollective_agent_puppetca: https://github.com/choria-plugins/puppetca-agent
+    mcollective_agent_puppet: https://github.com/choria-plugins/puppet-agent
+    mcollective_agent_filemgr: https://github.com/choria-plugins/filemgr-agent
+    mcollective_util_actionpolicy: https://github.com/choria-plugins/action-policy
     mcollective_choria: https://github.com/choria-plugins/mcollective_choria
     mcollective_util_actionpolicy: https://github.com/choria-plugins/action-policy
     mount: https://github.com/puppetlabs/puppetlabs-mount_core

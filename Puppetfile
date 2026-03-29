@@ -37,20 +37,46 @@ mod 'theforeman-puppetserver_foreman', '4.3.0'
 # choria / mcollective service bus
 mod 'choria-choria',
     git: 'https://github.com/choria-io/puppet-choria',
-    ref: 'baa00b1e7c91418efc8c011aa17b624cb5106d29'
-mod 'choria-mcollective',                   '0.14.6'
-mod 'choria-mcollective_choria',            '0.22.2'
-mod 'choria-mcollective_agent_puppet',      '2.5.0'
-mod 'choria-mcollective_agent_puppetca',    '4.1.0'
-mod 'choria-mcollective_agent_package',     '5.5.1'
-mod 'choria-mcollective_agent_service',     '4.1.0'
-mod 'choria-mcollective_agent_filemgr',     '2.1.0'
-mod 'choria-mcollective_util_actionpolicy', '3.3.0'
-mod 'choria-mcollective_agent_bolt_tasks',  '0.22.0'
-mod 'choria-mcollective_agent_shell',       '1.1.0'
-mod 'choria-mcollective_agent_nettest',     '4.1.0'
-mod 'choria-mcollective_agent_process',     '4.1.0'
-mod 'choria-mcollective_agent_iptables',    '4.1.0'
+    ref: 'e75dd706dc133a2032c709d4da07ca2a16cd64a8'
+mod 'choria-mcollective',
+  git: 'https://github.com/choria-io/puppet-mcollective',
+  ref: '366b20f7db6f2caf6615e9a61ba10f0d2f04c72f'
+mod 'choria-mcollective_choria',
+  git: 'https://github.com/choria-plugins/mcollective_choria',
+  ref: '0.22.2'
+mod 'choria-mcollective_agent_puppet',
+  git: 'https://github.com/choria-plugins/puppet-agent',
+  ref: '2.5.0'
+mod 'choria-mcollective_agent_puppetca',
+  git: 'https://github.com/choria-plugins/puppetca-agent',
+  ref: '4.1.0'
+mod 'choria-mcollective_agent_package',
+  git: 'https://github.com/choria-plugins/package-agent',
+  ref: '5.5.1'
+mod 'choria-mcollective_agent_service',
+  git: 'https://github.com/choria-plugins/service-agent',
+  ref: '4.1.0'
+mod 'choria-mcollective_agent_filemgr',
+  git: 'https://github.com/choria-plugins/filemgr-agent',
+  ref: '2.1.0'
+mod 'choria-mcollective_util_actionpolicy',
+  git: 'https://github.com/choria-plugins/action-policy',
+  ref: '3.3.0'
+mod 'choria-mcollective_agent_bolt_tasks',
+  git: 'https://github.com/choria-plugins/tasks-agent',
+  ref: '0.22.0'
+mod 'choria-mcollective_agent_shell',
+  git: 'https://github.com/choria-plugins/shell-agent',
+  ref: '1.2.0'
+mod 'choria-mcollective_agent_nettest',
+  git: 'https://github.com/choria-plugins/nettest-agent',
+  ref: '4.1.0'
+mod 'choria-mcollective_agent_process',
+  git: 'https://github.com/choria-plugins/process-agent',
+  ref: '4.1.0'
+mod 'choria-mcollective_agent_iptables',
+  git: 'https://github.com/choria-plugins/iptables-agent',
+  ref: '4.1.0'
 mod 'puppet-augeasproviders_sysctl', '4.0.0'
 mod 'puppet-augeasproviders_core', '4.2.0'
 mod 'puppet-hashi_stack', '4.1.0'
