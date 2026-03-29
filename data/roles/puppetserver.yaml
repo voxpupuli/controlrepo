@@ -1,6 +1,6 @@
 ---
 classes:
   - profiles::puppet
-  - profiles::openvoxview
+  #- profiles::openvoxview
 
 mcollective::client: true

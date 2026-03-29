@@ -28,7 +28,7 @@ ssh::server_options:
   PrintMotd: 'yes'
   AllowAgentForwarding: 'no'
 
-# this is the global certificate for the mco user on puppetserver
+# this is the global certificate for the mco/foreman-proxy user on puppetserver
 # it allows everything
 # https://choria.io/docs/deployment/first-user/
 # mcollective class is managed via choria:
@@ -36,6 +36,11 @@ ssh::server_options:
 mcollective::site_policies:
   - action: "allow"
     callers: "choria=mco.mcollective"
+    actions: "*"
+    facts: "*"
+    classes: "*"
+  - action: "allow"
+    callers: "choria=foreman-proxy.mcollective"
     actions: "*"
     facts: "*"
     classes: "*"

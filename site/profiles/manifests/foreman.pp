@@ -9,7 +9,7 @@ class profiles::foreman {
   require profiles::nftables # ensures hkp access is working to download the apt key
 
   class { 'foreman::repo':
-    repo => '3.17',
+    repo => '3.18',
   }
 
   class { 'foreman':
@@ -61,10 +61,11 @@ class profiles::foreman {
   }
 
   # setup ssh defaults for openbolt
+  $user = 'foreman-proxy'
   ssh::client::config::user { 'foreman-proxy-bolt':
     ensure              => present,
-    user                => 'foreman-proxy',
-    user_home_dir       => '/usr/share/foreman-proxy',
+    user                => $user,
+    user_home_dir       => "/usr/share/${user}",
     manage_user_ssh_dir => false,
     options             => {
       'Host *' => {
@@ -73,5 +74,26 @@ class profiles::foreman {
       },
     },
     require             => Class['foreman_proxy::plugin::remote_execution::script'], # creates ~/.ssh/id_rsa_foreman_proxy
+  }
+
+  # configure certificate for foreman-proxy to talk to choria
+  # HOME isn't owned by the user, but root. choria enroll tries to create the .puppetlabs dir
+  file { "/usr/share/${user}/.puppetlabs":
+    ensure => 'directory',
+    owner  => $user,
+    group  => $user,
+  }
+  -> exec { "setup certificate ${user}":
+    # choria prints the help if command is passed as array?!
+    # also this only works when autosigning is enabled
+    command     => 'choria enroll',
+    user        => $user,
+    group       => $user,
+    cwd         => "/usr/share/${user}",
+    path        => $facts['path'],
+    provider    => 'shell',
+    creates     => "/usr/share/${user}/.puppetlabs/etc/puppet/ssl/certs/${user}.mcollective.pem",
+    # one would assume that you have those environnment variable with provider=shell
+    environment => ["USER=${user}", "HOME=/usr/share/${user}",],
   }
 }
