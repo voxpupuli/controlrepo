@@ -67,7 +67,7 @@ mod 'choria-mcollective_agent_bolt_tasks',
   ref: '0.22.0'
 mod 'choria-mcollective_agent_shell',
   git: 'https://github.com/choria-plugins/shell-agent',
-  ref: '1.2.0'
+  ref: '1.2.1'
 mod 'choria-mcollective_agent_nettest',
   git: 'https://github.com/choria-plugins/nettest-agent',
   ref: '4.1.0'
