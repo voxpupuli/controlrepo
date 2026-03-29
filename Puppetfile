@@ -32,7 +32,7 @@ mod 'smarteon-rclone', '0.0.2'
 mod 'theforeman-dns', '12.0.0'
 mod 'theforeman-foreman', '28.1.0'
 mod 'theforeman-foreman_proxy', '30.1.0'
-mod 'theforeman-puppet', '22.0.1'
+mod 'theforeman-puppet', '22.1.0'
 mod 'theforeman-puppetserver_foreman', '4.3.0'
 # choria / mcollective service bus
 mod 'choria-choria',
