@@ -1,6 +1,6 @@
 mod 'cirrax-libvirt', '6.0.0'
 mod 'puppet-archive', '8.1.0'
-mod 'puppet-borg', '5.0.0'
+mod 'puppet-borg', '6.0.0'
 mod 'puppet-cron', '5.0.0'
 mod 'puppet-dbbackup', '2.2.0'
 mod 'puppet-extlib', '7.5.1'
