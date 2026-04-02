@@ -76,7 +76,7 @@ class profiles::download_server::rclone {
       command => 'rclone sync --exclude index.html --exclude "/lost+found/**" OpenVox:openvox-apt /var/mirror/apt',
     ;
     'sync-artifacts-from-OSL':
-      minute  => '25',
+      minute  => '5,25,40,50',
       command => 'rclone sync --exclude index.html --exclude "/lost+found/**" OpenVox:openvox-artifacts /var/mirror/artifacts',
     ;
     'sync-yum-from-OSL':
