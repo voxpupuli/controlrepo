@@ -19,23 +19,23 @@ class profiles::puppet::server_firewalling {
     dport  => 8140,
     saddr  => ['2a01:4f9:c01f:802e::1/64', '2a01:4f9:c013:77c::1/64', '2a01:4f8:c013:b6cb::1/64', '2a01:4f8:252:4667::2/64', '2a01:4f8:c2c:7501::1/64', '2a01:4f9:c01f:9f8a::/64','2a01:4f9:c011:bcee::1', "${facts['networking']['ip6']}/128",],
   }
-  nftables::simplerule { 'allow_puppetdb_4':
+  nftables::simplerule { 'allow_openvoxdb_4':
     action => 'accept',
     proto  => 'tcp',
     dport  => 8081,
     saddr  => "${facts['networking']['ip']}/32",
   }
-  nftables::simplerule { 'allow_puppetdb_6':
+  nftables::simplerule { 'allow_openvoxdb_6':
     action => 'accept',
     proto  => 'tcp',
     dport  => 8081,
     saddr  => "${facts['networking']['ip6']}/128",
   }
   # allow connections from the agent/curl to reach the PuppetDB via http/https
-  nftables::rule { 'default_out-puppetdbv6':
+  nftables::rule { 'default_out-openvoxdbv6':
     content => "tcp dport { 8080, 8081 } ip6 daddr ${facts['networking']['ip6']}/128 accept",
   }
-  nftables::rule { 'default_out-puppetdbv4':
+  nftables::rule { 'default_out-openvoxdbv4':
     content => "tcp dport { 8080, 8081 } ip daddr ${facts['networking']['ip']}/32 accept",
   }
 

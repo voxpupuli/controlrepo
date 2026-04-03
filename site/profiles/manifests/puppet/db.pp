@@ -1,5 +1,5 @@
 #
-# @summary installs puppetdb *on a puppetserver that also runs foreman*
+# @summary installs openvoxdb *on a puppetserver that also runs foreman*
 #
 # @api private
 #
@@ -14,11 +14,11 @@ class profiles::puppet::db {
     require  => Postgresql::Server::Db['puppetdb'],
     before   => Service['puppetdb'],
   }
-  class { 'puppetdb':
+  class { 'openvoxdb':
     manage_dbserver => false,
     manage_firewall => false,
   }
-  contain puppetdb
+  contain openvoxdb
   class { 'puppet::server::puppetdb':
     server => $facts['networking']['fqdn'],
   }
