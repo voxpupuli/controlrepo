@@ -21,7 +21,7 @@ mod 'puppetlabs-docker', '10.4.0'
 mod 'puppetlabs-inifile', '6.3.1'
 mod 'puppetlabs-mount_core', '2.0.1'
 mod 'puppetlabs-postgresql', '10.6.1'
-mod 'puppetlabs-puppetdb', '8.1.0'
+mod 'puppet-openvoxdb', '9.0.1'
 mod 'puppetlabs-rsync', '1.2.0'
 mod 'puppetlabs-stdlib', '9.7.0'
 mod 'puppetlabs-vcsrepo', '7.0.0'
@@ -32,7 +32,10 @@ mod 'smarteon-rclone', '0.0.2'
 mod 'theforeman-dns', '12.1.0'
 mod 'theforeman-foreman', '29.0.1'
 mod 'theforeman-foreman_proxy', '30.1.0'
-mod 'theforeman-puppet', '22.1.0'
+# https://github.com/theforeman/puppet-puppet/pull/982
+mod 'theforeman-puppet',
+ git: 'https://github.com/bastelfreak/puppet-puppet',
+ branch: 'tmp2'
 mod 'theforeman-puppetserver_foreman', '4.3.0'
 # choria / mcollective service bus
 mod 'choria-choria',
