@@ -31,6 +31,17 @@ class profiles::foreman {
       },
     },
   }
+
+  # configures hammer CLI
+  class { 'foreman::cli':
+    use_sessions => true,
+  }
+  include foreman::cli::puppet
+  include foreman::cli::remote_execution
+  include foreman::cli::ssh
+  include foreman::cli::tasks
+  include foreman::cli::webhooks
+
   include foreman::plugin::puppet
   include foreman::plugin::puppetdb
   include foreman::plugin::tasks
