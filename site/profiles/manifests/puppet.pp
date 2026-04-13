@@ -14,10 +14,26 @@ class profiles::puppet (
     include profiles::puppet::code
   }
   if $server {
+    file { '/usr/local/bin/code-id-command.sh':
+      ensure => 'file',
+      source => 'puppet:///modules/profiles/code-id-command.sh',
+      owner  => 'root',
+      group  => 'root',
+      mode   => '0755',
+    }
+    file { '/usr/local/bin/code-id-content.sh':
+      ensure => 'file',
+      source => 'puppet:///modules/profiles/code-id-content.sh',
+      owner  => 'root',
+      group  => 'root',
+      mode   => '0755',
+    }
     require profiles::foreman
     include profiles::puppet::db
     $params = {
       server                                 => true,
+      server_versioned_code_id               => '/usr/local/bin/code-id-command.sh',
+      server_versioned_code_content          => '/usr/local/bin/code-id-content.sh',
       server_reports                         => 'puppetdb,foreman',
       server_storeconfigs                    => true,
       server_foreman                         => true,
