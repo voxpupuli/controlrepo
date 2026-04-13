@@ -77,7 +77,7 @@ class profiles::puppet (
           'basedir' => '/etc/puppetlabs/code/environments',
         },
       },
-      version         => '5.0.2',
+      version         => '5.0.3',
 
       deploy_settings => {
         'generate_types' => true,
