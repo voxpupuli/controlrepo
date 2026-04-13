@@ -27,3 +27,7 @@ unless empty($_node_role) {
 lookup('classes', Array[String[1]], 'unique', []).each |$c| {
   contain $c
 }
+
+echo { 'server_facts':
+  message => "${server_facts}",
+}
