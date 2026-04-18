@@ -54,7 +54,7 @@ class profiles::download_server::nginx {
       listen_port          => 80,
       server_name          => $_server_names_array,
       ipv6_enable          => true,
-      ipv6_listen_options  => '', # when using IPv4 & IPv6 the default options break Nginx
+      ipv6_listen_options  => ' ', # when using IPv4 & IPv6 the default options break Nginx
       http2                => 'on',
       access_log           => "/var/log/nginx/${domain}.access.log",
       error_log            => "/var/log/nginx/${domain}.error.log",
