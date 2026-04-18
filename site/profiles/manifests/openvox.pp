@@ -22,6 +22,11 @@ class profiles::openvox {
       server_cfg_ssl_prepend => {
         'return' => '301 https://voxpupuli.org/openvox/',
       },
+      add_header             => {
+        'Strict-Transport-Security' => {
+          'max-age=63072000' => 'always',
+        },
+      },
     }
   } else {
     nginx::resource::server { $domain:
