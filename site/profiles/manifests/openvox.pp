@@ -18,6 +18,7 @@ class profiles::openvox {
       rewrite_www_to_non_www => true,
       use_default_location   => false,
       index_files            => [],
+      http2                  => 'on',
       server_cfg_ssl_prepend => {
         'return' => '301 https://voxpupuli.org/openvox/',
       },
@@ -31,6 +32,7 @@ class profiles::openvox {
       ssl_redirect           => true,
       server_name            => [$domain],
       rewrite_www_to_non_www => true,
+      http2                  => 'on',
     }
   }
   letsencrypt::certonly { $domain:
