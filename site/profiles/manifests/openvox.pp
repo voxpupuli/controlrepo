@@ -1,7 +1,6 @@
 class profiles::openvox {
   $domain = 'openvoxproject.org'
   profiles::certbot::nginx { $domain: }
-  profiles::certbot::nginx { "www.${domain}": }
   # generate the cert
   if fact('letsencrypt_directory."openvoxproject.org"') {
     nginx::resource::server { $domain:
@@ -37,10 +36,6 @@ class profiles::openvox {
     ],
     require         => [
       Nginx::Resource::Server[$domain],
-      Nginx::Resource::Location[
-        "${domain} Let's Encrypt challenges",
-        "${domain} acme-challenge directory",
-      ],
     ],
   }
 }
