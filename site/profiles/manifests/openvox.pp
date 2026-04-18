@@ -8,23 +8,24 @@ class profiles::openvox {
       ipv6_listen_ip         => '2a01:4f8:1c17:b00c::1',
       ipv6_enable            => true,
       ipv6_listen_options    => ' ',
-      server_name            => [$domain],
+      server_name            => [$domain, "www.${domain}"],
       ssl                    => true,
       ssl_cert               => "/etc/letsencrypt/live/${domain}/fullchain.pem",
       ssl_key                => "/etc/letsencrypt/live/${domain}/privkey.pem",
       ssl_redirect           => true,
       proxy                  => 'http://127.0.0.1:8080',
       proxy_http_version     => '1.1',
-      rewrite_non_www_to_www => true,
+      rewrite_www_to_non_www => true,
     }
   } else {
     nginx::resource::server { $domain:
-      listen_ip           => '5.75.218.154',
-      ipv6_listen_ip      => '2a01:4f8:1c17:b00c::1',
-      ipv6_enable         => true,
-      ipv6_listen_options => ' ',
-      ssl_redirect        => true,
-      server_name         => [$domain],
+      listen_ip              => '5.75.218.154',
+      ipv6_listen_ip         => '2a01:4f8:1c17:b00c::1',
+      ipv6_enable            => true,
+      ipv6_listen_options    => ' ',
+      ssl_redirect           => true,
+      server_name            => [$domain],
+      rewrite_www_to_non_www => true,
     }
   }
   letsencrypt::certonly { $domain:
