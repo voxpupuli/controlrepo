@@ -13,4 +13,5 @@ class roles::download_server {
   include nftables::rules::rsync
   include profiles::download_server
   include profiles::lets_encrypt
+  include profiles::openvox
 }
