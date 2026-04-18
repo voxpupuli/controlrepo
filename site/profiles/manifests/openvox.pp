@@ -16,6 +16,10 @@ class profiles::openvox {
       proxy                  => 'http://127.0.0.1:8080',
       proxy_http_version     => '1.1',
       rewrite_www_to_non_www => true,
+      use_default_location   => false,
+      server_cfg_ssl_prepend => {
+        'return' => '301 https://voxpupuli.org/openvox/',
+      },
     }
   } else {
     nginx::resource::server { $domain:
