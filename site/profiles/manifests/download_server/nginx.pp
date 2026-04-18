@@ -11,8 +11,9 @@ class profiles::download_server::nginx {
   assert_private()
 
   class { 'nginx':
-    server_purge => true,
-    confd_purge  => true,
+    server_purge         => true,
+    confd_purge          => true,
+    service_config_check => true,
   }
 
   $_server_names = $profiles::download_server::server_names
@@ -53,6 +54,7 @@ class profiles::download_server::nginx {
       listen_port          => 80,
       server_name          => $_server_names_array,
       ipv6_enable          => true,
+      ipv6_listen_options  => '', # when using IPv4 & IPv6 the default options break Nginx
       http2                => 'on',
       access_log           => "/var/log/nginx/${domain}.access.log",
       error_log            => "/var/log/nginx/${domain}.error.log",
