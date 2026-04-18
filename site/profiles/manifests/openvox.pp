@@ -17,6 +17,7 @@ class profiles::openvox {
       proxy_http_version     => '1.1',
       rewrite_www_to_non_www => true,
       use_default_location   => false,
+      index_files            => [],
       server_cfg_ssl_prepend => {
         'return' => '301 https://voxpupuli.org/openvox/',
       },
