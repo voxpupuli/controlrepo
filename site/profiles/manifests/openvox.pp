@@ -8,7 +8,7 @@ class profiles::openvox {
       ipv6_listen_ip         => '2a01:4f8:1c17:b00c::1',
       ipv6_enable            => true,
       ipv6_listen_options    => ' ',
-      server_name            => [$domain, "www.${domain}"],
+      server_name            => [$domain],
       ssl                    => true,
       ssl_cert               => "/etc/letsencrypt/live/${domain}/fullchain.pem",
       ssl_key                => "/etc/letsencrypt/live/${domain}/privkey.pem",
