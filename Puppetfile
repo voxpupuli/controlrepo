@@ -31,7 +31,7 @@ mod 'puppetlabs-vcsrepo', '7.0.0'
 mod 'richardc-datacat', '0.6.2'
 mod 'saz-ssh', '14.1.0'
 mod 'saz-sudo', '9.0.2'
-mod 'smarteon-rclone', '0.0.2'
+mod 'smarteon-rclone', '0.0.3'
 mod 'theforeman-dns', '12.1.0'
 mod 'theforeman-foreman', '29.0.1'
 mod 'theforeman-foreman_proxy', '30.1.0'
@@ -42,8 +42,8 @@ mod 'theforeman-puppet',
 mod 'theforeman-puppetserver_foreman', '4.3.0'
 # choria / mcollective service bus
 mod 'choria-choria',
-    git: 'https://github.com/choria-io/puppet-choria',
-    ref: 'e75dd706dc133a2032c709d4da07ca2a16cd64a8'
+  git: 'https://github.com/choria-io/puppet-choria',
+  ref: 'e75dd706dc133a2032c709d4da07ca2a16cd64a8'
 mod 'choria-mcollective',
   git: 'https://github.com/choria-io/puppet-mcollective',
   ref: '366b20f7db6f2caf6615e9a61ba10f0d2f04c72f'
