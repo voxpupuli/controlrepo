@@ -39,6 +39,7 @@
 * [`profiles::ssh_keys::people::binford2k`](#profiles--ssh_keys--people--binford2k): Configure key from binford2k from GitHubs in the authorized_keys file
 * [`profiles::ssh_keys::people::ekohl`](#profiles--ssh_keys--people--ekohl): Configure key from ekohl from GitHubs in the authorized_keys file along with supplemental keys
 * [`profiles::ssh_keys::people::genebean`](#profiles--ssh_keys--people--genebean): configure key from genebean from GitHubs in the authorized_keys file
+* [`profiles::ssh_keys::people::kenyon`](#profiles--ssh_keys--people--kenyon): configure key from nmburgan from GitHubs in the authorized_keys file
 * [`profiles::ssh_keys::people::nmburgan`](#profiles--ssh_keys--people--nmburgan): configure key from nmburgan from GitHubs in the authorized_keys file
 * [`profiles::ssh_keys::people::rwaffen`](#profiles--ssh_keys--people--rwaffen): configure key from rwaffen from GitHubs in the authorized_keys file
 * [`profiles::ssh_keys::people::sebastianrakel`](#profiles--ssh_keys--people--sebastianrakel): Configure key from sebastianrakel from GitHubs in the authorized_keys file along with supplemental keys
@@ -634,6 +635,10 @@ Configure key from ekohl from GitHubs in the authorized_keys file along with sup
 ### <a name="profiles--ssh_keys--people--genebean"></a>`profiles::ssh_keys::people::genebean`
 
 configure key from genebean from GitHubs in the authorized_keys file
+
+### <a name="profiles--ssh_keys--people--kenyon"></a>`profiles::ssh_keys::people::kenyon`
+
+configure key from nmburgan from GitHubs in the authorized_keys file
 
 ### <a name="profiles--ssh_keys--people--nmburgan"></a>`profiles::ssh_keys::people::nmburgan`
 
