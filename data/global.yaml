@@ -11,6 +11,8 @@ pmc_members:
   - 'sebastianrakel'
   - 'smortex'
   - 'binford2k'
+  - 'nmburgan'
+  - 'kenyon'
 
 # config for theforeman/puppet
 puppet::puppetmaster: 'voxpupu.li'
