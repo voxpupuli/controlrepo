@@ -47,6 +47,8 @@ class profiles::foreman {
     dns                 => false,
     bmc                 => false,
     realm               => false,
+    log_level           => 'DEBUG',
+    log                 => 'JOURNAL',
   }
   include foreman_proxy::plugin::remote_execution::script
   include foreman_proxy::plugin::openbolt
