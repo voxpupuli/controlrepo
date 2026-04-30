@@ -33,7 +33,7 @@ mod 'saz-ssh', '14.1.0'
 mod 'saz-sudo', '9.0.2'
 mod 'smarteon-rclone', '0.0.3'
 mod 'theforeman-dns', '12.1.0'
-mod 'theforeman-foreman', '29.0.1'
+mod 'theforeman-foreman', '29.1.0'
 mod 'theforeman-foreman_proxy', '30.1.0'
 # https://github.com/theforeman/puppet-puppet/pull/982
 mod 'theforeman-puppet',
