@@ -83,7 +83,7 @@ mod 'choria-mcollective_agent_process',
 mod 'choria-mcollective_agent_iptables',
   git: 'https://github.com/choria-plugins/iptables-agent',
   ref: '4.1.0'
-mod 'puppet-augeasproviders_sysctl', '4.0.0'
+mod 'puppet-augeasproviders_sysctl', '4.1.0'
 mod 'puppet-augeasproviders_core', '5.0.0'
 mod 'puppet-hashi_stack', '4.1.0'
 mod 'puppet-mosquitto', '3.0.0'
