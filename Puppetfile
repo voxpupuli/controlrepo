@@ -32,7 +32,7 @@ mod 'richardc-datacat', '0.6.2'
 mod 'saz-ssh', '14.1.0'
 mod 'saz-sudo', '9.0.2'
 mod 'smarteon-rclone', '0.0.3'
-mod 'theforeman-dns', '12.1.0'
+mod 'theforeman-dns', '12.2.0'
 mod 'theforeman-foreman', '29.2.0'
 mod 'theforeman-foreman_proxy', '30.1.0'
 # https://github.com/theforeman/puppet-puppet/pull/982
