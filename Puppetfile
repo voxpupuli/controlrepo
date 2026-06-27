@@ -29,7 +29,7 @@ mod 'puppetlabs-rsync',
 mod 'puppetlabs-stdlib', '9.7.0'
 mod 'puppetlabs-vcsrepo', '7.0.0'
 mod 'richardc-datacat', '0.6.2'
-mod 'saz-ssh', '14.1.0'
+mod 'saz-ssh', '15.0.0'
 mod 'saz-sudo', '9.0.2'
 mod 'smarteon-rclone', '0.0.3'
 mod 'theforeman-dns', '12.2.0'
