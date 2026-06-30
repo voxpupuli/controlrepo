@@ -1,4 +1,4 @@
-mod 'cirrax-libvirt', '6.0.0'
+mod 'cirrax-libvirt', '6.1.0'
 mod 'puppet-archive', '8.1.0'
 mod 'puppet-borg', '6.0.0'
 mod 'puppet-cron', '5.0.0'
