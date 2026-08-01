@@ -43,7 +43,7 @@ mod 'theforeman-puppetserver_foreman', '4.3.0'
 # choria / mcollective service bus
 mod 'choria-choria',
   git: 'https://github.com/choria-io/puppet-choria',
-  ref: 'e75dd706dc133a2032c709d4da07ca2a16cd64a8'
+  ref: '0.32.1'
 mod 'choria-mcollective',
   git: 'https://github.com/choria-io/puppet-mcollective',
   ref: '366b20f7db6f2caf6615e9a61ba10f0d2f04c72f'
