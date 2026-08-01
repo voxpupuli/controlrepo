@@ -1,16 +1,16 @@
 #
-# @summary proxy connections from (www.)openvoxproject.org to voxpupuli.org/openvox
+# @summary deploys our website
 #
 # @author Tim Meusel <tim@bastelfreak.de>
 #
-class profiles::openvox {
-  $domain = 'openvoxproject.org'
+class profiles::openvoxproject {
+  $domain = 'staging.openvoxproject.org'
   profiles::certbot::nginx { $domain: }
   # generate the cert
-  if fact('letsencrypt_directory."openvoxproject.org"') {
+  if fact('letsencrypt_directory."staging.openvoxproject.org"') {
     nginx::resource::server { $domain:
-      listen_ip              => '5.75.218.154',
-      ipv6_listen_ip         => '2a01:4f8:1c17:b00c::1',
+      listen_ip              => '65.109.240.83',
+      ipv6_listen_ip         => '2a01:4f9:c01f:6a::1',
       ipv6_enable            => true,
       ipv6_listen_options    => ' ',
       server_name            => [$domain],
@@ -35,8 +35,8 @@ class profiles::openvox {
     }
   } else {
     nginx::resource::server { $domain:
-      listen_ip              => '5.75.218.154',
-      ipv6_listen_ip         => '2a01:4f8:1c17:b00c::1',
+      listen_ip              => '65.109.240.83',
+      ipv6_listen_ip         => '2a01:4f9:c01f:6a::1',
       ipv6_enable            => true,
       ipv6_listen_options    => ' ',
       ssl_redirect           => true,
@@ -46,7 +46,7 @@ class profiles::openvox {
     }
   }
   letsencrypt::certonly { $domain:
-    domains         => [$domain, "www.${domain}"],
+    domains         => [$domain],
     plugin          => 'nginx',
     manage_cron     => false,
     additional_args => [

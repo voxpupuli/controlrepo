@@ -24,7 +24,8 @@
 * [`profiles::nftables`](#profiles--nftables): configure certain nftable rules
 * [`profiles::nginx`](#profiles--nginx): multiple profiles requires nginx vhosts, this profile pulls in the nginx class/package/service setup
 * [`profiles::node_exporter`](#profiles--node_exporter): install node_exporter
-* [`profiles::openvox`](#profiles--openvox)
+* [`profiles::openvox`](#profiles--openvox): proxy connections from (www.)openvoxproject.org to voxpupuli.org/openvox
+* [`profiles::openvoxproject`](#profiles--openvoxproject): deploys our website
 * [`profiles::postfix`](#profiles--postfix): installs postfix
 * [`profiles::postgres_exporter`](#profiles--postgres_exporter): installs a postgres exporter
 * [`profiles::postgresql`](#profiles--postgresql): install latest postgresql with upstream repositories
@@ -481,7 +482,11 @@ install node_exporter
 
 ### <a name="profiles--openvox"></a>`profiles::openvox`
 
-The profiles::openvox class.
+proxy connections from (www.)openvoxproject.org to voxpupuli.org/openvox
+
+### <a name="profiles--openvoxproject"></a>`profiles::openvoxproject`
+
+deploys our website
 
 ### <a name="profiles--postfix"></a>`profiles::postfix`
 
