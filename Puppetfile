@@ -49,7 +49,7 @@ mod 'choria-mcollective',
   ref: '366b20f7db6f2caf6615e9a61ba10f0d2f04c72f'
 mod 'choria-mcollective_choria',
   git: 'https://github.com/choria-plugins/mcollective_choria',
-  ref: '0.22.2'
+  ref: '0.23.0'
 mod 'choria-mcollective_agent_puppet',
   git: 'https://github.com/choria-plugins/puppet-agent',
   ref: '2.5.0'
