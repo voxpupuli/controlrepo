@@ -46,7 +46,7 @@ mod 'choria-choria',
   ref: '0.32.1'
 mod 'choria-mcollective',
   git: 'https://github.com/choria-io/puppet-mcollective',
-  ref: '366b20f7db6f2caf6615e9a61ba10f0d2f04c72f'
+  ref: '0.15.0'
 mod 'choria-mcollective_choria',
   git: 'https://github.com/choria-plugins/mcollective_choria',
   ref: '0.23.0'
