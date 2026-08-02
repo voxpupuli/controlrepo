@@ -20,13 +20,10 @@ class profiles::openvoxproject {
       ssl_redirect           => true,
       proxy                  => 'http://127.0.0.1:8080',
       proxy_http_version     => '1.1',
-      rewrite_www_to_non_www => true,
-      use_default_location   => false,
+      rewrite_www_to_non_www => false,
+      use_default_location   => true,
       index_files            => [],
       http2                  => 'on',
-      server_cfg_ssl_prepend => {
-        'return' => '301 https://voxpupuli.org/openvox/',
-      },
       add_header             => {
         'Strict-Transport-Security' => {
           'max-age=63072000' => 'always',
@@ -41,7 +38,7 @@ class profiles::openvoxproject {
       ipv6_listen_options    => ' ',
       ssl_redirect           => true,
       server_name            => [$domain],
-      rewrite_www_to_non_www => true,
+      rewrite_www_to_non_www => false, # change later
       http2                  => 'on',
     }
   }

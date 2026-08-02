@@ -26,6 +26,7 @@
 * [`profiles::node_exporter`](#profiles--node_exporter): install node_exporter
 * [`profiles::openvox`](#profiles--openvox): proxy connections from (www.)openvoxproject.org to voxpupuli.org/openvox
 * [`profiles::openvoxproject`](#profiles--openvoxproject): deploys our website
+* [`profiles::openvoxproject_user`](#profiles--openvoxproject_user): creates a new user for openvoxproject staging website
 * [`profiles::postfix`](#profiles--postfix): installs postfix
 * [`profiles::postgres_exporter`](#profiles--postgres_exporter): installs a postgres exporter
 * [`profiles::postgresql`](#profiles--postgresql): install latest postgresql with upstream repositories
@@ -487,6 +488,10 @@ proxy connections from (www.)openvoxproject.org to voxpupuli.org/openvox
 ### <a name="profiles--openvoxproject"></a>`profiles::openvoxproject`
 
 deploys our website
+
+### <a name="profiles--openvoxproject_user"></a>`profiles::openvoxproject_user`
+
+creates a new user for openvoxproject staging website
 
 ### <a name="profiles--postfix"></a>`profiles::postfix`
 

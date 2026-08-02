@@ -8,4 +8,5 @@ class roles::openvoxproject {
   include nftables::rules::https
   include profiles::lets_encrypt
   include profiles::openvoxproject
+  include profiles::openvoxproject_user
 }
