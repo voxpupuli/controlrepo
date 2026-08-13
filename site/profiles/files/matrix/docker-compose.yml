@@ -61,6 +61,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.synapse
+      network: host
     image: synapse-s3-local:latest
     restart: unless-stopped
     env_file:
@@ -87,6 +88,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.synapse
+      network: host
     image: synapse-s3-local:latest
     restart: unless-stopped
     env_file:
@@ -115,6 +117,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.synapse
+      network: host
     image: synapse-s3-local:latest
     restart: unless-stopped
     env_file:
@@ -143,6 +146,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.synapse
+      network: host
     image: synapse-s3-local:latest
     restart: unless-stopped
     env_file:
@@ -171,6 +175,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.synapse
+      network: host
     image: synapse-s3-local:latest
     restart: unless-stopped
     env_file:
@@ -199,6 +204,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.synapse
+      network: host
     image: synapse-s3-local:latest
     restart: unless-stopped
     env_file:
@@ -225,6 +231,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.synapse
+      network: host
     image: synapse-s3-local:latest
     restart: unless-stopped
     env_file:
@@ -251,6 +258,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.synapse
+      network: host
     image: synapse-s3-local:latest
     restart: unless-stopped
     env_file:
