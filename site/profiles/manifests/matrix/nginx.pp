@@ -200,11 +200,11 @@ class profiles::matrix::nginx {
   }
 
   # Reverse proxy endpoints
-  $proxy_params = {
-    'X-Forwarded-For'   => '$remote_addr',
-    'X-Forwarded-Proto' => '$scheme',
-    'Host'              => '$host',
-  }
+  $proxy_params = [
+    'X-Forwarded-For $remote_addr',
+    'X-Forwarded-Proto $scheme',
+    'Host $host',
+  ]
 
   nginx::resource::location {
     default:
