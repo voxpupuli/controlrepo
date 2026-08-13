@@ -84,6 +84,7 @@ services:
     volumes:
     - ./config/synapse:/config:ro
     - ./data/synapse:/data
+    - ./data/media:/media
     - ./logs/synapse:/logs
     depends_on:
     - synapse-main
@@ -110,6 +111,7 @@ services:
     volumes:
     - ./config/synapse:/config:ro
     - ./data/synapse:/data
+    - ./data/media:/media
     - ./logs/synapse:/logs
     depends_on:
     - synapse-main
@@ -136,6 +138,7 @@ services:
     volumes:
     - ./config/synapse:/config:ro
     - ./data/synapse:/data
+    - ./data/media:/media
     - ./logs/synapse:/logs
     depends_on:
     - synapse-main
@@ -189,6 +192,7 @@ services:
     volumes:
     - ./config/synapse:/config:ro
     - ./data/synapse:/data
+    - ./data/media:/media
     - ./logs/synapse:/logs
     depends_on:
     - synapse-main
@@ -213,6 +217,7 @@ services:
     volumes:
     - ./config/synapse:/config:ro
     - ./data/synapse:/data
+    - ./data/media:/media
     - ./logs/synapse:/logs
     depends_on:
     - synapse-main

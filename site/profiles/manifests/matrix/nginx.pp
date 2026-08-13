@@ -59,6 +59,11 @@ class profiles::matrix::nginx {
     listen_port          => 80,
     server_name          => [$domain],
     ipv6_enable          => true,
+    # nginx allows listen options on only one [::]:80 listener; the
+    # matrix vhost carries them. The module's default would emit
+    # ipv6only=on here too ("duplicate listen options"), and its v8
+    # types reject '' — a single space renders as no options.
+    ipv6_listen_options  => ' ',
     http2                => 'on',
     access_log           => "/var/log/nginx/${domain}.access.log",
     error_log            => "/var/log/nginx/${domain}.error.log",
