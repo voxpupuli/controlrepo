@@ -1,3 +1,16 @@
+# Pinned bridge name and subnet so the host firewall can reference them:
+# nftables::rules::docker_ce is parameterized per interface/prefix (see
+# data/nodes/matrix01.voxpupu.li.yaml) and compose's default hash-named
+# bridge cannot be referenced from firewall rules.
+networks:
+  default:
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.name: matrix0
+    ipam:
+      config:
+        - subnet: 172.18.0.0/16
+
 services:
   # ─────────────────────────────────────────
   # DATABASE (PostgreSQL backend)
