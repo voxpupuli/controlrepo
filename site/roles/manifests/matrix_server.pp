@@ -12,6 +12,7 @@
 class roles::matrix_server {
   include nftables::rules::http
   include nftables::rules::https
+  include profiles::docker
   include profiles::lets_encrypt
   include profiles::matrix
   include profiles::nginx
