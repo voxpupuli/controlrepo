@@ -23,6 +23,21 @@ class profiles::matrix::synapse {
     ]:
       ensure => directory,
     ;
+    # Bind-mount targets: without pre-creation Docker makes them
+    # root-owned and Synapse (UID 991) cannot write its signing key,
+    # media, or logs.
+    [
+      "${matrix_dir}/data",
+      "${matrix_dir}/data/synapse",
+      "${matrix_dir}/data/media",
+      "${matrix_dir}/logs",
+      "${matrix_dir}/logs/synapse",
+    ]:
+      ensure => directory,
+      owner  => 991,
+      group  => 991,
+      mode   => '0750',
+    ;
     "${matrix_dir}/docker-compose.yml":
       ensure => file,
       source => 'puppet:///modules/profiles/matrix/docker-compose.yml',
