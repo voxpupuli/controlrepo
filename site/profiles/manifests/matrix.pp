@@ -25,4 +25,12 @@ class profiles::matrix (
 ) {
   include profiles::matrix::nginx
   include profiles::matrix::synapse
+
+  # nftables::rules::docker_ce covers forwarded bridge traffic, but
+  # host-originated egress (nginx and docker-proxy dialing the published
+  # container ports) traverses the output chain, whose default policy is
+  # drop — without this, every proxied request times out.
+  nftables::rule { 'default_out-matrix0':
+    content => 'oifname "matrix0" accept',
+  }
 }
