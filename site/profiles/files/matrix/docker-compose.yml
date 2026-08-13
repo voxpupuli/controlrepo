@@ -85,6 +85,15 @@ services:
   # ─────────────────────────────────────────
   synapse-worker1:
     container_name: synapse-worker1
+    healthcheck:
+      test:
+      - CMD
+      - curl
+      - -fSs
+      - http://localhost:8081/health
+      interval: 15s
+      timeout: 5s
+      retries: 5
     build:
       context: .
       dockerfile: Dockerfile.synapse
@@ -114,6 +123,15 @@ services:
   # ─────────────────────────────────────────
   synapse-worker2:
     container_name: synapse-worker2
+    healthcheck:
+      test:
+      - CMD
+      - curl
+      - -fSs
+      - http://localhost:8082/health
+      interval: 15s
+      timeout: 5s
+      retries: 5
     build:
       context: .
       dockerfile: Dockerfile.synapse
@@ -143,6 +161,15 @@ services:
   # ─────────────────────────────────────────
   synapse-worker3:
     container_name: synapse-worker3
+    healthcheck:
+      test:
+      - CMD
+      - curl
+      - -fSs
+      - http://localhost:8083/health
+      interval: 15s
+      timeout: 5s
+      retries: 5
     build:
       context: .
       dockerfile: Dockerfile.synapse
@@ -172,6 +199,15 @@ services:
   # ─────────────────────────────────────────
   synapse-worker4:
     container_name: synapse-worker4
+    healthcheck:
+      test:
+      - CMD
+      - curl
+      - -fSs
+      - http://localhost:8084/health
+      interval: 15s
+      timeout: 5s
+      retries: 5
     build:
       context: .
       dockerfile: Dockerfile.synapse
@@ -201,6 +237,15 @@ services:
   # ─────────────────────────────────────────
   synapse-events-persister:
     container_name: synapse-events-persister
+    healthcheck:
+      test:
+      - CMD
+      - curl
+      - -fSs
+      - http://localhost:8085/health
+      interval: 15s
+      timeout: 5s
+      retries: 5
     build:
       context: .
       dockerfile: Dockerfile.synapse
@@ -228,6 +273,15 @@ services:
   # ─────────────────────────────────────────
   synapse-receipts-writer:
     container_name: synapse-receipts-writer
+    healthcheck:
+      test:
+      - CMD
+      - curl
+      - -fSs
+      - http://localhost:8086/health
+      interval: 15s
+      timeout: 5s
+      retries: 5
     build:
       context: .
       dockerfile: Dockerfile.synapse
@@ -255,6 +309,8 @@ services:
   # ─────────────────────────────────────────
   media-cron:
     container_name: media-cron
+    healthcheck:
+      disable: true
     build:
       context: .
       dockerfile: Dockerfile.synapse
