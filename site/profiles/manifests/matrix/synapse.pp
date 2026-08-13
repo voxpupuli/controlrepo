@@ -38,6 +38,28 @@ class profiles::matrix::synapse {
         'postgres_password' => $profiles::matrix::sensitive_postgres_password,
       }),
     ;
+    "${matrix_dir}/config/synapse/log.yaml":
+      ensure  => file,
+      owner   => 991,
+      group   => 991,
+      mode    => '0444',
+      # homeserver.yaml points log_config here; /config is mounted
+      # read-only, so Synapse cannot generate it on first start.
+      content => @(LOGCONF),
+        version: 1
+        formatters:
+          precise:
+            format: '%(asctime)s - %(name)s - %(lineno)d - %(levelname)s - %(request)s - %(message)s'
+        handlers:
+          console:
+            class: logging.StreamHandler
+            formatter: precise
+        root:
+          level: INFO
+          handlers: [console]
+        disable_existing_loggers: false
+        | LOGCONF
+    ;
     "${matrix_dir}/config/synapse/homeserver.yaml":
       ensure  => file,
       # The official Synapse image runs as UID 991 and mounts /config
