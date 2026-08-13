@@ -90,14 +90,11 @@ services:
       - .env
     environment:
       SYNAPSE_CONFIG_PATH: /config/homeserver.yaml
-      SYNAPSE_WORKER_APP: synapse.app.generic_worker
-      SYNAPSE_WORKER_NAME: generic_worker1
-      SYNAPSE_WORKER_REPLICATION_HOST: synapse-main
-      SYNAPSE_WORKER_REPLICATION_HTTP_PORT: '9093'
-      SYNAPSE_WORKER_LISTENERS: "[{\"type\": \"http\", \"port\": 8081, \"bind_addresses\"\
-        : [\"0.0.0.0\"],\n  \"resources\": [{\"names\": [\"client\", \"federation\"\
-        ]}]},\n {\"type\": \"http\", \"port\": 9101, \"bind_addresses\": [\"127.0.0.1\"\
-        ],\n  \"resources\": [{\"names\": [\"metrics\"]}]}]\n"
+      SYNAPSE_WORKER: synapse.app.generic_worker
+    command:
+    - run
+    - --config-path=/config/homeserver.yaml
+    - --config-path=/config/workers/generic_worker1.yaml
     volumes:
     - ./config/synapse:/config:ro
     - ./data/synapse:/data
@@ -118,14 +115,11 @@ services:
       - .env
     environment:
       SYNAPSE_CONFIG_PATH: /config/homeserver.yaml
-      SYNAPSE_WORKER_APP: synapse.app.generic_worker
-      SYNAPSE_WORKER_NAME: generic_worker2
-      SYNAPSE_WORKER_REPLICATION_HOST: synapse-main
-      SYNAPSE_WORKER_REPLICATION_HTTP_PORT: '9093'
-      SYNAPSE_WORKER_LISTENERS: "[{\"type\": \"http\", \"port\": 8082, \"bind_addresses\"\
-        : [\"0.0.0.0\"],\n  \"resources\": [{\"names\": [\"client\", \"federation\"\
-        ]}]},\n {\"type\": \"http\", \"port\": 9102, \"bind_addresses\": [\"127.0.0.1\"\
-        ],\n  \"resources\": [{\"names\": [\"metrics\"]}]}]\n"
+      SYNAPSE_WORKER: synapse.app.generic_worker
+    command:
+    - run
+    - --config-path=/config/homeserver.yaml
+    - --config-path=/config/workers/generic_worker2.yaml
     volumes:
     - ./config/synapse:/config:ro
     - ./data/synapse:/data
@@ -146,14 +140,11 @@ services:
       - .env
     environment:
       SYNAPSE_CONFIG_PATH: /config/homeserver.yaml
-      SYNAPSE_WORKER_APP: synapse.app.generic_worker
-      SYNAPSE_WORKER_NAME: generic_worker3
-      SYNAPSE_WORKER_REPLICATION_HOST: synapse-main
-      SYNAPSE_WORKER_REPLICATION_HTTP_PORT: '9093'
-      SYNAPSE_WORKER_LISTENERS: "[{\"type\": \"http\", \"port\": 8083, \"bind_addresses\"\
-        : [\"0.0.0.0\"],\n  \"resources\": [{\"names\": [\"federation\"]}]},\n {\"\
-        type\": \"http\", \"port\": 9103, \"bind_addresses\": [\"127.0.0.1\"],\n \
-        \ \"resources\": [{\"names\": [\"metrics\"]}]}]\n"
+      SYNAPSE_WORKER: synapse.app.generic_worker
+    command:
+    - run
+    - --config-path=/config/homeserver.yaml
+    - --config-path=/config/workers/generic_worker3.yaml
     volumes:
     - ./config/synapse:/config:ro
     - ./data/synapse:/data
@@ -174,14 +165,11 @@ services:
       - .env
     environment:
       SYNAPSE_CONFIG_PATH: /config/homeserver.yaml
-      SYNAPSE_WORKER_APP: synapse.app.generic_worker
-      SYNAPSE_WORKER_NAME: generic_worker4
-      SYNAPSE_WORKER_REPLICATION_HOST: synapse-main
-      SYNAPSE_WORKER_REPLICATION_HTTP_PORT: '9093'
-      SYNAPSE_WORKER_LISTENERS: "[{\"type\": \"http\", \"port\": 8084, \"bind_addresses\"\
-        : [\"0.0.0.0\"],\n  \"resources\": [{\"names\": [\"media\", \"client\"]}]},\n\
-        \ {\"type\": \"http\", \"port\": 9104, \"bind_addresses\": [\"127.0.0.1\"\
-        ],\n  \"resources\": [{\"names\": [\"metrics\"]}]}]\n"
+      SYNAPSE_WORKER: synapse.app.generic_worker
+    command:
+    - run
+    - --config-path=/config/homeserver.yaml
+    - --config-path=/config/workers/generic_worker4.yaml
     volumes:
     - ./config/synapse:/config:ro
     - ./data/synapse:/data
@@ -202,14 +190,11 @@ services:
       - .env
     environment:
       SYNAPSE_CONFIG_PATH: /config/homeserver.yaml
-      SYNAPSE_WORKER_APP: synapse.app.generic_worker
-      SYNAPSE_WORKER_NAME: events_persister
-      SYNAPSE_WORKER_REPLICATION_HOST: synapse-main
-      SYNAPSE_WORKER_REPLICATION_HTTP_PORT: '9093'
-      SYNAPSE_WORKER_LISTENERS: "[{\"type\": \"http\", \"port\": 8085, \"bind_addresses\"\
-        : [\"0.0.0.0\"],\n  \"resources\": [{\"names\": [\"replication\"]}]},\n {\"\
-        type\": \"http\", \"port\": 9105, \"bind_addresses\": [\"127.0.0.1\"],\n \
-        \ \"resources\": [{\"names\": [\"metrics\"]}]}]\n"
+      SYNAPSE_WORKER: synapse.app.generic_worker
+    command:
+    - run
+    - --config-path=/config/homeserver.yaml
+    - --config-path=/config/workers/events_persister.yaml
     volumes:
     - ./config/synapse:/config:ro
     - ./data/synapse:/data
@@ -228,14 +213,11 @@ services:
       - .env
     environment:
       SYNAPSE_CONFIG_PATH: /config/homeserver.yaml
-      SYNAPSE_WORKER_APP: synapse.app.generic_worker
-      SYNAPSE_WORKER_NAME: receipts_writer
-      SYNAPSE_WORKER_REPLICATION_HOST: synapse-main
-      SYNAPSE_WORKER_REPLICATION_HTTP_PORT: '9093'
-      SYNAPSE_WORKER_LISTENERS: "[{\"type\": \"http\", \"port\": 8086, \"bind_addresses\"\
-        : [\"0.0.0.0\"],\n  \"resources\": [{\"names\": [\"replication\"]}]},\n {\"\
-        type\": \"http\", \"port\": 9106, \"bind_addresses\": [\"127.0.0.1\"],\n \
-        \ \"resources\": [{\"names\": [\"metrics\"]}]}]\n"
+      SYNAPSE_WORKER: synapse.app.generic_worker
+    command:
+    - run
+    - --config-path=/config/homeserver.yaml
+    - --config-path=/config/workers/receipts_writer.yaml
     volumes:
     - ./config/synapse:/config:ro
     - ./data/synapse:/data

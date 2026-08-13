@@ -23,6 +23,12 @@ class profiles::matrix::synapse {
     ]:
       ensure => directory,
     ;
+    "${matrix_dir}/config/synapse/workers":
+      ensure => directory,
+      owner  => 991,
+      group  => 991,
+      mode   => '0555',
+    ;
     # Bind-mount targets: without pre-creation Docker makes them
     # root-owned and Synapse (UID 991) cannot write its signing key,
     # media, or logs.
@@ -95,10 +101,53 @@ class profiles::matrix::synapse {
     ;
   }
 
+  # Per-worker configuration files. The official image does not consume
+  # SYNAPSE_WORKER_LISTENERS-style environment variables; workers take a
+  # second --config-path with worker_app/worker_listeners. Each worker's
+  # main port also carries the replication resource, matching the
+  # instance_map in homeserver.yaml.
+  $workers = {
+    'generic_worker1' => { 'port' => 8081, 'resources' => 'client, federation, replication', 'metrics_port' => 9101 },
+    'generic_worker2' => { 'port' => 8082, 'resources' => 'client, federation, replication', 'metrics_port' => 9102 },
+    'generic_worker3' => { 'port' => 8083, 'resources' => 'federation, replication', 'metrics_port' => 9103 },
+    'generic_worker4' => { 'port' => 8084, 'resources' => 'media, client, replication', 'metrics_port' => 9104 },
+    'events_persister' => { 'port' => 8085, 'resources' => 'replication', 'metrics_port' => 9105 },
+    'receipts_writer' => { 'port' => 8086, 'resources' => 'replication', 'metrics_port' => 9106 },
+  }
+
+  $workers.each |$worker_name, $w| {
+    file { "${matrix_dir}/config/synapse/workers/${worker_name}.yaml":
+      ensure  => file,
+      owner   => 991,
+      group   => 991,
+      mode    => '0444',
+      content => @("WORKER"),
+        # This file is managed by Puppet.
+        worker_app: synapse.app.generic_worker
+        worker_name: ${worker_name}
+        worker_listeners:
+          - type: http
+            port: ${w['port']}
+            bind_addresses: ['0.0.0.0']
+            x_forwarded: true
+            resources:
+              - names: [${w['resources']}]
+          - type: http
+            port: ${w['metrics_port']}
+            bind_addresses: ['127.0.0.1']
+            resources:
+              - names: [metrics]
+        worker_log_config: /config/log.yaml
+        | WORKER
+    }
+  }
+
+  $worker_config_files = $workers.keys.map |$n| { File["${matrix_dir}/config/synapse/workers/${n}.yaml"] }
+
   docker_compose { 'matrix-synapse':
     ensure        => present,
     compose_files => ["${matrix_dir}/docker-compose.yml"],
-    subscribe     => [
+    subscribe     => $worker_config_files + [
       File["${matrix_dir}/docker-compose.yml"],
       File["${matrix_dir}/Dockerfile.synapse"],
       File["${matrix_dir}/.env"],
