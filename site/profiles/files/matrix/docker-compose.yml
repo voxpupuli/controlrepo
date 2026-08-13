@@ -16,6 +16,7 @@ services:
   # DATABASE (PostgreSQL backend)
   # ─────────────────────────────────────────
   postgres:
+    container_name: postgres
     image: postgres:16-alpine
     restart: unless-stopped
     env_file:
@@ -38,6 +39,7 @@ services:
   # REDIS (Replication bus for workers)
   # ─────────────────────────────────────────
   redis:
+    container_name: redis
     image: redis:7-alpine
     restart: unless-stopped
     command: redis-server --save "" --appendonly no
@@ -55,6 +57,7 @@ services:
   # SYNAPSE MAIN PROCESS (Admin API, fallback routing, background tasks)
   # ─────────────────────────────────────────
   synapse-main:
+    container_name: synapse-main
     build:
       context: .
       dockerfile: Dockerfile.synapse
@@ -80,6 +83,7 @@ services:
   # WORKER: generic_worker1 (Client API endpoints)
   # ─────────────────────────────────────────
   synapse-worker1:
+    container_name: synapse-worker1
     image: synapse-s3-local:latest
     restart: unless-stopped
     env_file:
@@ -107,6 +111,7 @@ services:
   # WORKER: generic_worker2 (Client API endpoints)
   # ─────────────────────────────────────────
   synapse-worker2:
+    container_name: synapse-worker2
     image: synapse-s3-local:latest
     restart: unless-stopped
     env_file:
@@ -134,6 +139,7 @@ services:
   # WORKER: generic_worker3 (Federation sender and receiver)
   # ─────────────────────────────────────────
   synapse-worker3:
+    container_name: synapse-worker3
     image: synapse-s3-local:latest
     restart: unless-stopped
     env_file:
@@ -161,6 +167,7 @@ services:
   # WORKER: generic_worker4 (Media endpoints and client Sync)
   # ─────────────────────────────────────────
   synapse-worker4:
+    container_name: synapse-worker4
     image: synapse-s3-local:latest
     restart: unless-stopped
     env_file:
@@ -188,6 +195,7 @@ services:
   # STREAM WRITER: events_persister (Handles event persistence streams)
   # ─────────────────────────────────────────
   synapse-events-persister:
+    container_name: synapse-events-persister
     image: synapse-s3-local:latest
     restart: unless-stopped
     env_file:
@@ -213,6 +221,7 @@ services:
   # STREAM WRITER: receipts_writer (Handles typing/receipts/to-device streams)
   # ─────────────────────────────────────────
   synapse-receipts-writer:
+    container_name: synapse-receipts-writer
     image: synapse-s3-local:latest
     restart: unless-stopped
     env_file:
@@ -238,6 +247,7 @@ services:
   # MEDIA EVICTION CRON (S3 sync to Hetzner Object Storage)
   # ─────────────────────────────────────────
   media-cron:
+    container_name: media-cron
     image: synapse-s3-local:latest
     restart: unless-stopped
     env_file:
