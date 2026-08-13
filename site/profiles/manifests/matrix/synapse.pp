@@ -40,7 +40,11 @@ class profiles::matrix::synapse {
     ;
     "${matrix_dir}/config/synapse/homeserver.yaml":
       ensure  => file,
-      mode    => '0600',
+      # The official Synapse image runs as UID 991 and mounts /config
+      # read-only; root:0600 is unreadable inside the containers.
+      owner   => 991,
+      group   => 991,
+      mode    => '0400',
       content => epp('profiles/matrix/homeserver.yaml.epp', {
         'macaroon_secret_key' => $profiles::matrix::sensitive_macaroon_secret_key,
         'form_secret'         => $profiles::matrix::sensitive_form_secret,
