@@ -7,5 +7,5 @@
 # Then replace the base with synapse-s3:latest
 # in docker-compose.yml for all synapse* and media-cron services.
 
-FROM matrixdotorg/synapse:v1.158.0
+FROM ghcr.io/element-hq/synapse:v1.158.0
 RUN pip install --no-cache-dir synapse-s3-storage-provider
