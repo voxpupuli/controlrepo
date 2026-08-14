@@ -20,7 +20,9 @@
 * [`profiles::grafana`](#profiles--grafana): installs grafana to display stats from dropsonde about Vox Pupuli modules
 * [`profiles::lets_encrypt`](#profiles--lets_encrypt): Common Let's Encrypt settings
 * [`profiles::libvirt`](#profiles--libvirt): installs libvirt
-* [`profiles::matrix`](#profiles--matrix)
+* [`profiles::matrix`](#profiles--matrix): A wrapper profile to set up Matrix Synapse and its required services
+* [`profiles::matrix::nginx`](#profiles--matrix--nginx): Nginx and Let's Encrypt configuration for the Matrix profile
+* [`profiles::matrix::synapse`](#profiles--matrix--synapse): Docker Compose deployment for Matrix Synapse
 * [`profiles::nftables`](#profiles--nftables): configure certain nftable rules
 * [`profiles::nginx`](#profiles--nginx): multiple profiles requires nginx vhosts, this profile pulls in the nginx class/package/service setup
 * [`profiles::node_exporter`](#profiles--node_exporter): install node_exporter
@@ -422,7 +424,86 @@ installs libvirt
 
 ### <a name="profiles--matrix"></a>`profiles::matrix`
 
-The profiles::matrix class.
+This profile serves as the entry point for configuring the Matrix server. It configures
+Nginx as a reverse proxy, provisions SSL certificates, and orchestrates the Synapse
+Docker backend with Hetzner S3 object storage for media eviction and federation routing.
+
+#### Parameters
+
+The following parameters are available in the `profiles::matrix` class:
+
+* [`sensitive_postgres_password`](#-profiles--matrix--sensitive_postgres_password)
+* [`sensitive_macaroon_secret_key`](#-profiles--matrix--sensitive_macaroon_secret_key)
+* [`sensitive_form_secret`](#-profiles--matrix--sensitive_form_secret)
+* [`sensitive_s3_access_key`](#-profiles--matrix--sensitive_s3_access_key)
+* [`sensitive_s3_secret_key`](#-profiles--matrix--sensitive_s3_secret_key)
+* [`s3_bucket`](#-profiles--matrix--s3_bucket)
+* [`s3_region`](#-profiles--matrix--s3_region)
+* [`s3_endpoint`](#-profiles--matrix--s3_endpoint)
+
+##### <a name="-profiles--matrix--sensitive_postgres_password"></a>`sensitive_postgres_password`
+
+Data type: `Sensitive[String]`
+
+The password for the Synapse PostgreSQL database.
+
+##### <a name="-profiles--matrix--sensitive_macaroon_secret_key"></a>`sensitive_macaroon_secret_key`
+
+Data type: `Sensitive[String]`
+
+The secret key used for signing macaroons.
+
+##### <a name="-profiles--matrix--sensitive_form_secret"></a>`sensitive_form_secret`
+
+Data type: `Sensitive[String]`
+
+The secret key used for form validation.
+
+##### <a name="-profiles--matrix--sensitive_s3_access_key"></a>`sensitive_s3_access_key`
+
+Data type: `Sensitive[String]`
+
+The access key for the S3 object storage bucket.
+
+##### <a name="-profiles--matrix--sensitive_s3_secret_key"></a>`sensitive_s3_secret_key`
+
+Data type: `Sensitive[String]`
+
+The secret key for the S3 object storage bucket.
+
+##### <a name="-profiles--matrix--s3_bucket"></a>`s3_bucket`
+
+Data type: `String`
+
+The name of the S3 bucket to act as the media store.
+
+##### <a name="-profiles--matrix--s3_region"></a>`s3_region`
+
+Data type: `String`
+
+The region where the S3 bucket is hosted.
+
+##### <a name="-profiles--matrix--s3_endpoint"></a>`s3_endpoint`
+
+Data type: `String`
+
+The endpoint URL for the S3 object storage.
+
+### <a name="profiles--matrix--nginx"></a>`profiles::matrix::nginx`
+
+This class manages the host-level Nginx server and Let's Encrypt certificates.
+It handles the ACME challenges, provisions SSL certificates for both the delegation
+server (`voxpupuli.party`) and the Matrix API Reverse Proxy (`matrix01.voxpupu.li`).
+
+It creates upstreams mapping to the local Synapse workers and routes the incoming federation,
+client, media, and sync traffic to the appropriate Dockerized endpoints.
+
+### <a name="profiles--matrix--synapse"></a>`profiles::matrix::synapse`
+
+This class ensures the presence of the `/opt/matrix-synapse` directory and coordinates
+the templated layout of `.env` and `homeserver.yaml` files holding sensitive deployment
+secrets securely. Finally, it uses `puppetlabs-docker` to orchestrate the Docker Compose
+multi-worker stack based on the provided configuration.
 
 ### <a name="profiles--nftables"></a>`profiles::nftables`
 
