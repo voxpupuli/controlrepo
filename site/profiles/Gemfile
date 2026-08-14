@@ -21,4 +21,7 @@ puppetversion = ENV['PUPPET_GEM_VERSION'] || '>= 8.19'
 gem 'metadata_json_deps', require: false
 gem 'openvox', puppetversion, require: false, groups: [:test]
 gem 'syslog'
+# rexml left the Ruby stdlib like syslog did; the libvirt module's
+# virsh provider requires it, so specs need it in the bundle
+gem 'rexml'
 # vim: syntax=ruby
