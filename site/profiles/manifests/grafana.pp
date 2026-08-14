@@ -17,8 +17,9 @@ class profiles::grafana (
 ) {
   require profiles::base
   $domain = "grafana.${facts['networking']['fqdn']}"
+  # certbot comes with the letsencrypt class that profiles::nginx pulls
+  # in; requiring profiles::certbot too duplicates Package[certbot]
   require profiles::nginx
-  require profiles::certbot
   require profiles::postgresql
   require profiles::postfix
   package { 'toml':
