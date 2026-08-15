@@ -104,10 +104,6 @@ bundle exec rake validate lint check rubocop
 bundle exec rake parallel_spec
 ```
 
-When a change is risky enough to deserve a real machine,
-[controlrepo-lab](https://github.com/miharp/controlrepo-lab) applies this
-repo masterless on fresh Ubuntu 24.04 Vagrant VMs, one machine per role.
-
 ## metadata.json and dependencies
 
 `site/profiles/metadata.json` only tracks modules that are direct
