@@ -9,7 +9,7 @@ class profiles::foreman {
   require profiles::nftables # ensures hkp access is working to download the apt key
 
   class { 'foreman::repo':
-    repo => '3.18',
+    repo => '3.19',
   }
 
   class { 'foreman':
