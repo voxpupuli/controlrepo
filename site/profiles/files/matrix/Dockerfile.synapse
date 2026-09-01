@@ -1,0 +1,8 @@
+# Dockerfile.synapse
+# Extends the official Synapse image with the S3 storage provider.
+# Build: docker build -f Dockerfile.synapse -t synapse-s3:latest .
+# Then replace matrixdotorg/synapse:latest with synapse-s3:latest
+# in docker-compose.yml for all synapse* and media-cron services.
+
+FROM matrixdotorg/synapse:latest
+RUN pip install --no-cache-dir synapse-s3-storage-provider
