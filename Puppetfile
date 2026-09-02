@@ -27,7 +27,7 @@ mod 'puppetlabs-rsync',
   git: 'https://github.com/puppetlabs/puppetlabs-rsync',
   ref: '9816e10d4b99bff4601158be2e95a8f68278dc50'
 mod 'puppetlabs-stdlib', '10.0.2'
-mod 'puppetlabs-vcsrepo', '7.0.0'
+mod 'puppetlabs-vcsrepo', '8.0.0'
 mod 'richardc-datacat', '0.6.2'
 mod 'saz-ssh', '15.0.0'
 mod 'saz-sudo', '9.0.2'
