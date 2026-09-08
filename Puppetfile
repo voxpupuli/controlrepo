@@ -20,7 +20,7 @@ mod 'puppetlabs-concat', '10.1.0'
 mod 'puppetlabs-docker', '10.4.1'
 mod 'puppetlabs-inifile', '6.5.0'
 mod 'puppetlabs-mount_core', '2.0.1'
-mod 'puppetlabs-postgresql', '10.6.3'
+mod 'puppetlabs-postgresql', '10.7.0'
 mod 'puppet-openvoxdb', '9.1.1'
 # metadata bumps are unreleased :sadface:
 mod 'puppetlabs-rsync',
