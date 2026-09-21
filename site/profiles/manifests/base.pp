@@ -40,7 +40,7 @@ class profiles::base (
     ensure => 'installed',
   }
 
-  package { ['snapd', 'ubuntu-pro-client-l10n', 'ubuntu-pro-client']:
+  package { ['snapd', 'ubuntu-pro-client-l10n', 'ubuntu-pro-client', 'ubuntu-advantage-tools']:
     ensure => 'absent',
   }
 
