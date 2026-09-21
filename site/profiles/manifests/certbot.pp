@@ -3,9 +3,10 @@
 #
 # @author Tim Meusel <tim@bastelfreak.de>
 class profiles::certbot {
-  package { 'certbot':
-    ensure => 'installed',
-  }
+  # conflicts with the letsencrypt module. It's complicated...
+  #package { 'certbot':
+  #  ensure => 'installed',
+  #}
   service { 'certbot.timer':
     ensure  => 'running',
     enable  => true,
