@@ -10,12 +10,12 @@ class profiles::certbot {
   service { 'certbot.timer':
     ensure  => 'running',
     enable  => true,
-    require => Package['certbot'],
+    #require => Package['certbot'],
   }
   systemd::dropin_file { 'verbose.conf':
     unit    => 'certbot.service',
     content => file("${module_name}/certbot.service"),
-    require => Package['certbot'],
+    #require => Package['certbot'],
     notify  => Service['certbot.timer'],
   }
 }
