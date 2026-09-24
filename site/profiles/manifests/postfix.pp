@@ -4,7 +4,6 @@
 class profiles::postfix {
   # provides /etc/ssl/certs/ca-certificates.crt for smtpd_tls_CAfile ini_setting
   require profiles::base
-  require profiles::certbot
   # todo: use puppet/postfix
   package { 'postfix':
     ensure => 'installed',
