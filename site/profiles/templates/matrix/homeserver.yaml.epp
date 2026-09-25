@@ -1,0 +1,162 @@
+<%-
+ | Sensitive[String] $macaroon_secret_key,
+   Sensitive[String] $form_secret,
+   Sensitive[String] $postgres_password,
+   String $s3_bucket,
+   String $s3_region,
+   String $s3_endpoint,
+   Sensitive[String] $s3_access_key,
+   Sensitive[String] $s3_secret_key
+ |
+-%>
+# homeserver.yaml
+# Place this at ./config/synapse/homeserver.yaml
+#
+# Generate a base config first:
+#   docker run --rm -v $(pwd)/config/synapse:/data \
+#     -e SYNAPSE_SERVER_NAME=voxpupuli.party \
+#     -e SYNAPSE_REPORT_STATS=no \
+#     matrixdotorg/synapse generate
+# Then replace with this file, preserving the generated secrets.
+
+server_name: "voxpupuli.party"
+public_baseurl: "https://matrix01.voxpupu.li"
+report_stats: true
+
+# Pid / log
+pid_file: /data/homeserver.pid
+log_config: /config/log.yaml
+
+# ── Listeners ─────────────────────────────────────────────────────────────────
+listeners:
+  - port: 8008
+    tls: false
+    type: http
+    x_forwarded: true
+    bind_addresses: ["0.0.0.0"]
+    resources:
+      - names: [client, federation]
+        compress: false
+  # Replication listener for workers
+  - port: 9093
+    type: http
+    bind_addresses: ["0.0.0.0"]
+    resources:
+      - names: [replication]
+
+# ── Database ──────────────────────────────────────────────────────────────────
+database:
+  name: psycopg2
+  args:
+    user: synapse
+    password: "<%= $postgres_password %>"
+    database: synapse
+    host: postgres
+    port: 5432
+    cp_min: 5
+    cp_max: 10
+
+# ── Redis (replication bus) ───────────────────────────────────────────────────
+redis:
+  enabled: true
+  host: redis
+  port: 6379
+
+# ── Worker configuration ──────────────────────────────────────────────────────
+
+# Disable federation sending in the main process
+send_federation: false
+federation_sender_instances:
+  - generic_worker3
+
+# Stream writers — these workers own specific write streams
+stream_writers:
+  events:
+    - events_persister
+  receipts:
+    - receipts_writer
+  typing:
+    - receipts_writer
+  to_device:
+    - receipts_writer
+  account_data:
+    - receipts_writer
+
+# Route /sync to the dedicated media/sync worker
+run_background_tasks_on: generic_worker4
+
+# Instance map — all workers must be reachable by name
+instance_map:
+  main:
+    host: synapse-main
+    port: 9093
+  generic_worker1:
+    host: synapse-worker1
+    port: 8081
+  generic_worker2:
+    host: synapse-worker2
+    port: 8082
+  generic_worker3:
+    host: synapse-worker3
+    port: 8083
+  generic_worker4:
+    host: synapse-worker4
+    port: 8084
+  events_persister:
+    host: synapse-events-persister
+    port: 8085
+  receipts_writer:
+    host: synapse-receipts-writer
+    port: 8086
+
+# ── Media storage ─────────────────────────────────────────────────────────────
+media_store_path: /media/local_content
+remote_media_delay_days: 90
+
+# Hetzner Object Storage via s3_storage_provider
+# Install first: pip install synapse-s3-storage-provider
+media_storage_providers:
+  - module: s3_storage_provider.S3StorageProviderBackend
+    store_local: true
+    store_remote: true
+    store_synchronous: false   # async upload; cron handles eviction
+    config:
+      bucket: "<%= $s3_bucket %>"
+      region_name: "<%= $s3_region %>"
+      endpoint_url: "<%= $s3_endpoint %>"
+      access_key_id: "<%= $s3_access_key %>"
+      secret_access_key: "<%= $s3_secret_key %>"
+
+# ── Registration ──────────────────────────────────────────────────────────────
+# Very few local accounts — disable open registration
+enable_registration: false
+# To create local accounts manually:
+#   docker compose exec synapse-main register_new_matrix_user \
+#     -c /config/homeserver.yaml http://localhost:8008
+
+# ── Delegation ───────────────────────────────────────────────────────────────
+# Nginx on voxpupuli.party serves:
+#   /.well-known/matrix/server  →  {"m.server": "matrix01.voxpupu.li:443"}
+#   /.well-known/matrix/client  →  {"m.homeserver": {"base_url": "https://matrix01.voxpupu.li"}}
+# No additional config needed here — delegation is fully handled outside of this stack.
+
+# ── Security ──────────────────────────────────────────────────────────────────
+# Paste generated values from `docker run ... generate` here:
+macaroon_secret_key: "<%= $macaroon_secret_key %>"
+form_secret: "<%= $form_secret %>"
+signing_key_path: /data/voxpupuli.party.signing.key
+
+trusted_key_servers:
+  - server_name: "matrix.org"
+
+# ── Retention / limits ────────────────────────────────────────────────────────
+max_upload_size: 50M
+url_preview_enabled: true
+url_preview_ip_range_blacklist:
+  - "127.0.0.0/8"
+  - "10.0.0.0/8"
+  - "172.16.0.0/12"
+  - "192.168.0.0/16"
+  - "100.64.0.0/10"
+  - "::1/128"
+  - "fe80::/10"
