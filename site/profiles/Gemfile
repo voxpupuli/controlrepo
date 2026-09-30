@@ -21,4 +21,5 @@ puppetversion = ENV['PUPPET_GEM_VERSION'] || '>= 8.19'
 gem 'metadata_json_deps', require: false
 gem 'openvox', puppetversion, require: false, groups: [:test]
 gem 'syslog'
+gem 'rexml'
 # vim: syntax=ruby
