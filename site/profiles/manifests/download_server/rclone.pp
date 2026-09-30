@@ -20,6 +20,13 @@ class profiles::download_server::rclone {
     provider = Other
     env_auth = false
     endpoint = https://s3.osuosl.org
+    override.disable_http2 = true
+    global.transfers = 4
+    global.multi_thread_streams = 8
+    global.multi_thread_cutoff = 4M
+    global.multi_thread_chunk_size = 4M
+    global.fast_list = true
+    global.checkers = 32
     | EOF
 
   file {
@@ -73,15 +80,15 @@ class profiles::download_server::rclone {
     ;
     'sync-apt-from-OSL':
       minute  => '20',
-      command => 'rclone sync --exclude index.html --exclude "/lost+found/**" OpenVox:openvox-apt /var/mirror/apt',
+      command => 'flock -n /var/www/.rclone-sync-apt.lock timeout -k 60s 4h rclone sync --exclude index.html --exclude "/lost+found/**" OpenVox:openvox-apt /var/mirror/apt',
     ;
     'sync-artifacts-from-OSL':
       minute  => '5,40',
-      command => 'rclone sync --exclude index.html --exclude "/lost+found/**" --exclude "/repo_test/**" OpenVox:openvox-artifacts /var/mirror/artifacts',
+      command => 'flock -n /var/www/.rclone-sync-artifacts.lock timeout -k 60s 4h rclone sync --exclude index.html --exclude "/lost+found/**" --exclude "/repo_test/**" OpenVox:openvox-artifacts /var/mirror/artifacts',
     ;
     'sync-yum-from-OSL':
       minute  => '30',
-      command => 'rclone sync --exclude index.html --exclude "/lost+found/**" OpenVox:openvox-yum /var/mirror/yum',
+      command => 'flock -n /var/www/.rclone-sync-yum.lock timeout -k 60s 4h rclone sync --exclude index.html --exclude "/lost+found/**" OpenVox:openvox-yum /var/mirror/yum',
     ;
   }
 }
