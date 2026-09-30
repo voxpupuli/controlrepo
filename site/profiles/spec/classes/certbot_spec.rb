@@ -11,7 +11,7 @@ describe 'profiles::certbot' do
 
       context 'with all defaults' do
         it { is_expected.to compile.with_all_deps }
-        it { is_expected.to contain_package('certbot') }
+        it { is_expected.not_to contain_package('certbot') }
         it { is_expected.to contain_service('certbot.timer') }
         it { is_expected.to contain_systemd__dropin_file('verbose.conf') }
       end
