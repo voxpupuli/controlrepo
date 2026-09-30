@@ -8,8 +8,8 @@ class profiles::certbot {
   #  ensure => 'installed',
   #}
   service { 'certbot.timer':
-    ensure  => 'running',
-    enable  => true,
+    ensure => 'running',
+    enable => true,
     #require => Package['certbot'],
   }
   systemd::dropin_file { 'verbose.conf':
