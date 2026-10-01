@@ -1,11 +1,14 @@
 ---
+role: roles::matrix_server
+
+# The compose stack pins its bridge to matrix0 / 172.18.0.0/16 (see
+# docker-compose.yml); the firewall rules must reference the same.
+nftables::rules::docker_ce::docker_interface: 'matrix0'
+nftables::rules::docker_ce::docker_prefix: '172.18.0.0/16'
+
 profiles::ssh_keys::additional_keys::user_list:
   - genebean
   - ananace
-
-classes:
-  - profiles::nginx
-  - profiles::matrix
 
 profiles::borg::borg_includes:
   - /srv/pg_dumps
