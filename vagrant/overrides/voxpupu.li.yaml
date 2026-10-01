@@ -1,0 +1,3 @@
+# Appended to data/nodes/voxpupu.li.yaml in the VM's copy only.
+# No borg server to reach from a lab VM.
+profiles::base::manage_borg: false

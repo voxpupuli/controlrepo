@@ -1,0 +1,41 @@
+#!/bin/bash
+# Runs ON THE VM (root), once. Installs the OpenVox agent and the gems the
+# masterless apply path needs, mirroring the production cloud-init.
+set -euo pipefail
+
+fqdn="$(hostname -f)"
+
+# Fake DNS for this node and any extra names its role serves
+grep -q '# controlrepo-vagrant' /etc/hosts || {
+  printf '# controlrepo-vagrant\n127.0.0.1 %s %s\n' "$fqdn" "${fqdn%%.*}" >> /etc/hosts
+  if [ -f "/vagrant-rig/overrides/${fqdn}.hosts" ]; then
+    sed 's/^/127.0.0.1 /' "/vagrant-rig/overrides/${fqdn}.hosts" >> /etc/hosts
+  fi
+}
+
+export DEBIAN_FRONTEND=noninteractive
+apt-get update -qq
+# git: r10k needs a functional git provider for git-sourced modules
+apt-get install -y -qq curl gnupg rsync git >/dev/null
+
+if ! dpkg -s openvox8-release >/dev/null 2>&1; then
+  . /etc/os-release
+  curl -sfLo /tmp/openvox8-release.deb "https://apt.voxpupuli.org/openvox8-release-ubuntu${VERSION_ID}.deb"
+  dpkg -i /tmp/openvox8-release.deb
+  apt-get update -qq
+fi
+apt-get install -y -qq openvox-agent >/dev/null
+
+# hiera.yaml declares the eyaml backend; the gem must exist and the key
+# paths must resolve even though the lab data carries no encrypted values
+/opt/puppetlabs/puppet/bin/gem list -i r10k >/dev/null 2>&1 || \
+  /opt/puppetlabs/puppet/bin/gem install r10k --no-document
+/opt/puppetlabs/puppet/bin/gem list -i hiera-eyaml >/dev/null 2>&1 || \
+  /opt/puppetlabs/puppet/bin/gem install hiera-eyaml --no-document
+if [ ! -f /etc/puppetlabs/puppet/keys/private_key.pkcs7.pem ]; then
+  install -d -m 0700 /etc/puppetlabs/puppet/keys
+  cd /etc/puppetlabs/puppet/keys
+  /opt/puppetlabs/puppet/bin/eyaml createkeys \
+    --pkcs7-private-key=private_key.pkcs7.pem \
+    --pkcs7-public-key=public_key.pkcs7.pem >/dev/null
+fi

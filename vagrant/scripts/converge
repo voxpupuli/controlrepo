@@ -1,0 +1,12 @@
+#!/bin/bash
+# Runs ON THE HOST, from the vagrant/ directory. Re-apply the current
+# working tree on a running machine (shared folders are live, so edits in
+# the checkout are already visible in the VM).
+#
+#   ./scripts/converge <fqdn>
+set -euo pipefail
+here="$(cd "$(dirname "$0")" && pwd)"
+cd "$here/.."
+
+machine="${1:?usage: ./scripts/converge <fqdn>}"
+vagrant ssh "$machine" -c 'sudo /vagrant-rig/scripts/apply'
