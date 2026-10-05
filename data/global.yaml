@@ -1,5 +1,7 @@
 ---
 lookup_options:
+  '^profile::.+::sensitive_\w+$':
+    convert_to: 'Sensitive'
   profiles::ssh_keys::additional_keys::user_list:
     merge: deep
 
