@@ -78,6 +78,13 @@ class profiles::download_server::nginx {
       index_files         => [],
     }
 
+    nginx::resource::location { "${domain} lost+found http":
+      location            => '~ lost\+found',
+      server              => $domain,
+      location_cfg_append => { 'return' => '404', },
+      index_files         => [],
+    }
+
     letsencrypt::certonly { $domain:
       domains         => [$domain],
       plugin          => 'nginx',
@@ -95,7 +102,7 @@ class profiles::download_server::nginx {
     }
 
     # This conditional keeps location blocks that rely on SSL/TLS bits being in place
-    # are not appled before the certificates have been issued.
+    # are not applied before the certificates have been issued.
     if fact("letsencrypt_directory.\"${domain}\"") {
       $_server_names[$domain]['locations'].each |$orig_path, $settings| {
         nginx::resource::location { "${domain} ${orig_path}":
@@ -106,6 +113,15 @@ class profiles::download_server::nginx {
           index_files => [],
           *           => $settings,
         }
+      }
+      nginx::resource::location { "${domain} lost+found https":
+        ensure              => 'present',
+        location            => '~ lost\+found',
+        server              => $domain,
+        ssl                 => true,
+        ssl_only            => true,
+        location_cfg_append => { 'return' => '404', },
+        index_files         => [],
       }
     }
   }
