@@ -8,6 +8,7 @@ profiles::borg::borg_includes:
   - /var/mirror/yum
   - /var/mirror/apt
   - /var/mirror/artifacts
+  - /var/mirror/mirror
 
 profiles::download_server::server_names:
   'apt.voxpupuli.org':
@@ -37,6 +38,11 @@ profiles::download_server::server_names:
       '/':
         autoindex: 'on'
         www_root: /var/mirror/yum
+  'mirror.voxpupuli.org':
+    locations:
+      '/':
+        autoindex: 'on'
+        www_root: /var/mirror/mirror
 
 profiles::ssh_keys::additional_keys::user_list:
   - genebean
