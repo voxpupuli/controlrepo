@@ -5,4 +5,4 @@ gem 'ra10ke', github: 'bastelfreak/ra10ke', branch: 'copilot/fix-dependency-solv
 gem 'metadata_json_deps'
 gem 'openvox', require: false
 gem 'syslog'
-gem 'json', '< 3'
+gem 'json', '< 4'
