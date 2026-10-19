@@ -39,7 +39,7 @@ mod 'theforeman-foreman_proxy', '31.0.0'
 mod 'theforeman-puppet',
  git: 'https://github.com/bastelfreak/puppet-puppet',
  branch: 'tmp2'
-mod 'theforeman-puppetserver_foreman', '4.3.0'
+mod 'theforeman-puppetserver_foreman', '5.0.0'
 # choria / mcollective service bus
 mod 'choria-choria',
   git: 'https://github.com/choria-io/puppet-choria',
