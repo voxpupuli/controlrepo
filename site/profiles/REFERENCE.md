@@ -739,4 +739,3 @@ Returns: `Any`
 Data type: `Array[String[1]]`
 
 the list of users
-
