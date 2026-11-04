@@ -85,6 +85,6 @@ mod 'choria-mcollective_agent_iptables',
   ref: '4.1.0'
 mod 'puppet-augeasproviders_sysctl', '4.1.0'
 mod 'puppet-augeasproviders_core', '5.0.0'
-mod 'puppet-hashi_stack', '4.1.0'
+mod 'puppet-hashi_stack', '4.2.0'
 mod 'puppet-mosquitto', '3.2.0'
 mod 'ipcrm-echo', '0.1.8'
