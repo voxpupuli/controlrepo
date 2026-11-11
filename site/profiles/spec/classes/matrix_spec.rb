@@ -81,6 +81,61 @@ describe 'profiles::matrix' do
       end
 
       it { is_expected.to contain_docker_compose('matrix-synapse') }
+
+      # Without certificates the vhosts are plain HTTP, which is all a
+      # default compile sees. This is the catalog of every run after the
+      # first one, once certbot has populated the fact.
+      context 'once the certificates exist' do
+        let :facts do
+          os_facts.merge(
+            letsencrypt_directory: {
+              'voxpupuli.party' => '/etc/letsencrypt/live/voxpupuli.party',
+              'matrix01.voxpupu.li' => '/etc/letsencrypt/live/matrix01.voxpupu.li',
+            },
+          )
+        end
+
+        it { is_expected.to compile.with_all_deps }
+
+        it 'serves both vhosts over TLS with their own certificate' do
+          expect(subject).to contain_nginx__resource__server('voxpupuli.party')
+            .with(ssl: true, ssl_cert: '/etc/letsencrypt/live/voxpupuli.party/fullchain.pem')
+          expect(subject).to contain_nginx__resource__server('matrix01.voxpupu.li')
+            .with(ssl: true, ssl_cert: '/etc/letsencrypt/live/matrix01.voxpupu.li/fullchain.pem',
+                  ssl_cache: 'shared:SSL:10m')
+        end
+
+        it 'puts the API and the delegation files in the TLS server blocks' do
+          expect(subject).to contain_nginx__resource__location('matrix01.voxpupu.li client')
+            .with(ssl: true, ssl_only: true)
+          expect(subject).to contain_nginx__resource__location('matrix01.voxpupu.li federation')
+            .with(ssl: true, ssl_only: true)
+          expect(subject).to contain_nginx__resource__location('voxpupuli.party matrix well-known')
+            .with(ssl: true)
+          # the fragment the module writes into the TLS block for /_matrix/client/
+          expect(subject).to contain_concat__fragment('matrix01.voxpupu.li-800-799e0fbf9b49afdd70084167b0660822-ssl')
+            .with_content(%r{proxy_pass\s+http://synapse_main;})
+        end
+      end
+
+      # Where matrix01 is today: the delegation vhost has had its
+      # certificate since March, the Matrix host has never had one.
+      context 'with a certificate for the delegation name only' do
+        let :facts do
+          os_facts.merge(letsencrypt_directory: { 'voxpupuli.party' => '/etc/letsencrypt/live/voxpupuli.party' })
+        end
+
+        it { is_expected.to compile.with_all_deps }
+
+        it 'serves the delegation over TLS and the API on port 80 until its certificate arrives' do
+          expect(subject).to contain_nginx__resource__server('voxpupuli.party').with(ssl: true)
+          expect(subject).to contain_nginx__resource__server('matrix01.voxpupu.li').with(ssl: false)
+          expect(subject).to contain_nginx__resource__location('voxpupuli.party matrix well-known').with(ssl: true)
+          expect(subject).to contain_nginx__resource__location('matrix01.voxpupu.li client')
+            .with(ssl: false, ssl_only: false)
+          expect(subject).to contain_letsencrypt__certonly('matrix01.voxpupu.li')
+        end
+      end
     end
   end
 end

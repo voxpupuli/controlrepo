@@ -57,8 +57,10 @@ class profiles::matrix::nginx {
         },
       },
     }
+    $tls = true
   } else {
     $ssl = {}
+    $tls = false
   }
 
   nginx::resource::server { $domain:
@@ -136,7 +138,7 @@ class profiles::matrix::nginx {
       ssl                       => true,
       ssl_port                  => 443,
       ssl_session_timeout       => '1d',
-      ssl_session_cache         => 'shared:SSL:10m',
+      ssl_cache                 => 'shared:SSL:10m',
       ssl_session_tickets       => 'off',
       ssl_protocols             => 'TLSv1.2 TLSv1.3',
       ssl_ciphers               => 'ECDHE+AESGCM:DHE+AESGCM:ECDHE+ECDSA+AES+SHA256',
@@ -147,8 +149,10 @@ class profiles::matrix::nginx {
         },
       },
     }
+    $matrix_tls = true
   } else {
     $matrix_ssl = {}
+    $matrix_tls = false
   }
 
   nginx::resource::server { $matrix_domain:
@@ -197,8 +201,12 @@ class profiles::matrix::nginx {
       location_cfg_append => { 'return' => '404', },
       location            => '= /.well-known/acme-challenge/',
     ;
+    # A location is only written into the TLS server block when it says
+    # ssl => true; without it the files come back over https with the
+    # server's default type and no CORS header.
     "${domain} matrix well-known":
       server              => $domain,
+      ssl                 => $tls,
       location            => '^~ /.well-known/matrix/',
       www_root            => $root,
       # Client discovery is done by browsers cross-origin; both files
@@ -220,6 +228,7 @@ class profiles::matrix::nginx {
     ;
     "${matrix_domain} root fallback":
       server              => $matrix_domain,
+      ssl                 => $matrix_tls,
       location            => '/',
       location_cfg_append => { 'return' => '404' },
     ;
@@ -310,10 +319,17 @@ class profiles::matrix::nginx {
     '^/_matrix/client/(r0|v3|unstable)/user_directory/search$',
   ]
 
+  # Until the certificate exists the API is proxied on port 80, which is
+  # what a first run and a lab without ACME see. Once it does, the
+  # locations move to the TLS server block and leave port 80, so access
+  # tokens never travel in the clear; without ssl => true they would not
+  # be in the TLS block at all and every https request would get a 404.
   nginx::resource::location {
     default:
       server           => $matrix_domain,
       proxy_set_header => $proxy_params,
+      ssl              => $matrix_tls,
+      ssl_only         => $matrix_tls,
     ;
     "${matrix_domain} admin API":
       location       => '/_synapse/admin',
