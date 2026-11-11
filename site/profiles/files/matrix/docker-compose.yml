@@ -1,8 +1,22 @@
+# Pinned bridge name and subnet so the host firewall can reference them:
+# nftables::rules::docker_ce is parameterized per interface/prefix (see
+# data/nodes/matrix01.voxpupu.li.yaml) and compose's default hash-named
+# bridge cannot be referenced from firewall rules.
+networks:
+  default:
+    driver: bridge
+    driver_opts:
+      com.docker.network.bridge.name: matrix0
+    ipam:
+      config:
+        - subnet: 172.18.0.0/16
+
 services:
   # ─────────────────────────────────────────
   # DATABASE (PostgreSQL backend)
   # ─────────────────────────────────────────
   postgres:
+    container_name: postgres
     image: postgres:16-alpine
     restart: unless-stopped
     env_file:
@@ -25,6 +39,7 @@ services:
   # REDIS (Replication bus for workers)
   # ─────────────────────────────────────────
   redis:
+    container_name: redis
     image: redis:7-alpine
     restart: unless-stopped
     command: redis-server --save "" --appendonly no
@@ -42,9 +57,11 @@ services:
   # SYNAPSE MAIN PROCESS (Admin API, fallback routing, background tasks)
   # ─────────────────────────────────────────
   synapse-main:
+    container_name: synapse-main
     build:
       context: .
       dockerfile: Dockerfile.synapse
+      network: host
     image: synapse-s3-local:latest
     restart: unless-stopped
     env_file:
@@ -67,23 +84,35 @@ services:
   # WORKER: generic_worker1 (Client API endpoints)
   # ─────────────────────────────────────────
   synapse-worker1:
+    container_name: synapse-worker1
+    healthcheck:
+      test:
+      - CMD
+      - curl
+      - -fSs
+      - http://localhost:8081/health
+      interval: 15s
+      timeout: 5s
+      retries: 5
+    build:
+      context: .
+      dockerfile: Dockerfile.synapse
+      network: host
     image: synapse-s3-local:latest
     restart: unless-stopped
     env_file:
       - .env
     environment:
       SYNAPSE_CONFIG_PATH: /config/homeserver.yaml
-      SYNAPSE_WORKER_APP: synapse.app.generic_worker
-      SYNAPSE_WORKER_NAME: generic_worker1
-      SYNAPSE_WORKER_REPLICATION_HOST: synapse-main
-      SYNAPSE_WORKER_REPLICATION_HTTP_PORT: '9093'
-      SYNAPSE_WORKER_LISTENERS: "[{\"type\": \"http\", \"port\": 8081, \"bind_addresses\"\
-        : [\"0.0.0.0\"],\n  \"resources\": [{\"names\": [\"client\", \"federation\"\
-        ]}]},\n {\"type\": \"http\", \"port\": 9101, \"bind_addresses\": [\"127.0.0.1\"\
-        ],\n  \"resources\": [{\"names\": [\"metrics\"]}]}]\n"
+      SYNAPSE_WORKER: synapse.app.generic_worker
+    command:
+    - run
+    - --config-path=/config/homeserver.yaml
+    - --config-path=/config/workers/generic_worker1.yaml
     volumes:
     - ./config/synapse:/config:ro
     - ./data/synapse:/data
+    - ./data/media:/media
     - ./logs/synapse:/logs
     depends_on:
     - synapse-main
@@ -93,23 +122,35 @@ services:
   # WORKER: generic_worker2 (Client API endpoints)
   # ─────────────────────────────────────────
   synapse-worker2:
+    container_name: synapse-worker2
+    healthcheck:
+      test:
+      - CMD
+      - curl
+      - -fSs
+      - http://localhost:8082/health
+      interval: 15s
+      timeout: 5s
+      retries: 5
+    build:
+      context: .
+      dockerfile: Dockerfile.synapse
+      network: host
     image: synapse-s3-local:latest
     restart: unless-stopped
     env_file:
       - .env
     environment:
       SYNAPSE_CONFIG_PATH: /config/homeserver.yaml
-      SYNAPSE_WORKER_APP: synapse.app.generic_worker
-      SYNAPSE_WORKER_NAME: generic_worker2
-      SYNAPSE_WORKER_REPLICATION_HOST: synapse-main
-      SYNAPSE_WORKER_REPLICATION_HTTP_PORT: '9093'
-      SYNAPSE_WORKER_LISTENERS: "[{\"type\": \"http\", \"port\": 8082, \"bind_addresses\"\
-        : [\"0.0.0.0\"],\n  \"resources\": [{\"names\": [\"client\", \"federation\"\
-        ]}]},\n {\"type\": \"http\", \"port\": 9102, \"bind_addresses\": [\"127.0.0.1\"\
-        ],\n  \"resources\": [{\"names\": [\"metrics\"]}]}]\n"
+      SYNAPSE_WORKER: synapse.app.generic_worker
+    command:
+    - run
+    - --config-path=/config/homeserver.yaml
+    - --config-path=/config/workers/generic_worker2.yaml
     volumes:
     - ./config/synapse:/config:ro
     - ./data/synapse:/data
+    - ./data/media:/media
     - ./logs/synapse:/logs
     depends_on:
     - synapse-main
@@ -119,23 +160,35 @@ services:
   # WORKER: generic_worker3 (Federation sender and receiver)
   # ─────────────────────────────────────────
   synapse-worker3:
+    container_name: synapse-worker3
+    healthcheck:
+      test:
+      - CMD
+      - curl
+      - -fSs
+      - http://localhost:8083/health
+      interval: 15s
+      timeout: 5s
+      retries: 5
+    build:
+      context: .
+      dockerfile: Dockerfile.synapse
+      network: host
     image: synapse-s3-local:latest
     restart: unless-stopped
     env_file:
       - .env
     environment:
       SYNAPSE_CONFIG_PATH: /config/homeserver.yaml
-      SYNAPSE_WORKER_APP: synapse.app.generic_worker
-      SYNAPSE_WORKER_NAME: generic_worker3
-      SYNAPSE_WORKER_REPLICATION_HOST: synapse-main
-      SYNAPSE_WORKER_REPLICATION_HTTP_PORT: '9093'
-      SYNAPSE_WORKER_LISTENERS: "[{\"type\": \"http\", \"port\": 8083, \"bind_addresses\"\
-        : [\"0.0.0.0\"],\n  \"resources\": [{\"names\": [\"federation\"]}]},\n {\"\
-        type\": \"http\", \"port\": 9103, \"bind_addresses\": [\"127.0.0.1\"],\n \
-        \ \"resources\": [{\"names\": [\"metrics\"]}]}]\n"
+      SYNAPSE_WORKER: synapse.app.generic_worker
+    command:
+    - run
+    - --config-path=/config/homeserver.yaml
+    - --config-path=/config/workers/generic_worker3.yaml
     volumes:
     - ./config/synapse:/config:ro
     - ./data/synapse:/data
+    - ./data/media:/media
     - ./logs/synapse:/logs
     depends_on:
     - synapse-main
@@ -145,20 +198,31 @@ services:
   # WORKER: generic_worker4 (Media endpoints and client Sync)
   # ─────────────────────────────────────────
   synapse-worker4:
+    container_name: synapse-worker4
+    healthcheck:
+      test:
+      - CMD
+      - curl
+      - -fSs
+      - http://localhost:8084/health
+      interval: 15s
+      timeout: 5s
+      retries: 5
+    build:
+      context: .
+      dockerfile: Dockerfile.synapse
+      network: host
     image: synapse-s3-local:latest
     restart: unless-stopped
     env_file:
       - .env
     environment:
       SYNAPSE_CONFIG_PATH: /config/homeserver.yaml
-      SYNAPSE_WORKER_APP: synapse.app.generic_worker
-      SYNAPSE_WORKER_NAME: generic_worker4
-      SYNAPSE_WORKER_REPLICATION_HOST: synapse-main
-      SYNAPSE_WORKER_REPLICATION_HTTP_PORT: '9093'
-      SYNAPSE_WORKER_LISTENERS: "[{\"type\": \"http\", \"port\": 8084, \"bind_addresses\"\
-        : [\"0.0.0.0\"],\n  \"resources\": [{\"names\": [\"media\", \"client\"]}]},\n\
-        \ {\"type\": \"http\", \"port\": 9104, \"bind_addresses\": [\"127.0.0.1\"\
-        ],\n  \"resources\": [{\"names\": [\"metrics\"]}]}]\n"
+      SYNAPSE_WORKER: synapse.app.generic_worker
+    command:
+    - run
+    - --config-path=/config/homeserver.yaml
+    - --config-path=/config/workers/generic_worker4.yaml
     volumes:
     - ./config/synapse:/config:ro
     - ./data/synapse:/data
@@ -172,23 +236,35 @@ services:
   # STREAM WRITER: events_persister (Handles event persistence streams)
   # ─────────────────────────────────────────
   synapse-events-persister:
+    container_name: synapse-events-persister
+    healthcheck:
+      test:
+      - CMD
+      - curl
+      - -fSs
+      - http://localhost:8085/health
+      interval: 15s
+      timeout: 5s
+      retries: 5
+    build:
+      context: .
+      dockerfile: Dockerfile.synapse
+      network: host
     image: synapse-s3-local:latest
     restart: unless-stopped
     env_file:
       - .env
     environment:
       SYNAPSE_CONFIG_PATH: /config/homeserver.yaml
-      SYNAPSE_WORKER_APP: synapse.app.generic_worker
-      SYNAPSE_WORKER_NAME: events_persister
-      SYNAPSE_WORKER_REPLICATION_HOST: synapse-main
-      SYNAPSE_WORKER_REPLICATION_HTTP_PORT: '9093'
-      SYNAPSE_WORKER_LISTENERS: "[{\"type\": \"http\", \"port\": 8085, \"bind_addresses\"\
-        : [\"0.0.0.0\"],\n  \"resources\": [{\"names\": [\"replication\"]}]},\n {\"\
-        type\": \"http\", \"port\": 9105, \"bind_addresses\": [\"127.0.0.1\"],\n \
-        \ \"resources\": [{\"names\": [\"metrics\"]}]}]\n"
+      SYNAPSE_WORKER: synapse.app.generic_worker
+    command:
+    - run
+    - --config-path=/config/homeserver.yaml
+    - --config-path=/config/workers/events_persister.yaml
     volumes:
     - ./config/synapse:/config:ro
     - ./data/synapse:/data
+    - ./data/media:/media
     - ./logs/synapse:/logs
     depends_on:
     - synapse-main
@@ -196,23 +272,35 @@ services:
   # STREAM WRITER: receipts_writer (Handles typing/receipts/to-device streams)
   # ─────────────────────────────────────────
   synapse-receipts-writer:
+    container_name: synapse-receipts-writer
+    healthcheck:
+      test:
+      - CMD
+      - curl
+      - -fSs
+      - http://localhost:8086/health
+      interval: 15s
+      timeout: 5s
+      retries: 5
+    build:
+      context: .
+      dockerfile: Dockerfile.synapse
+      network: host
     image: synapse-s3-local:latest
     restart: unless-stopped
     env_file:
       - .env
     environment:
       SYNAPSE_CONFIG_PATH: /config/homeserver.yaml
-      SYNAPSE_WORKER_APP: synapse.app.generic_worker
-      SYNAPSE_WORKER_NAME: receipts_writer
-      SYNAPSE_WORKER_REPLICATION_HOST: synapse-main
-      SYNAPSE_WORKER_REPLICATION_HTTP_PORT: '9093'
-      SYNAPSE_WORKER_LISTENERS: "[{\"type\": \"http\", \"port\": 8086, \"bind_addresses\"\
-        : [\"0.0.0.0\"],\n  \"resources\": [{\"names\": [\"replication\"]}]},\n {\"\
-        type\": \"http\", \"port\": 9106, \"bind_addresses\": [\"127.0.0.1\"],\n \
-        \ \"resources\": [{\"names\": [\"metrics\"]}]}]\n"
+      SYNAPSE_WORKER: synapse.app.generic_worker
+    command:
+    - run
+    - --config-path=/config/homeserver.yaml
+    - --config-path=/config/workers/receipts_writer.yaml
     volumes:
     - ./config/synapse:/config:ro
     - ./data/synapse:/data
+    - ./data/media:/media
     - ./logs/synapse:/logs
     depends_on:
     - synapse-main
@@ -220,6 +308,13 @@ services:
   # MEDIA EVICTION CRON (S3 sync to Hetzner Object Storage)
   # ─────────────────────────────────────────
   media-cron:
+    container_name: media-cron
+    healthcheck:
+      disable: true
+    build:
+      context: .
+      dockerfile: Dockerfile.synapse
+      network: host
     image: synapse-s3-local:latest
     restart: unless-stopped
     env_file:
