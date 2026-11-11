@@ -136,6 +136,30 @@ describe 'profiles::matrix' do
           expect(subject).to contain_letsencrypt__certonly('matrix01.voxpupu.li')
         end
       end
+
+      context 'with other names than the production ones' do
+        let :params do
+          super().merge(server_name: 'example.org', matrix_domain: 'matrix.example.org')
+        end
+
+        it { is_expected.to compile.with_all_deps }
+
+        it 'uses them for both vhosts, the delegation and the homeserver identity' do
+          expect(subject).to contain_nginx__resource__server('example.org')
+          expect(subject).to contain_nginx__resource__server('matrix.example.org')
+          expect(subject).to contain_letsencrypt__certonly('matrix.example.org')
+          expect(subject).to contain_file('/srv/example.org/.well-known/matrix/server')
+            .with_content(%r{"m\.server":\s*"matrix\.example\.org:443"})
+          expect(subject).to contain_file('/opt/matrix-synapse/config/synapse/homeserver.yaml')
+            .with_content(sensitive(%r{^server_name: "example\.org"$}))
+            .with_content(sensitive(%r{^public_baseurl: "https://matrix\.example\.org"$}))
+            .with_content(sensitive(%r{^signing_key_path: /data/example\.org\.signing\.key$}))
+          expect(subject).to contain_file('/opt/matrix-synapse/.env')
+            .with_content(sensitive(%r{^SYNAPSE_SERVER_NAME=example\.org$}))
+        end
+
+        it { is_expected.not_to contain_nginx__resource__server('voxpupuli.party') }
+      end
     end
   end
 end

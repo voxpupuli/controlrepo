@@ -2,17 +2,18 @@
 #
 # This class manages the host-level Nginx server and Let's Encrypt certificates.
 # It handles the ACME challenges, provisions SSL certificates for both the delegation
-# server (`voxpupuli.party`) and the Matrix API Reverse Proxy (`matrix01.voxpupu.li`).
+# server (`profiles::matrix::server_name`) and the Matrix API Reverse Proxy
+# (`profiles::matrix::matrix_domain`).
 #
 # It creates upstreams mapping to the local Synapse workers and routes the incoming federation,
 # client, media, and sync traffic to the appropriate Dockerized endpoints.
 #
 class profiles::matrix::nginx {
-  $domain = 'voxpupuli.party'
-  $matrix_domain = 'matrix01.voxpupu.li'
+  $domain = $profiles::matrix::server_name
+  $matrix_domain = $profiles::matrix::matrix_domain
 
   # ---------------------------------------------------------
-  # voxpupuli.party (DELEGATION SERVER)
+  # server_name (DELEGATION SERVER)
   # ---------------------------------------------------------
   $root = "/srv/${domain}"
 
@@ -97,7 +98,7 @@ class profiles::matrix::nginx {
   }
 
   # ---------------------------------------------------------
-  # matrix01.voxpupu.li (SYNAPSE REVERSE PROXY)
+  # matrix_domain (SYNAPSE REVERSE PROXY)
   # ---------------------------------------------------------
 
   # Upstreams matching compose mapping

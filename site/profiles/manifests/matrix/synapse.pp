@@ -57,6 +57,7 @@ class profiles::matrix::synapse {
       mode    => '0600',
       content => epp('profiles/matrix/env.epp', {
         'postgres_password' => $profiles::matrix::sensitive_postgres_password,
+        'server_name'       => $profiles::matrix::server_name,
       }),
     ;
     "${matrix_dir}/config/synapse/log.yaml":
@@ -89,6 +90,8 @@ class profiles::matrix::synapse {
       group   => 991,
       mode    => '0400',
       content => epp('profiles/matrix/homeserver.yaml.epp', {
+        'server_name'                => $profiles::matrix::server_name,
+        'matrix_domain'              => $profiles::matrix::matrix_domain,
         'macaroon_secret_key'        => $profiles::matrix::sensitive_macaroon_secret_key,
         'form_secret'                => $profiles::matrix::sensitive_form_secret,
         'registration_shared_secret' => $profiles::matrix::sensitive_registration_shared_secret,

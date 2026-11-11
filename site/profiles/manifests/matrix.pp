@@ -15,6 +15,12 @@
 # @param s3_bucket The name of the S3 bucket to act as the media store.
 # @param s3_region The region where the S3 bucket is hosted.
 # @param s3_endpoint The endpoint URL for the S3 object storage.
+# @param server_name
+#   The Matrix server name: the domain in every user and room ID. It
+#   cannot change once the server has federated.
+# @param matrix_domain
+#   The host that serves the Matrix API. The server name delegates to
+#   it through the two well-known files.
 #
 class profiles::matrix (
   Sensitive[String] $sensitive_postgres_password,
@@ -26,6 +32,8 @@ class profiles::matrix (
   String $s3_bucket,
   String $s3_region,
   String $s3_endpoint,
+  Stdlib::Fqdn $server_name = 'voxpupuli.party',
+  Stdlib::Fqdn $matrix_domain = 'matrix01.voxpupu.li',
 ) {
   include profiles::matrix::nginx
   include profiles::matrix::synapse

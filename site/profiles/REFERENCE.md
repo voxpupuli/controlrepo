@@ -443,6 +443,8 @@ The following parameters are available in the `profiles::matrix` class:
 * [`s3_bucket`](#-profiles--matrix--s3_bucket)
 * [`s3_region`](#-profiles--matrix--s3_region)
 * [`s3_endpoint`](#-profiles--matrix--s3_endpoint)
+* [`server_name`](#-profiles--matrix--server_name)
+* [`matrix_domain`](#-profiles--matrix--matrix_domain)
 
 ##### <a name="-profiles--matrix--sensitive_postgres_password"></a>`sensitive_postgres_password`
 
@@ -499,11 +501,30 @@ Data type: `String`
 
 The endpoint URL for the S3 object storage.
 
+##### <a name="-profiles--matrix--server_name"></a>`server_name`
+
+Data type: `Stdlib::Fqdn`
+
+The Matrix server name: the domain in every user and room ID. It
+cannot change once the server has federated.
+
+Default value: `'voxpupuli.party'`
+
+##### <a name="-profiles--matrix--matrix_domain"></a>`matrix_domain`
+
+Data type: `Stdlib::Fqdn`
+
+The host that serves the Matrix API. The server name delegates to
+it through the two well-known files.
+
+Default value: `'matrix01.voxpupu.li'`
+
 ### <a name="profiles--matrix--nginx"></a>`profiles::matrix::nginx`
 
 This class manages the host-level Nginx server and Let's Encrypt certificates.
 It handles the ACME challenges, provisions SSL certificates for both the delegation
-server (`voxpupuli.party`) and the Matrix API Reverse Proxy (`matrix01.voxpupu.li`).
+server (`profiles::matrix::server_name`) and the Matrix API Reverse Proxy
+(`profiles::matrix::matrix_domain`).
 
 It creates upstreams mapping to the local Synapse workers and routes the incoming federation,
 client, media, and sync traffic to the appropriate Dockerized endpoints.

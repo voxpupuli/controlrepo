@@ -1,5 +1,7 @@
 <%-
- | Sensitive[String] $macaroon_secret_key,
+ | String $server_name,
+   String $matrix_domain,
+   Sensitive[String] $macaroon_secret_key,
    Sensitive[String] $form_secret,
    Sensitive[String] $registration_shared_secret,
    Sensitive[String] $postgres_password,
@@ -15,13 +17,13 @@
 #
 # Generate a base config first:
 #   docker run --rm -v $(pwd)/config/synapse:/data \
-#     -e SYNAPSE_SERVER_NAME=voxpupuli.party \
+#     -e SYNAPSE_SERVER_NAME=<%= $server_name %> \
 #     -e SYNAPSE_REPORT_STATS=no \
 #     matrixdotorg/synapse generate
 # Then replace with this file, preserving the generated secrets.
 
-server_name: "voxpupuli.party"
-public_baseurl: "https://matrix01.voxpupu.li"
+server_name: "<%= $server_name %>"
+public_baseurl: "https://<%= $matrix_domain %>"
 report_stats: true
 
 # Pid / log
@@ -139,16 +141,16 @@ enable_registration: false
 registration_shared_secret: "<%= $registration_shared_secret %>"
 
 # ── Delegation ───────────────────────────────────────────────────────────────
-# Nginx on voxpupuli.party serves:
-#   /.well-known/matrix/server  →  {"m.server": "matrix01.voxpupu.li:443"}
-#   /.well-known/matrix/client  →  {"m.homeserver": {"base_url": "https://matrix01.voxpupu.li"}}
+# Nginx on <%= $server_name %> serves:
+#   /.well-known/matrix/server  →  {"m.server": "<%= $matrix_domain %>:443"}
+#   /.well-known/matrix/client  →  {"m.homeserver": {"base_url": "https://<%= $matrix_domain %>"}}
 # No additional config needed here — delegation is fully handled outside of this stack.
 
 # ── Security ──────────────────────────────────────────────────────────────────
 # Paste generated values from `docker run ... generate` here:
 macaroon_secret_key: "<%= $macaroon_secret_key %>"
 form_secret: "<%= $form_secret %>"
-signing_key_path: /data/voxpupuli.party.signing.key
+signing_key_path: /data/<%= $server_name %>.signing.key
 
 trusted_key_servers:
   - server_name: "matrix.org"
