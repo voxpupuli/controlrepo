@@ -54,7 +54,7 @@ class profiles::matrix::synapse {
     ;
   }
 
-  docker::compose { 'matrix-synapse':
+  docker_compose { 'matrix-synapse':
     ensure        => present,
     compose_files => ["${matrix_dir}/docker-compose.yml"],
     subscribe     => [

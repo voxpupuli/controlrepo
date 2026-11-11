@@ -59,7 +59,6 @@ class profiles::matrix::nginx {
     listen_port          => 80,
     server_name          => [$domain],
     ipv6_enable          => true,
-    ipv6_listen_options  => '',
     http2                => 'on',
     access_log           => "/var/log/nginx/${domain}.access.log",
     error_log            => "/var/log/nginx/${domain}.error.log",
@@ -89,15 +88,29 @@ class profiles::matrix::nginx {
   # ---------------------------------------------------------
 
   # Upstreams matching compose mapping
+  # Member hash keys become resource titles and must be globally unique
+  # across all upstreams (the address comes from server/port), hence the
+  # per-upstream prefixes.
   nginx::resource::upstream {
     'synapse_client':
-      members => ['127.0.0.1:8081', '127.0.0.1:8082'];
+      members => {
+        'client-worker1' => { server => '127.0.0.1', port => 8081 },
+        'client-worker2' => { server => '127.0.0.1', port => 8082 },
+      };
     'synapse_federation':
-      members => ['127.0.0.1:8081', '127.0.0.1:8082', '127.0.0.1:8083'];
+      members => {
+        'federation-worker1' => { server => '127.0.0.1', port => 8081 },
+        'federation-worker2' => { server => '127.0.0.1', port => 8082 },
+        'federation-worker3' => { server => '127.0.0.1', port => 8083 },
+      };
     'synapse_media':
-      members => ['127.0.0.1:8084'];
+      members => {
+        'media-worker4' => { server => '127.0.0.1', port => 8084 },
+      };
     'synapse_main':
-      members => ['127.0.0.1:8008'];
+      members => {
+        'main' => { server => '127.0.0.1', port => 8008 },
+      };
   }
 
   if fact("letsencrypt_directory.\"${matrix_domain}\"") {
@@ -128,7 +141,6 @@ class profiles::matrix::nginx {
     server_name          => [$matrix_domain],
     client_max_body_size => '50m',
     ipv6_enable          => true,
-    ipv6_listen_options  => '',
     http2                => 'on',
     access_log           => "/var/log/nginx/${matrix_domain}.access.log",
     error_log            => "/var/log/nginx/${matrix_domain}.error.log",
@@ -188,11 +200,11 @@ class profiles::matrix::nginx {
   }
 
   # Reverse proxy endpoints
-  $proxy_params = {
-    'X-Forwarded-For'   => '$remote_addr',
-    'X-Forwarded-Proto' => '$scheme',
-    'Host'              => '$host',
-  }
+  $proxy_params = [
+    'X-Forwarded-For $remote_addr',
+    'X-Forwarded-Proto $scheme',
+    'Host $host',
+  ]
 
   nginx::resource::location {
     default:
