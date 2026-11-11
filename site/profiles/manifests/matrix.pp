@@ -7,6 +7,9 @@
 # @param sensitive_postgres_password The password for the Synapse PostgreSQL database.
 # @param sensitive_macaroon_secret_key The secret key used for signing macaroons.
 # @param sensitive_form_secret The secret key used for form validation.
+# @param sensitive_registration_shared_secret
+#   The shared secret that lets register_new_matrix_user create accounts
+#   while open registration stays disabled.
 # @param sensitive_s3_access_key The access key for the S3 object storage bucket.
 # @param sensitive_s3_secret_key The secret key for the S3 object storage bucket.
 # @param s3_bucket The name of the S3 bucket to act as the media store.
@@ -17,6 +20,7 @@ class profiles::matrix (
   Sensitive[String] $sensitive_postgres_password,
   Sensitive[String] $sensitive_macaroon_secret_key,
   Sensitive[String] $sensitive_form_secret,
+  Sensitive[String] $sensitive_registration_shared_secret,
   Sensitive[String] $sensitive_s3_access_key,
   Sensitive[String] $sensitive_s3_secret_key,
   String $s3_bucket,

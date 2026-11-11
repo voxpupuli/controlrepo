@@ -1,6 +1,7 @@
 <%-
  | Sensitive[String] $macaroon_secret_key,
    Sensitive[String] $form_secret,
+   Sensitive[String] $registration_shared_secret,
    Sensitive[String] $postgres_password,
    String $s3_bucket,
    String $s3_region,
@@ -130,9 +131,12 @@ media_storage_providers:
 # ── Registration ──────────────────────────────────────────────────────────────
 # Very few local accounts — disable open registration
 enable_registration: false
-# To create local accounts manually:
+# With registration closed, this secret is the only way to create an
+# account (including the first admin); register_new_matrix_user reads it
+# from this file:
 #   docker compose exec synapse-main register_new_matrix_user \
 #     -c /config/homeserver.yaml http://localhost:8008
+registration_shared_secret: "<%= $registration_shared_secret %>"
 
 # ── Delegation ───────────────────────────────────────────────────────────────
 # Nginx on voxpupuli.party serves:
@@ -152,11 +156,26 @@ trusted_key_servers:
 # ── Retention / limits ────────────────────────────────────────────────────────
 max_upload_size: 50M
 url_preview_enabled: true
+# The list recommended by the Synapse docs. Anyone in any room can make
+# the preview spider issue GET requests, so it has to cover link-local
+# too: 169.254.169.254 is the cloud metadata service.
 url_preview_ip_range_blacklist:
   - "127.0.0.0/8"
   - "10.0.0.0/8"
   - "172.16.0.0/12"
   - "192.168.0.0/16"
   - "100.64.0.0/10"
+  - "192.0.0.0/24"
+  - "169.254.0.0/16"
+  - "192.88.99.0/24"
+  - "198.18.0.0/15"
+  - "192.0.2.0/24"
+  - "198.51.100.0/24"
+  - "203.0.113.0/24"
+  - "224.0.0.0/4"
   - "::1/128"
   - "fe80::/10"
+  - "fc00::/7"
+  - "2001:db8::/32"
+  - "ff00::/8"
+  - "fec0::/10"

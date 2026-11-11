@@ -437,6 +437,7 @@ The following parameters are available in the `profiles::matrix` class:
 * [`sensitive_postgres_password`](#-profiles--matrix--sensitive_postgres_password)
 * [`sensitive_macaroon_secret_key`](#-profiles--matrix--sensitive_macaroon_secret_key)
 * [`sensitive_form_secret`](#-profiles--matrix--sensitive_form_secret)
+* [`sensitive_registration_shared_secret`](#-profiles--matrix--sensitive_registration_shared_secret)
 * [`sensitive_s3_access_key`](#-profiles--matrix--sensitive_s3_access_key)
 * [`sensitive_s3_secret_key`](#-profiles--matrix--sensitive_s3_secret_key)
 * [`s3_bucket`](#-profiles--matrix--s3_bucket)
@@ -460,6 +461,13 @@ The secret key used for signing macaroons.
 Data type: `Sensitive[String]`
 
 The secret key used for form validation.
+
+##### <a name="-profiles--matrix--sensitive_registration_shared_secret"></a>`sensitive_registration_shared_secret`
+
+Data type: `Sensitive[String]`
+
+The shared secret that lets register_new_matrix_user create accounts
+while open registration stays disabled.
 
 ##### <a name="-profiles--matrix--sensitive_s3_access_key"></a>`sensitive_s3_access_key`
 

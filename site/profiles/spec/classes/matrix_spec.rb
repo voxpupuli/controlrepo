@@ -28,6 +28,7 @@ describe 'profiles::matrix' do
           sensitive_postgres_password: sensitive('postgres-pw'),
           sensitive_macaroon_secret_key: sensitive('macaroon-key'),
           sensitive_form_secret: sensitive('form-secret'),
+          sensitive_registration_shared_secret: sensitive('registration-secret'),
           sensitive_s3_access_key: sensitive('s3-access'),
           sensitive_s3_secret_key: sensitive('s3-secret'),
           s3_bucket: 'synapse-media',
@@ -58,6 +59,25 @@ describe 'profiles::matrix' do
           expect(subject).to contain_file("/opt/matrix-synapse/config/synapse/workers/#{worker}.yaml")
             .with_content(%r{worker_name: #{worker}})
         end
+      end
+
+      # Workers answer 404 for client endpoints outside the documented
+      # list and raise on stream endpoints they do not write, so the
+      # catch-all has to be the main process.
+      it 'routes client endpoints to the process that can serve them' do
+        expect(subject).to contain_nginx__resource__location('matrix01.voxpupu.li client')
+          .with(location: '/_matrix/client/', proxy: 'http://synapse_main')
+        expect(subject).to contain_nginx__resource__location('matrix01.voxpupu.li client workers')
+          .with(proxy: 'http://synapse_client')
+          .with_location(%r{rooms/\.\*/send})
+        expect(subject).to contain_nginx__resource__location('matrix01.voxpupu.li client stream writer')
+          .with(proxy: 'http://synapse_stream_writer', priority: 450)
+          .with_location(%r{rooms/\.\*/typing.*sendToDevice.*account_data.*receipt})
+      end
+
+      it 'gives the stream writer a client listener for those endpoints' do
+        expect(subject).to contain_file('/opt/matrix-synapse/config/synapse/workers/receipts_writer.yaml')
+          .with_content(%r{names: \[client, replication\]})
       end
 
       it { is_expected.to contain_docker_compose('matrix-synapse') }

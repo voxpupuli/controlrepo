@@ -304,6 +304,8 @@ services:
     - ./logs/synapse:/logs
     depends_on:
     - synapse-main
+    ports:
+    - 127.0.0.1:8086:8086
   # ─────────────────────────────────────────
   # MEDIA EVICTION CRON (S3 sync to Hetzner Object Storage)
   # ─────────────────────────────────────────

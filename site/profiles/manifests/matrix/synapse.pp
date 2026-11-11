@@ -89,14 +89,15 @@ class profiles::matrix::synapse {
       group   => 991,
       mode    => '0400',
       content => epp('profiles/matrix/homeserver.yaml.epp', {
-        'macaroon_secret_key' => $profiles::matrix::sensitive_macaroon_secret_key,
-        'form_secret'         => $profiles::matrix::sensitive_form_secret,
-        'postgres_password'   => $profiles::matrix::sensitive_postgres_password,
-        's3_bucket'           => $profiles::matrix::s3_bucket,
-        's3_region'           => $profiles::matrix::s3_region,
-        's3_endpoint'         => $profiles::matrix::s3_endpoint,
-        's3_access_key'       => $profiles::matrix::sensitive_s3_access_key,
-        's3_secret_key'       => $profiles::matrix::sensitive_s3_secret_key,
+        'macaroon_secret_key'        => $profiles::matrix::sensitive_macaroon_secret_key,
+        'form_secret'                => $profiles::matrix::sensitive_form_secret,
+        'registration_shared_secret' => $profiles::matrix::sensitive_registration_shared_secret,
+        'postgres_password'          => $profiles::matrix::sensitive_postgres_password,
+        's3_bucket'                  => $profiles::matrix::s3_bucket,
+        's3_region'                  => $profiles::matrix::s3_region,
+        's3_endpoint'                => $profiles::matrix::s3_endpoint,
+        's3_access_key'              => $profiles::matrix::sensitive_s3_access_key,
+        's3_secret_key'              => $profiles::matrix::sensitive_s3_secret_key,
       }),
     ;
   }
@@ -112,7 +113,8 @@ class profiles::matrix::synapse {
     'generic_worker3' => { 'port' => 8083, 'resources' => 'federation, replication', 'metrics_port' => 9103 },
     'generic_worker4' => { 'port' => 8084, 'resources' => 'media, client, replication', 'metrics_port' => 9104 },
     'events_persister' => { 'port' => 8085, 'resources' => 'replication', 'metrics_port' => 9105 },
-    'receipts_writer' => { 'port' => 8086, 'resources' => 'replication', 'metrics_port' => 9106 },
+    # client: nginx routes the endpoints of its streams straight to it
+    'receipts_writer' => { 'port' => 8086, 'resources' => 'client, replication', 'metrics_port' => 9106 },
   }
 
   $workers.each |$worker_name, $w| {

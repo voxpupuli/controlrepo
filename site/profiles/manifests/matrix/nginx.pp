@@ -118,6 +118,10 @@ class profiles::matrix::nginx {
       members => {
         'media-worker4' => { server => '127.0.0.1', port => 8084 },
       };
+    'synapse_stream_writer':
+      members => {
+        'stream-writer' => { server => '127.0.0.1', port => 8086 },
+      };
     'synapse_main':
       members => {
         'main' => { server => '127.0.0.1', port => 8008 },
@@ -228,6 +232,84 @@ class profiles::matrix::nginx {
     'Host $host',
   ]
 
+  # Which process serves a client endpoint follows the Synapse worker
+  # docs (docs/workers.md at the version pinned in Dockerfile.synapse).
+  # Their endpoint lists are allowlists: a generic worker answers 404 for
+  # anything not listed, and an endpoint that writes to a stream raises
+  # on every process except that stream's writer. So the catch-all for
+  # /_matrix/client/ is the main process, and only the listed endpoints
+  # go to workers. The two arrays are copied from the docs verbatim so
+  # they can be diffed against them on a Synapse upgrade.
+
+  # "The following endpoints should be routed directly to the worker
+  # configured as the stream writer" for typing, to_device, account_data
+  # and receipts: all four are written by receipts_writer (see
+  # stream_writers in homeserver.yaml.epp).
+  $stream_writer_endpoints = [
+    '^/_matrix/client/(api/v1|r0|v3|unstable)/rooms/.*/typing',
+    '^/_matrix/client/(r0|v3|unstable)/sendToDevice/',
+    '^/_matrix/client/(r0|v3|unstable)/.*/tags',
+    '^/_matrix/client/(r0|v3|unstable)/.*/account_data',
+    '^/_matrix/client/(r0|v3|unstable)/rooms/.*/receipt',
+    '^/_matrix/client/(r0|v3|unstable)/rooms/.*/read_markers',
+  ]
+
+  # synapse.app.generic_worker "Client API", "Encryption",
+  # "Registration/login", "Event sending" and "User directory" requests.
+  # Left on the main process on purpose: /sync (own locations below),
+  # /messages (all requests for a room must reach the same instance),
+  # the SSO endpoints (no SSO is configured), the unstable MSC endpoints
+  # and the ones workers only serve for GET (pushrules, presence).
+  $client_worker_endpoints = [
+    '^/_matrix/client/(api/v1|r0|v3|unstable)/createRoom$',
+    '^/_matrix/client/(api/v1|r0|v3|unstable)/publicRooms$',
+    '^/_matrix/client/(api/v1|r0|v3|unstable)/rooms/.*/joined_members$',
+    '^/_matrix/client/(api/v1|r0|v3|unstable)/rooms/.*/context/.*$',
+    '^/_matrix/client/(api/v1|r0|v3|unstable)/rooms/.*/members$',
+    '^/_matrix/client/(api/v1|r0|v3|unstable)/rooms/.*/state$',
+    '^/_matrix/client/v1/rooms/.*/hierarchy$',
+    '^/_matrix/client/(v1|unstable)/rooms/.*/relations/',
+    '^/_matrix/client/v1/rooms/.*/threads$',
+    '^/_matrix/client/unstable/im.nheko.summary/summary/.*$',
+    '^/_matrix/client/v1/room_summary/.*$',
+    '^/_matrix/client/(r0|v3|unstable)/account/3pid$',
+    '^/_matrix/client/(r0|v3|unstable)/account/whoami$',
+    '^/_matrix/client/(r0|v3|unstable)/account/deactivate$',
+    '^/_matrix/client/(r0|v3)/delete_devices$',
+    '^/_matrix/client/(api/v1|r0|v3|unstable)/devices(/|$)',
+    '^/_matrix/client/versions$',
+    '^/_matrix/client/(api/v1|r0|v3|unstable)/voip/turnServer$',
+    '^/_matrix/client/(api/v1|r0|v3|unstable)/rooms/.*/event/',
+    '^/_matrix/client/(api/v1|r0|v3|unstable)/joined_rooms$',
+    '^/_matrix/client/v1/rooms/.*/timestamp_to_event$',
+    '^/_matrix/client/(api/v1|r0|v3|unstable/.*)/rooms/.*/aliases',
+    '^/_matrix/client/(api/v1|r0|v3|unstable)/search$',
+    '^/_matrix/client/(r0|v3|unstable)/user/.*/filter(/|$)',
+    '^/_matrix/client/(api/v1|r0|v3|unstable)/directory/room/.*$',
+    '^/_matrix/client/(r0|v3|unstable)/capabilities$',
+    '^/_matrix/client/(r0|v3|unstable)/notifications$',
+    '^/_matrix/client/(r0|v3|unstable)/keys/query$',
+    '^/_matrix/client/(r0|v3|unstable)/keys/changes$',
+    '^/_matrix/client/(r0|v3|unstable)/keys/claim$',
+    '^/_matrix/client/(r0|v3|unstable)/room_keys/',
+    '^/_matrix/client/(r0|v3|unstable)/keys/upload',
+    '^/_matrix/client/(api/v1|r0|v3|unstable)/keys/device_signing/upload$',
+    '^/_matrix/client/(api/v1|r0|v3|unstable)/keys/signatures/upload$',
+    '^/_matrix/client/(api/v1|r0|v3|unstable)/login$',
+    '^/_matrix/client/(r0|v3|unstable)/register$',
+    '^/_matrix/client/(r0|v3|unstable)/register/available$',
+    '^/_matrix/client/v1/register/m.login.registration_token/validity$',
+    '^/_matrix/client/(r0|v3|unstable)/password_policy$',
+    '^/_matrix/client/(api/v1|r0|v3|unstable)/rooms/.*/redact',
+    '^/_matrix/client/(api/v1|r0|v3|unstable)/rooms/.*/send',
+    '^/_matrix/client/(api/v1|r0|v3|unstable)/rooms/.*/state/',
+    '^/_matrix/client/(api/v1|r0|v3|unstable)/rooms/.*/(join|invite|leave|ban|unban|kick)$',
+    '^/_matrix/client/(api/v1|r0|v3|unstable)/join/',
+    '^/_matrix/client/(api/v1|r0|v3|unstable)/knock/',
+    '^/_matrix/client/(api/v1|r0|v3|unstable)/profile/',
+    '^/_matrix/client/(r0|v3|unstable)/user_directory/search$',
+  ]
+
   nginx::resource::location {
     default:
       server           => $matrix_domain,
@@ -274,9 +356,21 @@ class profiles::matrix::nginx {
       location => '/_matrix/key/',
       proxy    => 'http://synapse_federation',
     ;
+    # nginx takes the first matching regex location in file order, and
+    # the module orders by priority: the stream writer endpoints must win
+    # over the broader worker patterns.
+    "${matrix_domain} client stream writer":
+      location => "~ (${stream_writer_endpoints.join('|')})",
+      proxy    => 'http://synapse_stream_writer',
+      priority => 450,
+    ;
+    "${matrix_domain} client workers":
+      location => "~ (${client_worker_endpoints.join('|')})",
+      proxy    => 'http://synapse_client',
+    ;
     "${matrix_domain} client":
       location => '/_matrix/client/',
-      proxy    => 'http://synapse_client',
+      proxy    => 'http://synapse_main',
     ;
     "${matrix_domain} fallback":
       location => '/_matrix/',
