@@ -80,6 +80,15 @@ describe 'profiles::matrix' do
           .with_content(%r{names: \[client, replication\]})
       end
 
+      it 'hands the media eviction job its bucket settings through .env' do
+        expect(subject).to contain_file('/opt/matrix-synapse/.env')
+          .with(mode: '0600')
+          .with_content(sensitive(%r{^AWS_ACCESS_KEY_ID=s3-access$}))
+          .with_content(sensitive(%r{^AWS_SECRET_ACCESS_KEY=s3-secret$}))
+          .with_content(sensitive(%r{^S3_BUCKET=synapse-media$}))
+          .with_content(sensitive(%r{^S3_ENDPOINT=https://fsn1\.your-objectstorage\.com$}))
+      end
+
       it { is_expected.to contain_docker_compose('matrix-synapse') }
 
       # Without certificates the vhosts are plain HTTP, which is all a

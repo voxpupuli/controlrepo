@@ -307,8 +307,17 @@ services:
     ports:
     - 127.0.0.1:8086:8086
   # ─────────────────────────────────────────
-  # MEDIA EVICTION CRON (S3 sync to Hetzner Object Storage)
+  # MEDIA EVICTION (local copies of old media move to Object Storage)
   # ─────────────────────────────────────────
+  # Synapse uploads new media to the bucket itself (store_remote in
+  # homeserver.yaml) but never deletes the local copy. Once a day this
+  # takes media nobody has fetched for 90 days, uploads whatever is not
+  # in the bucket yet and deletes the local file; Synapse fetches it back
+  # from the bucket on the next request. s3_media_upload ships with the
+  # storage provider. It keeps its list in cache.db in the working
+  # directory, reads the database settings from homeserver.yaml and the
+  # bucket settings from .env, and runs as the Synapse UID so both files
+  # and the media store are accessible.
   media-cron:
     container_name: media-cron
     healthcheck:
@@ -319,13 +328,21 @@ services:
       network: host
     image: synapse-s3-local:latest
     restart: unless-stopped
+    user: "991:991"
     env_file:
       - .env
-    entrypoint: "sh -c \"while true; do\n  python -m synapse.app.media_repository\
-      \ \\\n    --config-path /config/homeserver.yaml \\\n    --media-path /media\
-      \ \\\n    --storage-providers s3; \\\n  sleep 86400; \\\ndone\"\n"
-    environment:
-      SYNAPSE_CONFIG_PATH: /config/homeserver.yaml
+    entrypoint:
+      - /bin/sh
+      - -c
+      - |
+        mkdir -p /media/s3_media_upload && cd /media/s3_media_upload || exit 1
+        while true; do
+          s3_media_upload --no-progress update /media/local_content 90d \
+            --homeserver-config-path /config/homeserver.yaml &&
+          s3_media_upload --no-progress upload /media/local_content "$$S3_BUCKET" \
+            --delete --endpoint-url "$$S3_ENDPOINT"
+          sleep 86400
+        done
     volumes:
     - ./config/synapse:/config:ro
     - ./data/media:/media

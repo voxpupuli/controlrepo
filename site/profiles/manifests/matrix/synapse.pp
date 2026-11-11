@@ -58,6 +58,11 @@ class profiles::matrix::synapse {
       content => epp('profiles/matrix/env.epp', {
         'postgres_password' => $profiles::matrix::sensitive_postgres_password,
         'server_name'       => $profiles::matrix::server_name,
+        's3_bucket'         => $profiles::matrix::s3_bucket,
+        's3_region'         => $profiles::matrix::s3_region,
+        's3_endpoint'       => $profiles::matrix::s3_endpoint,
+        's3_access_key'     => $profiles::matrix::sensitive_s3_access_key,
+        's3_secret_key'     => $profiles::matrix::sensitive_s3_secret_key,
       }),
     ;
     "${matrix_dir}/config/synapse/log.yaml":
