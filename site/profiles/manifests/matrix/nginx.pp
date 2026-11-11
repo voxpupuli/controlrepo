@@ -26,11 +26,17 @@ class profiles::matrix::nginx {
     ;
     "${root}/.well-known/matrix/":
     ;
-    [
-      "${root}/.well-known/matrix/client",
-      "${root}/.well-known/matrix/server",
-    ]:
-      ensure => 'file',
+    # The delegation payloads — the entire purpose of this vhost. The
+    # expected values are documented in homeserver.yaml.epp; empty files
+    # here break both federation and client discovery for the whole
+    # server_name.
+    "${root}/.well-known/matrix/server":
+      ensure  => 'file',
+      content => "{\"m.server\": \"${matrix_domain}:443\"}\n",
+    ;
+    "${root}/.well-known/matrix/client":
+      ensure  => 'file',
+      content => "{\"m.homeserver\": {\"base_url\": \"https://${matrix_domain}\"}}\n",
     ;
   }
 
@@ -187,6 +193,17 @@ class profiles::matrix::nginx {
       location_cfg_append => { 'return' => '404', },
       location            => '= /.well-known/acme-challenge/',
     ;
+    "${domain} matrix well-known":
+      server              => $domain,
+      location            => '^~ /.well-known/matrix/',
+      www_root            => $root,
+      # Client discovery is done by browsers cross-origin; both files
+      # must be JSON regardless of file extension.
+      location_cfg_append => {
+        'default_type' => 'application/json',
+        'add_header'   => "'Access-Control-Allow-Origin' '*' always",
+      },
+    ;
     "${matrix_domain} Let's Encrypt challenges":
       server   => $matrix_domain,
       www_root => '/var/lib/letsencrypt/',
@@ -222,17 +239,31 @@ class profiles::matrix::nginx {
       location_allow => ['127.0.0.1', '10.0.0.0/8', '172.16.0.0/12', '192.168.0.0/16'],
       location_deny  => ['all'],
     ;
+    # Media: the legacy path plus the Matrix 1.11+ authenticated paths
+    # (client and federation) — all served by the media worker.
     "${matrix_domain} media":
       location => '~ ^/_matrix/media/',
       proxy    => 'http://synapse_media',
     ;
-    "${matrix_domain} client sync":
-      location           => '~ ^/_matrix/client/.*/sync$',
-      proxy              => 'http://synapse_media',
-      proxy_read_timeout => '60s',
+    "${matrix_domain} authenticated client media":
+      location => '~ ^/_matrix/client/v1/media/',
+      proxy    => 'http://synapse_media',
     ;
-    "${matrix_domain} client paths":
-      location => '~ ^/_matrix/client/.*/(user|rooms/.*/initialSync)',
+    "${matrix_domain} authenticated federation media":
+      location => '~ ^/_matrix/federation/v1/media/',
+      proxy    => 'http://synapse_media',
+    ;
+    # Sync long-polls: the timeout is client-chosen (often >60s), so the
+    # read timeout must be generous or nginx severs healthy polls.
+    # worker4 is the designated sync+media worker (see homeserver.yaml
+    # stream_writers/run_background_tasks_on), hence synapse_media.
+    "${matrix_domain} client sync":
+      location           => '~ ^/_matrix/client/(r0|v3)/sync$',
+      proxy              => 'http://synapse_media',
+      proxy_read_timeout => '600s',
+    ;
+    "${matrix_domain} client initial sync":
+      location => '~ ^/_matrix/client/(api/v1|r0|v3)/(events|initialSync|rooms/[^/]+/initialSync)$',
       proxy    => 'http://synapse_media',
     ;
     "${matrix_domain} federation":

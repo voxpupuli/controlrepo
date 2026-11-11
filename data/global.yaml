@@ -1,6 +1,8 @@
 ---
 lookup_options:
-  '^profile::.+::sensitive_\w+$':
+  # Scoped to the matrix profile on purpose: a broader ^profiles:: regex
+  # would silently convert any profile's sensitive_* parameter fleet-wide.
+  '^profiles::matrix::sensitive_\w+$':
     convert_to: 'Sensitive'
   profiles::ssh_keys::additional_keys::user_list:
     merge: deep
