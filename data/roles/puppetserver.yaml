@@ -4,3 +4,6 @@ classes:
   #- profiles::openvoxview
 
 mcollective::client: true
+
+profiles::ssh_keys::additional_keys::user_list:
+  - ast

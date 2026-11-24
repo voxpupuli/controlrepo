@@ -35,6 +35,7 @@
 * [`profiles::ssh`](#profiles--ssh): ssh profile to manage sshd + ssh keys
 * [`profiles::ssh_keys::additional_keys`](#profiles--ssh_keys--additional_keys): Allow additional admins' keys to be pulled in via Hiera
 * [`profiles::ssh_keys::people::ananace`](#profiles--ssh_keys--people--ananace): Configure key from ananace from GitHubs in the authorized_keys file along with supplemental keys
+* [`profiles::ssh_keys::people::ast`](#profiles--ssh_keys--people--ast): Configure key from a-st from GitHubs in the authorized_keys file along with supplemental keys
 * [`profiles::ssh_keys::people::bastelfreak`](#profiles--ssh_keys--people--bastelfreak): Configure key from bastelfreak from GitHubs in the authorized_keys file along with supplemental keys
 * [`profiles::ssh_keys::people::binford2k`](#profiles--ssh_keys--people--binford2k): Configure key from binford2k from GitHubs in the authorized_keys file
 * [`profiles::ssh_keys::people::ekohl`](#profiles--ssh_keys--people--ekohl): Configure key from ekohl from GitHubs in the authorized_keys file along with supplemental keys
@@ -619,6 +620,10 @@ Default value: `[]`
 ### <a name="profiles--ssh_keys--people--ananace"></a>`profiles::ssh_keys::people::ananace`
 
 Configure key from ananace from GitHubs in the authorized_keys file along with supplemental keys
+
+### <a name="profiles--ssh_keys--people--ast"></a>`profiles::ssh_keys::people::ast`
+
+Configure key from a-st from GitHubs in the authorized_keys file along with supplemental keys
 
 ### <a name="profiles--ssh_keys--people--bastelfreak"></a>`profiles::ssh_keys::people::bastelfreak`
 
