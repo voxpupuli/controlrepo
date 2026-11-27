@@ -1,0 +1,13 @@
+# Appended to data/nodes/matrix01.voxpupu.li.yaml in the VM's copy only.
+# Dummy secrets for the Matrix role (#202); real values live in eyaml.
+profiles::matrix::sensitive_postgres_password: 'lab-postgres-password'
+profiles::matrix::sensitive_macaroon_secret_key: 'lab-macaroon-secret-key-000000000000'
+profiles::matrix::sensitive_form_secret: 'lab-form-secret-000000000000'
+profiles::matrix::sensitive_s3_access_key: 'LABDUMMYACCESSKEY'
+profiles::matrix::sensitive_s3_secret_key: 'lab-dummy-secret-key'
+profiles::matrix::s3_bucket: 'lab-media'
+profiles::matrix::s3_region: 'lab'
+profiles::matrix::s3_endpoint: 'https://s3.lab.invalid'
+
+# No borg server to reach from a lab VM.
+profiles::base::manage_borg: false

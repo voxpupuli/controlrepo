@@ -1,0 +1,31 @@
+#!/bin/bash
+# Runs ON THE VM (root). Sync the controlrepo working tree, overlay the lab
+# hiera overrides, resolve Puppetfile modules, apply masterless the same
+# way site.pp expects (`puppet apply` + its pluginsync hack).
+set -euo pipefail
+
+fqdn="$(hostname -f)"
+env_dir=/etc/puppetlabs/code/environments/production
+node_yaml="$env_dir/data/nodes/${fqdn}.yaml"
+overrides="/vagrant-rig/overrides/${fqdn}.yaml"
+
+mkdir -p "$env_dir"
+rsync -a --delete --exclude='.git' --exclude='vagrant/.vagrant' \
+  /vagrant-controlrepo/ "$env_dir/"
+
+if [ -f "$overrides" ]; then
+  printf '\n# --- vagrant overrides (appended by vagrant/scripts/apply) ---\n' >> "$node_yaml"
+  grep -v '^#' "$overrides" >> "$node_yaml"
+fi
+
+cd "$env_dir"
+/opt/puppetlabs/puppet/bin/r10k puppetfile install --moduledir "$env_dir/modules" --force
+
+# Exit 2 = changes applied. Exit 6 = changes + failures, tolerated because
+# certbot always fails against the lab's fake domains (ACME cannot
+# validate them) — inspect the output for anything that is not ACME.
+/opt/puppetlabs/bin/puppet apply \
+  --hiera_config "$env_dir/hiera.yaml" \
+  --modulepath "$env_dir/site:$env_dir/modules" \
+  --detailed-exitcodes \
+  "$env_dir/manifests/site.pp" || { rc=$?; [ "$rc" -eq 2 ] || [ "$rc" -eq 6 ] || exit "$rc"; }
